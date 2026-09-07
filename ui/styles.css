@@ -40,6 +40,7 @@ h4 { font-size:14px !important; padding:.2rem 0 !important; }
 .st-key-overview-decision hr { margin:8px 0; }
 .st-key-overview-decision [data-testid="stAlert"] { margin:0; }
 [data-testid="stMetricValue"] { font-size:20px; line-height:1.4; white-space:normal; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+[data-testid="stMetricValue"] > div { white-space:normal; overflow-wrap:anywhere; overflow:visible; text-overflow:clip; }
 [data-testid="stMetricDelta"] { font-size:11px; }
 [data-baseweb="tab-list"] { gap:22px; border-bottom:1px solid var(--line); }
 [data-baseweb="tab"] { height:42px; padding:0 0 10px; color:var(--muted); font-size:13px; white-space:nowrap; }

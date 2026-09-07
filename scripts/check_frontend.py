@@ -18,7 +18,8 @@ def main():
     checks = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        for label, width, height in [('desktop', 1440, 1000), ('mobile', 390, 844)]:
+        for label, width, height in [('desktop', 1440, 1000), ('tablet', 1024, 1000),
+                                     ('mobile', 390, 844), ('mobile_narrow', 320, 844)]:
             page = browser.new_page(viewport={'width': width, 'height': height})
             page.goto(args.url)
             page.get_by_role('tab', name='决策总览', exact=True).wait_for(timeout=180000)
@@ -29,8 +30,29 @@ def main():
             assert page.locator('.kpi').count() == 6
             points = page.locator('.st-key-overview-map .scatterlayer .point').count()
             assert points == 33, points
+            labels = page.locator('.st-key-overview-map .textpoint text')
+            assert labels.count() == 33
+            overlaps = labels.evaluate_all('''elements => {
+                const boxes = elements.map(e => ({label: e.textContent, rect: e.getBoundingClientRect()}));
+                return boxes.flatMap((a, i) => boxes.slice(i + 1).filter(b =>
+                    a.rect.left < b.rect.right && a.rect.right > b.rect.left &&
+                    a.rect.top < b.rect.bottom && a.rect.bottom > b.rect.top
+                ).map(b => [a.label, b.label]));
+            }''')
+            assert not overlaps, (label, overlaps)
+            risk = page.get_by_test_id('stMetric').filter(has=page.get_by_text('风险优选策略', exact=True))
+            expect(risk.get_by_test_id('stMetricValue')).to_have_text('最小失供恢复')
+            clipped = risk.get_by_test_id('stMetricValue').evaluate('''element =>
+                [element, ...element.querySelectorAll('*')].some(e =>
+                    e.scrollWidth > e.clientWidth + 1 || e.scrollHeight > e.clientHeight + 1)
+            ''')
+            assert not clipped, (label, 'risk strategy clipped')
             assert page.locator('[data-testid="stException"]').count() == 0
-            checks.append({'viewport': label, 'width': width, 'network_points': points, 'overflow': False})
+            checks.append({'viewport': label, 'width': width, 'network_points': points, 'overflow': False,
+                           'node_label_overlaps': overlaps, 'risk_strategy_clipped': clipped})
+            risk.evaluate("element => {element.scrollIntoView({block: 'center'});}")
+            page.screenshot(path=str(output / f'{label}_risk.png'), full_page=True)
+            page.get_by_test_id('stMain').evaluate('element => {element.scrollTop = 0;}')
             if label == 'desktop':
                 for tab in ['恢复数字孪生', '三策略对照', '能源与碳流', '潮流校验', 'MRV报告', '公平Pareto', '成岛护照', '生命线任务']:
                     page.get_by_role('tab', name=tab, exact=True).click()

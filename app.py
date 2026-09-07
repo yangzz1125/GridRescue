@@ -438,8 +438,8 @@ def render_statistics():
     risk_report = load_wave11_risk_report()
     if risk_report:
         chosen = risk_report.get("chosen_strategy") or {}
-        r1, r2, r3 = st.columns(3)
-        r1.metric("风险优选策略", str(chosen.get("strategy", "无合格策略")))
+        st.metric("风险优选策略", str(chosen.get("strategy", "无合格策略")))
+        r2, r3 = st.columns(2)
         r2.metric("CVaR95", f"{float(chosen['cvar95']):,.0f} kWh" if chosen else "无合格策略")
         r3.metric("允许失败率", f"{100 * float(risk_report.get('failure_budget', 0)):.0f}%")
         with st.expander("尾部风险明细", icon=":material/analytics:"):
@@ -552,7 +552,7 @@ def network_figure(selected_hour: int) -> go.Figure:
         y=node_y,
         mode="markers+text",
         text=[f"N{x + 1}" for x in graph.nodes()],
-        textposition=["top center" if node % 2 else "bottom center" for node in graph.nodes()],
+        textposition=["top center" if position[node][0] % 2 else "bottom center" for node in graph.nodes()],
         textfont=dict(size=10, color="#506565"),
         hovertext=labels,
         hoverinfo="text",
