@@ -36,9 +36,6 @@ def test_factor_registry_record_hashes_are_canonical():
         "grid_import",
         "diesel_generation",
         "crew_vehicle",
-        "grid_import_national",
-        "grid_import_central-china",
-        "grid_import_hubei",
     }
     for row in registry.to_dict(orient="records"):
         assert row["record_hash"] == mrv._record_hash(row)
@@ -48,7 +45,6 @@ def test_factor_registry_record_hashes_are_canonical():
 def test_static_factor_registry_matches_runtime():
     path = Path(__file__).resolve().parents[1] / "data" / "factor_registry.csv"
     static = pd.read_csv(path, keep_default_na=False, dtype={"factor_version": str})
-    static = mrv._canonicalize_factor_registry(static)
     runtime = mrv.default_factor_registry()
 
     pd.testing.assert_frame_equal(static, runtime, check_dtype=False)
@@ -235,7 +231,7 @@ def test_missing_indexed_file_fails_verification(mrv_case, tmp_path):
     verification = mrv.verify_mrv_bundle(bundle)
 
     assert verification["verified"] is False
-    assert "missing file: inputs/scenario.json" in verification["errors"]
+    assert any("inputs/scenario.json" in error and "missing" in error for error in verification["errors"])
 
 
 def test_missing_manifest_returns_structured_failure(mrv_case, tmp_path):

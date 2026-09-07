@@ -1,0 +1,33 @@
+{
+  "checked_files": 20,
+  "errors": [
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023",
+    "factor snapshot: record_hash mismatch at china-electricity-2023"
+  ],
+  "meaning": "Verification checks reproducibility equations and file integrity only.",
+  "run_id": "run-7b7d78ef3ecd226f",
+  "schema_version": "gridrescue-verification-1.0",
+  "verified": false
+}

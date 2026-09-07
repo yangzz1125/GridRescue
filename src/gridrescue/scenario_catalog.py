@@ -44,6 +44,7 @@ class ScenarioRecord:
         payload = self.parameters
         return DisasterScenario(
             name=self.scenario_id,
+            disaster_type=self.disaster,
             description=(
                 f"Wave10 {self.disaster}/{self.intensity} replicate {self.replicate}; "
                 "synthetic stress-test catalog"

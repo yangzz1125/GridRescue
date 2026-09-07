@@ -44,16 +44,25 @@ def cvar(values: Sequence[float], *, alpha: float = 0.95) -> float | None:
     arr = np.sort(_finite(values))
     if arr.size == 0:
         return None
-    tail_start = max(0, int(math.floor(alpha * arr.size)))
-    tail = arr[tail_start:]
-    if tail.size == 0:
-        tail = arr[-1:]
-    return float(tail.mean())
+    boundary = alpha * arr.size
+    start = int(math.floor(boundary))
+    tail_sum = float(arr[start]) * (1 - (boundary - start)) + float(arr[start + 1:].sum())
+    return tail_sum / (arr.size - boundary)
 
 
 def _row_success(row: Mapping[str, object]) -> bool:
-    raw = str(row.get("solve_success", "True")).strip().lower()
-    return raw in {"1", "true", "yes", "pass", "optimal"}
+    truthy = {"1", "true", "yes", "pass", "optimal"}
+    if str(row.get("solve_success", "True")).strip().lower() not in truthy:
+        return False
+    for field in ("physical_pass", "care_pass", "feedback_converged", "recommendation_eligible"):
+        if field in row and str(row[field]).strip().lower() not in truthy:
+            return False
+    if "physical_feasible_hours" in row:
+        try:
+            return float(row["physical_feasible_hours"]) == 24
+        except (ValueError, TypeError):
+            return False
+    return True
 
 
 def summarize_risk(

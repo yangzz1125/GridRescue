@@ -1,2 +1,0 @@
-event_id,state_event,Datetime Event Began,Datetime Restoration,Event Type,fips,state,county,start_time,duration,end_time,min_customers,max_customers,mean_customers
-California-16,California,2023-01-07 22:00:00,2023-01-08 21:00:00,Severe Weather,6067,California,Sacramento,2023-01-08 07:00:00,8.25,2023-01-08 15:15:00,936,348829,289849.3333333333

@@ -1,8 +1,8 @@
 # GridRescue“碳韧智网”作品申报书 V10
 
-**版本日期：2026-08-26（Wave11维护版）**  
+**版本日期：2026-08-23**  
 **V08证据冻结日：2026-08-22**  
-**建议主赛道：赛道二 / 赛题 2.1 新型电力系统**
+**建议主赛道：新型电力系统、储能与氢能**
 
 ## 一、项目摘要
 
@@ -37,19 +37,15 @@ claim_status=controlled_service_budget_inventory_difference
 
 界面和材料只展示受控服务预算下的运行碳清单差异，不写严格同服务减排。
 
-### 5. 准确的创新定位
-
-本项目不把“又一个优化器”作为创新点。创新点是把服务合同、网络物理和碳证据做成**串行资格门**：每一门都能阻断一种可追问的错误结论，并保留可复算的失败证据。优化器负责生成候选，三门负责决定候选是否有资格进入比较；因此系统输出的是可审计的决策边界，而不是单一“最优值”。
-
 ## 四、技术实现
 
 - 网络：MATPOWER case33bw，33节点配电网；
 - 灾种：暴雨内涝、台风、极端高温；
 - 策略：传统顺序恢复、最小失供恢复、碳韧协同恢复；
 - 优化：词典序服务锚点、普通服务预算、碳清单差异；
-- 物理：平衡等值 P/Q 径向前推回代潮流与反馈迭代；
+- 物理：平衡三相P/Q径向前推回代潮流与反馈迭代；
 - 证据：版本化因子注册表、逐时活动账、MRV verifier；
-- 展示：Streamlit评委工作台、三门状态指标、底部证据页签、冻结回放和NO_GFM反例。
+- 展示：Streamlit评委工作台、三门证据抽屉、冻结回放和NO_GFM反例。
 
 ## 五、实验与结果
 
@@ -66,16 +62,13 @@ claim_status=controlled_service_budget_inventory_difference
 - 3种策略共108条物理策略行，108/108成功；
 - 碳韧协同相对最小失供的配对均值差：EENS +3192.85 kWh，运行清单 −2331.35 kgCO2；
 - 关键EENS −15.05 kWh；
-- 关键负荷恢复率 +0.0466 个百分点；
 - C0/C4分轨：36对，controlled_eligible=36，strict_eligible=0。
 
 上述结果只支持“受控服务预算下的运行碳清单差异”，不支持严格同服务减排。
 
-**决策含义**：C4 不是在所有指标上“胜出”，而是在公开的普通服务预算内换取关键服务与运行碳清单的组合改善。系统把这项让步显式呈现给园区/医院运维人员，由其选择预算点；若预算不可接受，系统应返回 C0 或标记无合适候选，而不是强行推荐 C4。
-
 ## 六、软件交付与验证
 
-- 全量测试：62 passed（2026-08-26 Wave11开发树；V08正式冻结基线为46 passed）；
+- 全量测试：61 passed；
 - V08三bundle独立verify均PASS；
 - 36场景catalog有固定root seed、payload SHA和重放字段；
 - 失败manifest保留失败行，不以0填充；
@@ -83,7 +76,7 @@ claim_status=controlled_service_budget_inventory_difference
 - 离线pipeline cache保障现场演示冷启动；
 - 提交包经过manifest文件hash和ZIP testzip核验。
 
-### Wave11 风险与MRV增强（2026-08-26复核）
+### Wave11 风险与MRV增强
 
 - CVaR95/失败预算：从36场景回放中同时展示均值、P95、CVaR95和失败率，避免只按平均EENS推荐；
 - MRV因子不确定性：固定activity inventory，基于factor registry的uncertainty_pct执行500次确定性LHS，输出kgCO2区间与排名稳定率；
@@ -92,8 +85,6 @@ claim_status=controlled_service_budget_inventory_difference
 ## 七、应用价值
 
 首个落地入口是园区、医院、数据中心或单馈线的离线预案、演练和复盘。系统输出的是可追问的候选方案、服务边界、物理证据和碳清单，而不是未经审批的实时控制命令。接入真实馈线、气象和排放因子后，可沿同一数据卡和MRV schema替换输入并重新核验。
-
-**迁移接口**：替换 `network_snapshot`、灾害时序、DER/负荷参数和 `factor_registry` 后，沿同一 `scenario_id → activity → factor → inventory → verifier` 链重算；本版本把迁移后的结果标为新数据集，不能把 case33bw/E 类结果直接外推到现场。
 
 ## 八、边界与后续
 
@@ -105,6 +96,3 @@ claim_status=controlled_service_budget_inventory_difference
 ## 九、一句话价值
 
 > 我们不是让优化器报一个更低的碳数字，而是规定这个数字在什么服务、物理和证据条件下才有资格被相信。
-
-
-

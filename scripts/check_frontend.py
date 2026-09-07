@@ -1,0 +1,51 @@
+"""Browser regression for the redesigned workbench against an existing local server."""
+import argparse
+import json
+from pathlib import Path
+
+from playwright.sync_api import sync_playwright
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--url', default='http://127.0.0.1:4158')
+    args = parser.parse_args()
+    output = ROOT / 'artifacts/frontend_review'
+    output.mkdir(parents=True, exist_ok=True)
+    checks = []
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        for label, width, height in [('desktop', 1440, 1000), ('mobile', 390, 844)]:
+            page = browser.new_page(viewport={'width': width, 'height': height})
+            page.goto(args.url)
+            page.get_by_role('tab', name='决策总览', exact=True).wait_for(timeout=180000)
+            page.locator('.st-key-overview-map .scatterlayer .point').first.wait_for(timeout=180000)
+            page.get_by_role('heading', name='医院生命线 CareTask', exact=True, include_hidden=True).wait_for(state='attached', timeout=180000)
+            page.screenshot(path=str(output / f'{label}.png'), full_page=True)
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), label
+            assert page.locator('.kpi').count() == 6
+            points = page.locator('.st-key-overview-map .scatterlayer .point').count()
+            assert points == 33, points
+            assert page.locator('[data-testid="stException"]').count() == 0
+            checks.append({'viewport': label, 'width': width, 'network_points': points, 'overflow': False})
+            if label == 'desktop':
+                for tab in ['恢复数字孪生', '三策略对照', '能源与碳流', '潮流校验', 'MRV报告', '公平Pareto', '成岛护照', '生命线任务']:
+                    page.get_by_role('tab', name=tab, exact=True).click()
+                    assert page.get_by_role('tab', name=tab, exact=True).get_attribute('aria-selected') == 'true'
+                page.get_by_role('tab', name='决策总览', exact=True).click()
+                slider = page.get_by_role('slider', name='恢复进程 / 小时')
+                slider.focus()
+                slider.press('ArrowRight')
+                page.get_by_text('碳韧协同恢复 · T+05:00 · 33节点 / 5联络线', exact=True).wait_for(timeout=180000)
+                page.screenshot(path=str(output / 'desktop_hour5.png'), full_page=True)
+                checks.append({'all_tabs_navigable': True, 'hour_slider_updates': True})
+            page.close()
+        browser.close()
+    (output / 'checks.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(json.dumps(checks, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main()

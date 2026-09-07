@@ -44,13 +44,8 @@ def validate_text(text: str, facts: CompetitionFacts = FACTS) -> list[str]:
     errors: list[str] = []
     if "kgCO2e" in text or "CO₂e" in text:
         errors.append("use kgCO2, not kgCO2e/CO₂e")
-    # Reject positive claims only; boundary caveats such as “不支持严格同服务减排” are valid.
-    positive_same_service = re.search(
-        r"(?:结果|方案|项目|系统|实验|我们).{0,12}(?:证明|证实|实现|达到|实现了).{0,12}严格同服务(?:减排|降碳)",
-        text,
-    )
-    if facts.same_service_pass is False and positive_same_service:
-        errors.append("same_service_pass=false forbids positive strict same-service reduction wording")
+    if facts.same_service_pass is False and re.search(r"严格同服务.*(减排|降碳)|同服务.*严格.*(减排|降碳)", text):
+        errors.append("same_service_pass=false forbids strict same-service reduction wording")
     return errors
 
 

@@ -17,7 +17,3 @@ def test_claim_guard_rejects_strict_same_service_wording():
 
 def test_claim_guard_rejects_co2e_alias():
     assert validate_text("排放为 10 kgCO2e")
-
-
-def test_claim_guard_allows_boundary_caveat():
-    assert not validate_text("当前结果不支持严格同服务减排。")

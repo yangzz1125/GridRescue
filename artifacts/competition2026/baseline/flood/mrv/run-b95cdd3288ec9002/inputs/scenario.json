@@ -1,0 +1,19 @@
+{
+  "ambient_temperature_c": 25.0,
+  "crew_distance_km": 46.0,
+  "description": "低洼区域电缆与开关站受淹，多点故障且光伏出力降低。",
+  "disaster_type": "",
+  "failed_branch_ids": [
+    6,
+    13,
+    27
+  ],
+  "grid_carbon_multiplier": 1.08,
+  "name": "暴雨内涝",
+  "pv_derating": 0.38,
+  "repair_hours": [
+    7,
+    10,
+    6
+  ]
+}

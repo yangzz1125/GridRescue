@@ -7,7 +7,6 @@ from gridrescue.care import (
     care_task_requirements,
     default_care_tasks,
     evaluate_care_tasks,
-    load_hospital_load_profiles,
     write_care_tasks,
 )
 from gridrescue.pipeline import run_pipeline
@@ -33,23 +32,6 @@ def test_default_care_tasks_complete_for_every_baseline_strategy(flood_pipeline)
         assert evaluation["deadline_pass"].all()
         assert evaluation["duration_pass"].all()
         assert evaluation["minimum_voltage_pu"].min() >= 0.97
-
-
-def test_hospital_load_profile_csv_is_traceable_and_parameterized():
-    profiles = load_hospital_load_profiles("data/hospital_load_profiles.csv")
-    assert len(profiles) == 4
-    assert {task.data_class for task in profiles} == {"E_synthetic_engineering_prior"}
-    assert all(task.source_id.startswith("PUB-") for task in profiles)
-    assert all(task.source_url.startswith("https://") for task in profiles)
-    assert all(task.assumption for task in profiles)
-    assert sum(task.min_kw for task in profiles if task.node_id == 17) == 37.0
-
-
-def test_hospital_load_profile_loader_rejects_missing_traceability(tmp_path):
-    path = tmp_path / "bad_profiles.csv"
-    path.write_text("task_id,name,min_kw\nX,x,1\n", encoding="utf-8")
-    with pytest.raises(ValueError, match="missing columns"):
-        load_hospital_load_profiles(path)
 
 
 def test_overlapping_tasks_do_not_double_count_node_service(flood_pipeline):

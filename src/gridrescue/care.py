@@ -28,9 +28,6 @@ class CareTask:
     voltage_max_pu: float = 1.05
     dependencies: tuple[str, ...] = ()
     data_class: str = "E_synthetic_task_template"
-    source_id: str = "CARE-SYNTH-DEFAULT"
-    source_url: str = ""
-    assumption: str = "Synthetic engineering prior; not a measurement from a named hospital."
 
 
 def default_care_tasks() -> tuple[CareTask, ...]:
@@ -52,9 +49,6 @@ def default_care_tasks() -> tuple[CareTask, ...]:
             deadline_hour=0,
             min_duration_h=24,
             voltage_min_pu=0.97,
-            source_id="PUB-JGJ312-2CLASS-ICU+PUB-ICU-DEVICE-114W",
-            source_url="https://www.waizi.org.cn/bz/89620.html;https://pmc.ncbi.nlm.nih.gov/articles/PMC10119198/",
-            assumption="28 kW is an engineering prior for an ICU/emergency life-support cluster including auxiliaries; the public ICU plug-load study is only an order-of-magnitude anchor, so scale with bed count and measured nameplates before field use.",
         ),
         CareTask(
             "EMERGENCY_SURGERY",
@@ -67,9 +61,6 @@ def default_care_tasks() -> tuple[CareTask, ...]:
             deadline_hour=0,
             min_duration_h=6,
             voltage_min_pu=0.97,
-            source_id="PUB-JGJ312-2CLASS-OR",
-            source_url="https://www.waizi.org.cn/bz/89620.html",
-            assumption="25 kW is a conservative synthetic operating block for one emergency surgery window; replace with the local OR equipment schedule.",
         ),
         CareTask(
             "MEDICINE_COLD_CHAIN",
@@ -81,9 +72,6 @@ def default_care_tasks() -> tuple[CareTask, ...]:
             end_hour=23,
             deadline_hour=0,
             min_duration_h=24,
-            source_id="PUB-COLDCHAIN-EQUIPMENT",
-            source_url="https://www.jianbiaoku.com/webarbs/book/422.shtml",
-            assumption="12 kW is a diversified pharmacy/blood cold-chain block including refrigeration auxiliaries; it is not a single refrigerator nameplate.",
         ),
         CareTask(
             "EMERGENCY_COMMUNICATION",
@@ -95,73 +83,8 @@ def default_care_tasks() -> tuple[CareTask, ...]:
             end_hour=23,
             deadline_hour=0,
             min_duration_h=24,
-            source_id="PUB-GB51039-ICT",
-            source_url="https://wjw.fujian.gov.cn/jggk/csxx/ghyxxc/gzdt/202412/t20241231_6600821.htm",
-            assumption="20 kW is an engineering prior for redundant communications, nurse-call and dispatch ICT at one service node; verify UPS and rack schedules locally.",
         ),
     )
-
-
-def load_hospital_load_profiles(path: str | Path) -> tuple[CareTask, ...]:
-    """Load parameterized hospital life-line tasks from a CSV.
-
-    The CSV is an E-class synthetic/engineering-prior input.  It carries
-    source_id, source_url and a plain-language assumption for every row so a
-    reviewer can trace the public reference and see which value still needs
-    local nameplate or metered validation.
-    """
-
-    frame = pd.read_csv(path)
-    required = {
-        "task_id",
-        "name",
-        "node_id",
-        "tier",
-        "min_kw",
-        "start_hour",
-        "end_hour",
-        "deadline_hour",
-        "min_duration_h",
-        "voltage_min_pu",
-        "source_id",
-        "assumption",
-    }
-    missing = sorted(required.difference(frame.columns))
-    if missing:
-        raise ValueError(f"hospital load profile missing columns: {missing}")
-
-    def text(value: object, default: str = "") -> str:
-        if pd.isna(value):
-            return default
-        return str(value)
-
-    tasks: list[CareTask] = []
-    for row in frame.to_dict(orient="records"):
-        dependency_text = text(row.get("dependencies"))
-        dependencies = tuple(
-            item.strip() for item in dependency_text.split(";") if item.strip()
-        )
-        tasks.append(
-            CareTask(
-                task_id=text(row["task_id"]),
-                name=text(row["name"]),
-                node_id=int(row["node_id"]),
-                tier=int(row["tier"]),
-                min_kw=float(row["min_kw"]),
-                start_hour=int(row["start_hour"]),
-                end_hour=int(row["end_hour"]),
-                deadline_hour=int(row["deadline_hour"]),
-                min_duration_h=int(row["min_duration_h"]),
-                voltage_min_pu=float(row["voltage_min_pu"]),
-                voltage_max_pu=float(row.get("voltage_max_pu", 1.05)),
-                dependencies=dependencies,
-                data_class=text(row.get("data_class"), "E_synthetic_engineering_prior"),
-                source_id=text(row["source_id"]),
-                source_url=text(row.get("source_url")),
-                assumption=text(row["assumption"]),
-            )
-        )
-    return validate_care_tasks(tuple(tasks))
 
 
 def care_task_definition_hash(tasks: tuple[CareTask, ...]) -> str:

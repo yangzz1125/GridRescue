@@ -1,26 +1,5 @@
-GridRescue Wave11 P1 桌面使用说明
-生成日期：2026-08-26
+GridRescue Wave11-P1
 
-项目目录：
-D:\桌面\GridRescue\_Wave11\_P1
-
-README：
-D:\桌面\GridRescue\_Wave11\_P1\README.md
-
-启动：
-cd "D:\桌面\GridRescue\_Wave11\_P1"
-$env:PYTHONPATH="$PWD\src"
-streamlit run app.py
-
-测试：
-python -m pytest -q
-预期：62 passed
-
-重建中文 README 图片：
-python scripts\build_readme_visuals.py
-
-正式提交 ZIP：
-D:\桌面\GridRescue\_Wave11\_P1\release\GridRescue_Wave11_P1_Submission.zip
-
-SHA-256 文件：
-D:\桌面\GridRescue\_Wave11\_P1\release\GridRescue_Wave11_P1_Submission_SHA256.txt
+1. 运行检查：python scripts\check_submission_ready.py --run-smoke
+2. 启动演示：streamlit run app.py --server.headless true --server.fileWatcherType none
+3. 正式提交包：release\GridRescue_Wave11_P1_Submission.zip

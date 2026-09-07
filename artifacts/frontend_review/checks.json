@@ -1,0 +1,18 @@
+[
+  {
+    "viewport": "desktop",
+    "width": 1440,
+    "network_points": 33,
+    "overflow": false
+  },
+  {
+    "all_tabs_navigable": true,
+    "hour_slider_updates": true
+  },
+  {
+    "viewport": "mobile",
+    "width": 390,
+    "network_points": 33,
+    "overflow": false
+  }
+]

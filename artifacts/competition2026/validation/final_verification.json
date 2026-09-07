@@ -1,0 +1,155 @@
+{
+  "schema_version": "gridrescue-final-verification-1.0",
+  "created_at": "2026-09-06T06:03:25.890877+00:00",
+  "python": "3.11.6",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "checks": {
+    "pytest": {
+      "pass": true,
+      "count": 74,
+      "command": "python -m pytest -q"
+    },
+    "streamlit_health": {
+      "pass": true,
+      "command": "python scripts/smoke_demo.py"
+    },
+    "mrv": {
+      "pass": true,
+      "bundles": [
+        {
+          "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5",
+          "verified": true,
+          "checked_files": 17,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f",
+          "verified": true,
+          "checked_files": 20,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5",
+          "verified": true,
+          "checked_files": 20,
+          "errors": []
+        },
+        {
+          "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a",
+          "verified": true,
+          "checked_files": 20,
+          "errors": []
+        }
+      ],
+      "excluded_intermediate_bundles": [
+        {
+          "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-7b7d78ef3ecd226f",
+          "verified": false,
+          "checked_files": 20,
+          "errors": [
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023",
+            "factor snapshot: record_hash mismatch at china-electricity-2023"
+          ]
+        }
+      ]
+    },
+    "public_sources": {
+      "pass": true,
+      "files": [
+        {
+          "id": "wuhan_heat",
+          "pass": true
+        },
+        {
+          "id": "wuhan_rain",
+          "pass": true
+        },
+        {
+          "id": "xiamen_wind",
+          "pass": true
+        },
+        {
+          "id": "china-electricity-2023",
+          "pass": true
+        },
+        {
+          "id": "noaa-tianhe-2022",
+          "pass": true
+        }
+      ]
+    },
+    "deliverables": {
+      "pass": true,
+      "required": [
+        "docs/submission_application_2026.md",
+        "docs/submission_application_2026.html",
+        "release/submission_application_2026.pdf",
+        "docs/technical_report_2026.md",
+        "docs/competition2026_experiments.md",
+        "docs/data_sources_2026.md",
+        "docs/innovation_evidence_2026.md",
+        "docs/presentation_materials_2026.md",
+        "artifacts/competition2026/figures/figure_source_index.csv",
+        "artifacts/competition2026/validation/desktop.png",
+        "artifacts/competition2026/validation/mobile.png"
+      ]
+    },
+    "anonymous_paths": {
+      "pass": true,
+      "matches": []
+    }
+  },
+  "passed": true
+}

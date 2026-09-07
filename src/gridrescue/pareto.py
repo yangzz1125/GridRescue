@@ -314,6 +314,8 @@ def _write_artifacts(
 def scan_pareto(
     scenario: str | DisasterScenario,
     spec: ParetoScanSpec = ParetoScanSpec(),
+    *,
+    audit_tasks: tuple[CareTask, ...] = (),
 ) -> ParetoScanResult:
     """Compute an auditable same-service normal-EENS/carbon frontier.
 
@@ -564,7 +566,13 @@ def scan_pareto(
                         "solve_seconds": normal_solve_seconds,
                     }
                 )
-                anchor_care = normal_care.copy()
+                if audit_tasks:
+                    audit = evaluate_care_tasks(audit_tasks, normal_result, normal_validation)
+                    base_row["audit_original_care_pass"] = bool(audit["task_complete"].all())
+                    base_row["audit_original_care_completed"] = int(audit["task_complete"].sum())
+                    anchor_care = audit.copy()
+                else:
+                    anchor_care = normal_care.copy()
                 anchor_care.insert(0, "run_id", run_id)
                 anchor_care.insert(1, "normal_allowance_fraction", fraction)
                 care_rows.extend(anchor_care.to_dict(orient="records"))
@@ -625,7 +633,13 @@ def scan_pareto(
                         "frontier_eligible": contract_pass and physical_pass,
                     }
                 )
-                candidate_care = care_evaluation.copy()
+                if audit_tasks:
+                    audit = evaluate_care_tasks(audit_tasks, candidate, validation)
+                    base_row["audit_original_care_pass"] = bool(audit["task_complete"].all())
+                    base_row["audit_original_care_completed"] = int(audit["task_complete"].sum())
+                    candidate_care = audit.copy()
+                else:
+                    candidate_care = care_evaluation.copy()
                 candidate_care.insert(0, "run_id", run_id)
                 candidate_care.insert(1, "normal_allowance_fraction", fraction)
                 care_rows.extend(candidate_care.to_dict(orient="records"))

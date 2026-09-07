@@ -6,6 +6,7 @@ turning them into zero-valued outcomes.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from statistics import NormalDist
 import math
 from typing import Iterable, Sequence
 
@@ -50,9 +51,10 @@ def summarize_pairs(
     deltas = paired_deltas(reference, candidate, eligible)
     eligible_count = int(len(deltas))
     failed = n - eligible_count
-    wins = int(np.sum(deltas < 0))
-    ties = int(np.sum(np.isclose(deltas, 0.0)))
-    losses = int(np.sum(deltas > 0))
+    tied = np.isclose(deltas, 0.0)
+    wins = int(np.sum((deltas < 0) & ~tied))
+    ties = int(np.sum(tied))
+    losses = int(np.sum((deltas > 0) & ~tied))
     return PairedSummary(
         total_pairs=n,
         eligible_pairs=eligible_count,
@@ -95,8 +97,7 @@ def wilson_interval(successes: int, trials: int, *, confidence: float = 0.95) ->
         raise ValueError("successes/trials out of range")
     if not 0 < confidence < 1:
         raise ValueError("confidence must be in (0, 1)")
-    # 1.96 is deliberate: no scipy dependency in the base project.
-    z = 1.959963984540054
+    z = NormalDist().inv_cdf((1 + confidence) / 2)
     p = successes / trials
     den = 1 + z * z / trials
     center = (p + z * z / (2 * trials)) / den

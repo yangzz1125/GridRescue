@@ -14,7 +14,7 @@ from typing import Any
 import cvxpy as cp
 import pandas as pd
 
-from .carbon import DEFAULT_EMISSION_FACTORS, official_grid_factor_rows
+from .carbon import DEFAULT_EMISSION_FACTORS
 from .care import default_care_tasks, evaluate_care_tasks
 from .pipeline import PipelineResult
 from .restoration import state_at_hour
@@ -75,34 +75,7 @@ def _record_hash(record: dict[str, Any]) -> str:
     return _sha256_json({key: value for key, value in record.items() if key != "record_hash"})
 
 
-def _canonicalize_factor_registry(frame: pd.DataFrame) -> pd.DataFrame:
-    """Normalize numeric CSV cells before checking registry record hashes.
-
-    Adding official rows with an intentionally blank ``uncertainty_pct`` makes
-    pandas infer that mixed column as ``object``; historical ``20.0`` cells
-    then arrive as strings while runtime rows contain floats.  Converting
-    numeric-looking strings back to floats keeps old hashes stable and leaves
-    an explicitly blank uncertainty as ``""`` (the official source publishes
-    no uncertainty interval).
-    """
-    out = frame.copy()
-    for column in ("value", "uncertainty_pct"):
-        if column not in out.columns:
-            continue
-        def _coerce(value: Any) -> Any:
-            if isinstance(value, str):
-                if not value.strip():
-                    return ""
-                try:
-                    return float(value)
-                except ValueError:
-                    return value
-            return value
-        out[column] = out[column].map(_coerce)
-    return out
-
-
-def default_factor_registry() -> pd.DataFrame:
+def default_factor_registry(scenario=None) -> pd.DataFrame:
     rows = [
         {
             "factor_id": "grid-base-demo",
@@ -165,17 +138,22 @@ def default_factor_registry() -> pd.DataFrame:
             "approval_status": "conditional",
         },
     ]
-    # Retain the historical synthetic rows as frozen-demo defaults. Official
-    # 2023 reference factors use distinct activity names so legacy lookups
-    # such as ``registry.loc['grid_import']`` stay one-to-one.
-    rows.extend(official_grid_factor_rows())
+    if scenario is not None and getattr(scenario, "grid_factor", None) is not None:
+        source = json.loads(scenario.provenance_json)["grid_factor"]
+        rows[0].update({"factor_id": "china-electricity-2023", "value": scenario.grid_factor,
+                        "year": 2023, "geography": "China national", "source_class": "official_statistics",
+                        "method": "annual_location_based", "source_id": source["id"],
+                        "source_title": "National Energy Administration report of 2023 electricity CO2 factor",
+                        "source_url": source["url"], "source_file_sha256": source["sha256"],
+                        "applicability": "annual average reference scenario; not historical hourly reconstruction",
+                        "approval_status": "public_source_reference"})
     for row in rows:
         row["record_hash"] = _record_hash(row)
     return pd.DataFrame(rows)
 
 
 def _factor_snapshot(run_id: str, result: PipelineResult) -> pd.DataFrame:
-    registry = default_factor_registry().set_index("activity")
+    registry = default_factor_registry(result.scenario).set_index("activity")
     reference = result.strategies["最小失供恢复"].dispatch.frame
     rows: list[dict[str, Any]] = []
     for hour in range(24):
@@ -195,7 +173,7 @@ def _factor_snapshot(run_id: str, result: PipelineResult) -> pd.DataFrame:
             "method": grid.method,
             "source_class": grid.source_class,
             "source_file_sha256": grid.source_file_sha256,
-            "scenario_multiplier": result.scenario.grid_carbon_multiplier,
+            "scenario_multiplier": float(result.scenario.grid_carbon_multiplier),
             "profile_generator_version": "gridrescue-hourly-profile-v1",
             "registry_record_hash": grid.record_hash,
         }
@@ -437,7 +415,7 @@ def _claim_gates(result: PipelineResult) -> dict[str, Any]:
             "grid_physical_pass": bool(validation.hourly["is_feasible"].all()),
             "care_task_pass": bool(care["task_complete"].all()),
             "data_quality": "conditional",
-            "data_class": "E_synthetic_demo",
+            "data_class": "mixed_public_and_synthetic" if getattr(result.scenario, "provenance_json", "") else "E_synthetic_demo",
         }
         gates["inventory_eligible"] = bool(
             gates["solver_pass"]
@@ -558,10 +536,11 @@ def write_mrv_bundle(
         "normal_service_budget_fraction": 0.08,
         "strategies": STRATEGY_SLUGS,
     }
-    registry = default_factor_registry()
+    registry = default_factor_registry(result.scenario)
     identity = {
         "scenario": _sha256_json(scenario_payload),
-        "network": result.model.source_sha256,
+        "network": _sha256_json(network_payload),
+        "code": _code_bundle_hash(root),
         "config": _sha256_json(config_payload),
         "registry": _sha256_bytes(registry.to_csv(index=False).encode("utf-8")),
     }
@@ -574,6 +553,16 @@ def write_mrv_bundle(
         directory.mkdir(parents=True, exist_ok=True)
 
     _write_json(inputs / "scenario.json", scenario_payload)
+    if getattr(result.scenario, "provenance_json", ""):
+        provenance = json.loads(result.scenario.provenance_json)
+        for key in ("weather", "grid_factor"):
+            source = provenance[key]
+            source_path = root / "data" / "public" / source["path"]
+            raw = source_path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != source["sha256"]:
+                raise ValueError("public source checksum mismatch during export")
+            (inputs / (key + source_path.suffix)).write_bytes(raw)
+        _write_json(inputs / "public_source_manifest.json", provenance)
     _write_json(inputs / "network_snapshot.json", network_payload)
     _write_json(inputs / "config.json", config_payload)
     registry.to_csv(inputs / "factor_registry.csv", index=False)
@@ -748,7 +737,7 @@ def _verification_result(
     return result
 
 
-def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> dict[str, Any]:
+def _verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> dict[str, Any]:
     bundle = Path(bundle_dir)
     errors: list[str] = []
     run_id = "unknown"
@@ -756,6 +745,11 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
         bundle / "run_manifest.json",
         bundle / "evidence" / "evidence_index.json",
         bundle / "evidence" / "seal.json",
+        bundle / "inputs" / "scenario.json",
+        bundle / "inputs" / "network_snapshot.json",
+        bundle / "outputs" / "claim_gates.json",
+        *[bundle / "outputs" / f"dispatch_{slug}.csv" for slug in STRATEGY_SLUGS.values()],
+        *[bundle / "outputs" / f"topology_state_{slug}.csv" for slug in STRATEGY_SLUGS.values()],
         bundle / "inputs" / "config.json",
         bundle / "inputs" / "factor_registry.csv",
         bundle / "inputs" / "factor_snapshot.csv",
@@ -806,7 +800,10 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
         if relative in indexed_paths:
             errors.append(f"duplicate indexed path: {relative}")
         indexed_paths.add(relative)
-        path = bundle / item["path"]
+        path = (bundle / relative).resolve()
+        if not path.is_relative_to(bundle.resolve()) or not path.is_file():
+            errors.append(f"invalid or missing indexed file: {relative}")
+            continue
         if not path.exists():
             errors.append(f"missing file: {item['path']}")
             continue
@@ -817,8 +814,11 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
 
     config = json.loads((bundle / "inputs" / "config.json").read_text(encoding="utf-8"))
     time_step_h = float(config.get("time_step_h", 0.0))
-    if time_step_h <= 0:
-        errors.append("config time_step_h must be positive")
+    if not math.isfinite(time_step_h) or time_step_h != 1.0:
+        errors.append("config supports only time_step_h=1.0")
+    gates = json.loads((bundle / "outputs" / "claim_gates.json").read_text(encoding="utf-8"))
+    if manifest.get("gates") != gates:
+        errors.append("manifest/claim gates mismatch")
     if float(manifest.get("boundary", {}).get("time_step_h", 0.0)) != time_step_h:
         errors.append("manifest/config time_step_h mismatch")
 
@@ -850,7 +850,6 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
         keep_default_na=False,
         dtype={"factor_version": str},
     )
-    registry = _canonicalize_factor_registry(registry)
     factors = pd.read_csv(
         bundle / "inputs" / "factor_snapshot.csv",
         keep_default_na=False,
@@ -863,6 +862,19 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
     errors.extend(_verify_record_hashes(registry, "factor registry"))
     errors.extend(_verify_record_hashes(factors, "factor snapshot"))
     errors.extend(_verify_record_hashes(activities, "activity ledger"))
+    if activities.duplicated(["strategy_id", "hour", "energy_flow"]).any():
+        errors.append("duplicate activity key")
+    dispatch_columns = {"grid_import": "grid_import_kw", "diesel_generation": "diesel_generation_kw", "pv_available": "pv_available_kw", "bess_charge": "battery_charge_kw", "bess_discharge": "battery_discharge_kw", "renewable_curtailment": "renewable_curtailment_kw", "unserved_critical": "unserved_critical_kw", "unserved_normal": "unserved_normal_kw"}
+    for slug in STRATEGY_SLUGS.values():
+        frame = pd.read_csv(bundle / "outputs" / f"dispatch_{slug}.csv").set_index("hour")
+        subset = activities[activities["strategy_id"] == slug]
+        if set(frame.index) != set(range(24)) or len(frame) != 24 or len(subset) != 192:
+            errors.append(f"{slug}: incomplete dispatch/activity horizon")
+            continue
+        for row in subset.itertuples():
+            column = dispatch_columns.get(str(row.energy_flow))
+            if column is None or int(row.hour) not in frame.index or abs(float(row.power_kw) - max(float(frame.loc[int(row.hour), column]), 0.0)) > 1e-6:
+                errors.append(f"{slug}: dispatch/activity value mismatch")
     if not activities.empty and not (activities["run_id"].astype(str) == run_id).all():
         errors.append("activity run_id mismatch")
     if not activities.empty and not (activities["time_step_h"].astype(float) == time_step_h).all():
@@ -897,6 +909,17 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
         errors.append("inventory activity hash reference failed")
     if not inventory["factor_record_hash"].astype(str).isin(factor_hashes).all():
         errors.append("inventory factor hash reference failed")
+    factor_by_hash = factors.set_index("record_hash")
+    activity_by_hash = activities.set_index("record_hash")
+    for row in inventory.itertuples():
+        if row.factor_record_hash in factor_by_hash.index:
+            factor = factor_by_hash.loc[row.factor_record_hash]
+            if float(row.factor_value) != float(factor["value"]) or str(row.factor_id) != str(factor["factor_id"]) or int(row.hour) != int(factor["hour"]):
+                errors.append("inventory factor value/key mismatch")
+        if row.activity_record_hash in activity_by_hash.index:
+            activity = activity_by_hash.loc[row.activity_record_hash]
+            if abs(float(row.activity_value) - float(activity["energy_kwh"])) > 1e-6 or str(row.strategy_id) != str(activity["strategy_id"]) or int(row.hour) != int(activity["hour"]):
+                errors.append("inventory activity value/key mismatch")
 
     registry_hashes = set(registry["record_hash"].astype(str))
     if not factors["registry_record_hash"].astype(str).isin(registry_hashes).all():
@@ -965,6 +988,14 @@ def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> 
         len(indexed_files),
         write_result=write_result,
     )
+
+
+def verify_mrv_bundle(bundle_dir: str | Path, *, write_result: bool = False) -> dict[str, Any]:
+    """Fail closed for malformed evidence, without exposing parser exceptions to UI."""
+    try:
+        return _verify_mrv_bundle(bundle_dir, write_result=write_result)
+    except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError) as exc:
+        return _verification_result(Path(bundle_dir), "unknown", [f"invalid evidence: {exc}"], 0, write_result=write_result)
 
 
 def main(argv: list[str] | None = None) -> None:

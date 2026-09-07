@@ -1,0 +1,4 @@
+scenario,strategy,anchor_phase,solve_success,feedback_converged,feedback_iterations,feedback_residual_kw,failure_reason,hospital_demand_kwh,hospital_eens_kwh,other_essential_demand_kwh,other_essential_eens_kwh,normal_demand_kwh,normal_eens_kwh,served_kwh
+极端高温,最小失供恢复,hospital,True,True,4,0.03589500000001067,,4028.7456,0.000983999999945695,31782.326399999998,0.0,47337.7608,301.86212500000016,82846.969691
+极端高温,最小失供恢复,other_essential,True,True,4,0.06546299999999405,,4028.7456,0.006013000000010038,31782.326399999998,0.0009989999998936128,47337.7608,300.8244970000001,82848.001291
+极端高温,最小失供恢复,normal,True,True,8,0.045072000000004664,,4028.7456,0.006012999999896351,31782.326399999998,0.03376500000004512,47337.7608,296.01224799999983,82852.780774

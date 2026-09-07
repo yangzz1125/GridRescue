@@ -1,0 +1,15 @@
+{
+  "schema_version": "gridrescue-wave10-scenario-catalog-1.0",
+  "freeze_date": "2026-08-22",
+  "generated_at": "2026-08-23",
+  "root_seed": 20260822,
+  "count": 36,
+  "strata": {
+    "disaster": 3,
+    "intensity": 3,
+    "replicates": 4
+  },
+  "catalog_sha256": "a8512f2b140b8d3b2e0978024e3c788f0c6cbd82e39b54c9ce46f0f2cf4ee087",
+  "data_class": "E",
+  "claim_boundary": "synthetic stress-test catalog; not an observed disaster distribution"
+}

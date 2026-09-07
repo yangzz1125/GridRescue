@@ -18,10 +18,32 @@ class DisasterScenario:
     grid_carbon_multiplier: float
     crew_distance_km: float
     ambient_temperature_c: float
+    disaster_type: str = ""
+    load_profile: tuple[float, ...] = ()
+    pv_profile: tuple[float, ...] = ()
+    grid_factor: float | None = None
+    provenance_json: str = ""
 
     def __post_init__(self) -> None:
+        for profile in (self.load_profile, self.pv_profile):
+            if profile and (len(profile) != 24 or not all(np.isfinite(x) and x >= 0 for x in profile)):
+                raise ValueError("external profiles must contain 24 finite non-negative values")
+        if bool(self.load_profile) != bool(self.pv_profile):
+            raise ValueError("load and PV profiles must be provided together")
+        if self.grid_factor is not None and (not np.isfinite(self.grid_factor) or self.grid_factor <= 0):
+            raise ValueError("grid factor must be finite and positive")
         if len(self.failed_branch_ids) != len(self.repair_hours):
             raise ValueError("failed branches and repair durations must align")
+        if len(set(self.failed_branch_ids)) != len(self.failed_branch_ids):
+            raise ValueError("failed branches must be unique")
+        if any(not 1 <= branch <= 32 for branch in self.failed_branch_ids):
+            raise ValueError("failed branches must be in 1..32")
+        if any(h <= 0 for h in self.repair_hours):
+            raise ValueError("repair durations must be positive")
+        if not all(np.isfinite(x) for x in (self.pv_derating, self.grid_carbon_multiplier, self.crew_distance_km, self.ambient_temperature_c)):
+            raise ValueError("scenario values must be finite")
+        if self.grid_carbon_multiplier <= 0 or self.crew_distance_km < 0:
+            raise ValueError("invalid carbon multiplier or crew distance")
         if not 0 <= self.pv_derating <= 1:
             raise ValueError("pv_derating must be in [0, 1]")
 
@@ -70,11 +92,17 @@ def get_scenario(name: str) -> DisasterScenario:
 def hourly_profiles(scenario: DisasterScenario, seed: int = 2026) -> pd.DataFrame:
     """Return a deterministic 24-hour restoration environment."""
 
+    if getattr(scenario, "load_profile", ()):
+        return pd.DataFrame({
+            "load_multiplier": scenario.load_profile,
+            "pv_multiplier": scenario.pv_profile,
+            "grid_carbon_kg_per_kwh": scenario.grid_factor if scenario.grid_factor is not None else DEFAULT_EMISSION_FACTORS.grid_base_kg_per_kwh,
+        }, index=pd.Index(range(24), name="hour"))
     rng = np.random.default_rng(seed + sum(scenario.failed_branch_ids))
     hour = np.arange(24)
     load_multiplier = 0.78 + 0.14 * np.sin(2 * np.pi * (hour - 8) / 24)
     load_multiplier += 0.23 * np.exp(-0.5 * ((hour - 19) / 2.7) ** 2)
-    if scenario.name == "极端高温":
+    if (getattr(scenario, "disaster_type", "") or scenario.name) == "极端高温":
         load_multiplier += 0.20 * np.exp(-0.5 * ((hour - 15) / 4.0) ** 2)
     load_multiplier += rng.normal(0, 0.012, 24)
 

@@ -1,130 +1,69 @@
+"""Build the portable, anonymous Competition 2026 submission archive."""
 from __future__ import annotations
-
 import hashlib
 import json
 import zipfile
+from datetime import datetime, timezone
 from pathlib import Path
 
+ROOT=Path(__file__).resolve().parents[1]
+RELEASE=ROOT/'release'
+ARCHIVE=RELEASE/'GridRescue_Competition2026_Submission.zip'
+MANIFEST=ROOT/'release_manifest_competition2026.json'
+TOP_FILES=('app.py','ui.py','ui/styles.css','.streamlit/config.toml','README.md','requirements.txt','pyproject.toml')
+DOCS=('submission_application_2026.md','submission_application_2026.html','technical_report_2026.md','competition2026_experiments.md','data_sources_2026.md','innovation_evidence_2026.md','presentation_materials_2026.md','submission_checklist_2026.md','claim_dictionary.md','contest_fit_2026.md')
 
-ROOT = Path(__file__).resolve().parents[1]
-OUTPUTS = ROOT.parents[1] / "outputs"
 
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+def sha256(path):
+    digest=hashlib.sha256()
+    with Path(path).open('rb') as handle:
+        for chunk in iter(lambda:handle.read(1024*1024),b''): digest.update(chunk)
     return digest.hexdigest()
 
 
-def selected_files() -> list[tuple[Path, Path]]:
-    selected: list[tuple[Path, Path]] = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file():
-            continue
-        relative = path.relative_to(ROOT)
-        parts = set(relative.parts)
-        rel_text = relative.as_posix()
-        if "__pycache__" in parts or ".pytest_cache" in parts:
-            continue
-        # The desktop `release/` directory is a delivery mirror, not project
-        # source.  Excluding it prevents recursive self-inclusion of the
-        # previous ZIP/SHA files when rebuilding a submission package.
-        if "release" in parts:
-            continue
-        if path.suffix.lower() in {".pyc", ".pyo"}:
-            continue
-        if "research_wave" in parts or rel_text.startswith("outputs/"):
-            continue
-        # Keep large raw public-data archives in the local evidence workspace,
-        # but ship only the small derived sample and metadata in the contest ZIP.
-        if rel_text.startswith("data/outage/raw/"):
-            continue
-        if rel_text.startswith("artifacts/") and not (
-            rel_text.startswith("artifacts/v08_official/")
-            or rel_text.startswith("artifacts/wave10/catalog/")
-            or rel_text.startswith("artifacts/wave10/figures/")
-            or rel_text.startswith("artifacts/wave10/pipeline_cache/")
-            or rel_text.startswith("artifacts/wave10/batch36/")
-              or rel_text.startswith("artifacts/wave10/c0_c4_gate/")
-              or rel_text.startswith("artifacts/wave10/strict_contract_demo/")
-              or rel_text.startswith("artifacts/wave10/strict_contract_9/")
-              or rel_text.startswith("artifacts/wave11/risk_report/")
-              or rel_text.startswith("artifacts/wave11/mrv_sensitivity/")
-              or rel_text.startswith("artifacts/submission_materials/")
-          ):
-            continue
-        if relative.name.startswith("release_manifest_"):
-            continue
-        # Internal blind-review notes are useful during preparation but are
-        # not part of the anonymous competition submission package.
-        if relative.name == "blind_judge_review_wave11.md" or relative.name.endswith(".bak_blindreview"):
-            continue
-        selected.append((relative, path))
-    return sorted(selected, key=lambda item: item[0].as_posix())
+def _verified_artifact(path):
+    parts=path.relative_to(ROOT).parts
+    for index,part in enumerate(parts):
+        if part.startswith('run-') and index and parts[index-1]=='mrv':
+            verification=ROOT.joinpath(*parts[:index+1],'evidence','verification.json')
+            return verification.is_file() and json.loads(verification.read_text(encoding='utf-8')).get('verified') is True
+    return True
 
 
-def main() -> int:
-    OUTPUTS.mkdir(parents=True, exist_ok=True)
-    files = selected_files()
-    manifest = {
-        "schema_version": "gridrescue-wave11-submission-manifest-1.0",
-        "project": "GridRescue 碳韧智网",
-        "release": "Wave11-P1-Submission",
-        "generated_at": "2026-08-27",
-        "v08_freeze_date": "2026-08-22",
-        "tests": {"command": "python -m pytest -q", "passed": 78, "v08_baseline_passed": 46},
-        "claim_boundary": {
-            "gas_basis": "CO2",
-            "unit": "kgCO2",
-            "factor_data_class": "E",
-            "time_step_h": 1.0,
-            "same_service_pass": False,
-            "claim_status": "controlled_service_budget_inventory_difference",
-            "seal_meaning": "File integrity and internal recomputation only; not field measurement or third-party assurance.",
-        },
-        "deliverables": [
-            "评委决策工作台",
-            "三门证据与NO_GFM反例预设",
-            "36条可重放场景catalog",
-            "paired统计基础函数",
-            "V08正式MRV证据包",
-        ],
-        "files": [
-            {"path": rel.as_posix(), "sha256": sha256(path), "bytes": path.stat().st_size}
-            for rel, path in files
-        ],
-    }
-    manifest_path = ROOT / "release_manifest_wave11_submission.json"
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    files.append((manifest_path.relative_to(ROOT), manifest_path))
-    files.sort(key=lambda item: item[0].as_posix())
-
-    archive_path = OUTPUTS / "GridRescue_Wave11_P1_Submission.zip"
-    with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as archive:
-        for relative, path in files:
-            archive.write(path, relative.as_posix())
-    archive_hash = sha256(archive_path)
-    (OUTPUTS / "GridRescue_Wave11_P1_Submission_SHA256.txt").write_text(
-        f"{archive_hash}  {archive_path.name}\n", encoding="utf-8"
-    )
-    with zipfile.ZipFile(archive_path) as archive:
-        corrupt = archive.testzip()
-    print(
-        json.dumps(
-            {
-                "archive": str(archive_path),
-                "sha256": archive_hash,
-                "files": len(files),
-                "bytes": archive_path.stat().st_size,
-                "testzip": corrupt,
-            },
-            ensure_ascii=False,
-        )
-    )
-    return 0 if corrupt is None else 1
+def selected_files():
+    files=[ROOT/x for x in TOP_FILES]
+    for directory,patterns in ((ROOT/'src',('*.py',)),(ROOT/'scripts',('*.py',)),(ROOT/'tests',('*.py',))):
+        for pattern in patterns: files.extend(directory.rglob(pattern))
+    files.extend(ROOT/'docs'/x for x in DOCS)
+    files.extend([ROOT/'data/case33bw.m',ROOT/'data/factor_registry.csv'])
+    files.extend(p for p in (ROOT/'data/public').rglob('*') if p.is_file())
+    files.extend(p for p in (ROOT/'artifacts/competition2026').rglob('*') if p.is_file() and p.name not in {'server.json','streamlit.log'} and _verified_artifact(p))
+    files.append(RELEASE/'submission_application_2026.pdf')
+    return sorted(set(files),key=lambda p:p.relative_to(ROOT).as_posix())
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+def main():
+    RELEASE.mkdir(exist_ok=True)
+    verification=json.loads((ROOT/'artifacts/competition2026/validation/final_verification.json').read_text(encoding='utf-8'))
+    if not verification.get('passed'):
+        raise RuntimeError('Final verification has not passed')
+    files=selected_files()
+    missing=[p for p in files if not p.is_file()]
+    if missing: raise FileNotFoundError(missing)
+    payload={'schema_version':'gridrescue-competition2026-release-1.0','generated_at':datetime.now(timezone.utc).isoformat(),
+             'project':'GridRescue 碳韧智网','release':'Competition2026','verification':verification,
+             'claim_boundary':{'grid':'public benchmark, not observed feeder','weather':'ERA5 reanalysis','factor':'2023 China annual location-based average','faults_resources_care':'engineering assumptions','same_service_reduction':False,'third_party_assurance':False},
+             'files':[{'path':p.relative_to(ROOT).as_posix(),'bytes':p.stat().st_size,'sha256':sha256(p)} for p in files]}
+    MANIFEST.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf-8')
+    files.append(MANIFEST)
+    with zipfile.ZipFile(ARCHIVE,'w',zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(files,key=lambda p:p.relative_to(ROOT).as_posix()):
+            archive.write(path,path.relative_to(ROOT).as_posix())
+    corrupt=zipfile.ZipFile(ARCHIVE).testzip()
+    digest=sha256(ARCHIVE)
+    (RELEASE/'GridRescue_Competition2026_Submission_SHA256.txt').write_text(f'{digest}  {ARCHIVE.name}\n',encoding='utf-8')
+    print(json.dumps({'archive':str(ARCHIVE),'files':len(files),'bytes':ARCHIVE.stat().st_size,'sha256':digest,'testzip':corrupt},ensure_ascii=False))
+    return int(corrupt is not None)
+
+
+if __name__=='__main__': raise SystemExit(main())

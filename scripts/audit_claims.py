@@ -1,13 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-import sys
-
-from gridrescue.facts import validate_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
 PATTERNS = (
     "kgCO2e",
     "CO₂e",
@@ -23,34 +19,29 @@ PATTERNS = (
 
 
 def main() -> int:
-    # Keep claim audit usable from PowerShell consoles with a legacy code page.
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     files = [
         p
         for p in ROOT.rglob("*")
         if p.is_file()
-        and p.suffix.lower() in {".md", ".yaml", ".csv", ".json"}
+        and p.suffix.lower() in {".md", ".py", ".yaml", ".csv", ".json"}
         and "__pycache__" not in p.parts
         and ".pytest_cache" not in p.parts
         and "research_wave" not in p.parts
         and "scripts" not in p.parts
-        and "tests" not in p.parts
-        and "src" not in p.parts
     ]
-    failures: list[str] = []
-    for path in files:
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        errors = validate_text(text)
-        for error in errors:
-            failures.append(f"{path.relative_to(ROOT)}: {error}")
-    if failures:
-        print("claim_audit=FAIL")
-        for failure in failures:
-            print(failure)
-        return 1
-    print(f"claim_audit=PASS files={len(files)}")
-    return 0
+    failed = False
+    for pattern in PATTERNS:
+        hits = []
+        for path in files:
+            for line_no, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+                if pattern in line:
+                    hits.append(f"{path.relative_to(ROOT)}:{line_no}:{line[:180]}")
+        print(f"--- {pattern} ({len(hits)}) ---")
+        for hit in hits[:20]:
+            print(hit)
+        if pattern in {"kgCO2e", "CO₂e", "28 passed", "11 files"} and hits:
+            failed = True
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

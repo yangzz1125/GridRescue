@@ -1,0 +1,4 @@
+strategy_id,inventory_total_kgCO2,carbon_breakdown_total_kgCO2,difference_kgCO2,reconciled
+traditional,35110.556467352,35110.556467352,0.0,True
+eens,38583.242977338,38583.242977338,0.0,True
+carbon_resilient,38362.59045767,38362.59045767,0.0,True

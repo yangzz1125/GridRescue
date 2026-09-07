@@ -1,0 +1,43 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>GridRescue 2026 申报正文</title><style>
+@page { size:A4; margin:18mm 17mm; } body {font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;line-height:1.65;color:#17212b;max-width:180mm;margin:auto;font-size:10.5pt} h1{font-size:21pt;text-align:center;margin:0 0 12mm} h2{font-size:15pt;border-bottom:1px solid #77858e;padding-bottom:2mm;break-after:avoid} h3{font-size:12pt;break-after:avoid} p{text-align:justify} table{border-collapse:collapse;width:100%;font-size:9pt} th,td{border:1px solid #9eabb2;padding:5px} code{background:#eef2f3;padding:1px 3px} a{color:#145e54;text-decoration:none} ul,ol{padding-left:1.5em} </style></head><body><h1>GridRescue 2026 申报正文</h1>
+<h2>作品名称</h2>
+<p>碳韧智网GridRescue：面向极端天气的服务合同门控、证据承载配电网恢复数字孪生</p>
+<h2>摘要</h2>
+<p>极端天气下，配电网恢复面临生命线保供、物理安全和运行碳排之间的冲突。常见方案把多目标压缩成一个加权分数，容易出现“少供电所以碳排更低”或“优化求解成功但潮流不可行”的结果。GridRescue构建离线预案级数字孪生，将Care生命线服务合同、Physics配电网物理反馈和MRV可复算碳清单串联为三道推荐资格门。只有三门同时通过的候选才进入比较；服务不等价时系统自动撤回严格同服务减排表述。</p>
+<p>系统基于MATPOWER case33bw，模拟暴雨、台风和高温下的多支路故障，联合调度上级电网、光伏、储能和柴油机，执行分岛P/Q潮流、电压、热限、损耗和资源边界反馈。CareTask把ICU、手术、冷链和通信表示为最低功率、时窗、连续性、deadline及电压合同。MRV层输出活动账、因子快照、排放清单、动作hash链、manifest、seal和独立verifier。</p>
+<p>本轮重跑36个合成压力场景。碳韧策略相对最小失供策略有35组合格配对：总EENS均值增加3290.27 kWh，运行CO2清单均值减少2409.39 kgCO2，关键EENS均值减少15.48 kWh。结果明确表明碳降低伴随普通服务让步，不能称严格同服务减排。三个真实公开天气窗口和官方年度电力因子已进入新回放轨道；电网、故障与设备仍保持公开算例及工程假设。武汉高温案例中两个优化策略虽通过一般物理和MRV，却因CareTask失败被阻断，验证了“清单可复核不等于方案可推荐”。</p>
+<h2>一、问题与需求</h2>
+<p>暴雨内涝、台风和极端高温会造成多点故障、抢修受限、光伏波动和峰值负荷。调度人员不仅要尽快恢复电量，还要保证医院等生命线服务不中断、线路和节点运行安全，并解释应急柴油、购电和车辆形成的碳排。</p>
+<p>现有竞赛原型常见三个断点：只用关键负荷权重而没有任务合同；优化后只看功率平衡而缺少潮流反馈；只给碳总数而无法追溯活动和因子。GridRescue的目标不是替代调度员，而是为离线预案、演练和复盘提供可拒绝、可追问、可复算的方案证据。</p>
+<h2>二、核心创新</h2>
+<h3>1. 生命线任务合同</h3>
+<p>将关键负荷进一步建模为CareTask。多个任务共享节点时累加同时功率，避免一份服务量重复计功；完成状态同时受功率、电压、连续时长、deadline和依赖约束。任务不合格的候选即使总关键负荷恢复率很高，也不能推荐。</p>
+<h3>2. 调度与P/Q潮流反馈闭环</h3>
+<p>资源调度按电气孤岛平衡；无成网资源的孤岛保持失供。候选再通过径向前推回代检查电压、视在功率、热限和损耗，并将违规分量服务上限反馈到调度迭代。失败点保留原因，而非用虚拟电源掩盖。</p>
+<h3>3. 主张门控的碳—韧性比较</h3>
+<p>系统先按医院、其他关键和普通负荷建立服务锚点，再在显式普通服务预算内比较碳清单。若候选服务差于参考，<code>same_service_pass=false</code>，只能报告受控服务预算下的清单差异。该机制直接防止把少供电包装成减排。</p>
+<h3>4. 证据承载MRV</h3>
+<p>每次运行冻结输入、配置、因子、调度、拓扑和动作。Verifier检查文件和记录hash、跨表外键、能量/排放方程、动作链以及主张门一致性。公开数据原始字节与SHA进入证据包，使图表和结论可以反向复算。</p>
+<h2>三、技术路线</h2>
+<p>系统包括数据层、计划层、优化层、物理层、证据层和展示层。33节点网络承载逐节点负荷和资源；恢复层确定修复顺序和联络线；CVXPY/CLARABEL求解节点化调度与服务合同；NetworkX检查径向性与孤岛；前推回代潮流生成节点电压和支路负载；Pandas构建活动、清单和统计；Streamlit/Plotly提供工作台。</p>
+<p>公开数据轨道使用三段ERA5历史天气和国家能源部门公布的2023全国电力平均因子0.5306 kgCO2/kWh。温度和短波辐射通过公开的工程转换函数形成负荷与光伏曲线。故障位置、修复时长和资源仍为合成假设，因此定位为“真实公开天气与官方统计驱动的公开算例仿真”，不是现场数字孪生。</p>
+<h2>四、实验结果</h2>
+<p>36场景×三策略共108条记录，求解均成功；碳韧策略有一条未满足反馈收敛资格。35组合格配对中，碳韧策略的运行清单下降区间为[-2556.35,-2261.18] kgCO2，同时总EENS增加区间为[3121.69,3447.58] kWh。最小失供策略在均值—CVaR95风险排序中被推荐；碳韧策略因2.78%失败率超过0%失败预算而被排除。</p>
+<p>严格Pareto扫描中，暴雨和高温各4点合格，台风4点均失败。去CareTask消融没有得到更高任务通过率，说明当前两个可行案例中合同非绑定；该结果被保留，不制造不存在的创新增益。</p>
+<p>公开天气回放的三份MRV包均通过内部复核。武汉降雨和厦门大风案例中，碳韧策略较最小失供分别增加400.80和440.06 kWh EENS，减少220.65和320.30 kgCO2清单。武汉高温案例中两个优化策略CareTask失败，因此不推荐。</p>
+<h2>五、应用价值</h2>
+<p>首个应用是医院、园区、数据中心或单馈线的离线应急预案。规划人员导入经授权的拓扑、负荷、DER、任务、天气和排放因子，系统生成候选、拒绝理由、风险排序及证据包。价值不依赖“节碳承诺”，而是减少不可执行方案进入评审，明确服务代价，并降低方案复核成本。</p>
+<p>建议12周概念验证：第1—3周完成数据治理；第4—6周回放历史工单；第7—9周与人工预案盲测；第10—12周完成安全评估和验收。核心指标包括任务满足率、潮流通过率、EENS、恢复时间、清单对账误差、失败定位时间和人工采纳率。</p>
+<h2>六、成熟度与边界</h2>
+<p>当前为可运行的软件原型，不是实时控制产品。没有接入实际SCADA/OMS、真实馈线、保护定值或临床负荷；不主张全局最优、灾害概率预测、真实减排或第三方核证。生产化前需通过真实数据校准、保护和动态安全分析、权限审计、现场试验及第三方碳核算评审。</p>
+<h2>七、结论</h2>
+<p>GridRescue的贡献不是让碳数字更低，而是规定这个数字必须在什么服务、物理和证据条件下才有资格被采用。项目以失败可见、主张可降级、结果可复算为核心，为极端天气下新型配电系统的低碳韧性决策提供可验证的软件路径。</p>
+<h2>参考资料</h2>
+<ol>
+<li>Baran, M. E., Wu, F. F. Network reconfiguration in distribution systems for loss reduction and load balancing. IEEE Transactions on Power Delivery, DOI:10.1109/61.25627.</li>
+<li>MATPOWER case33bw, <a href="https://github.com/MATPOWER/matpower/blob/master/data/case33bw.m">https://github.com/MATPOWER/matpower/blob/master/data/case33bw.m</a>.</li>
+<li>国家能源局，数据显示：我国发电能源结构持续优化，<a href="https://www.nea.gov.cn/20260116/b3867495909b4bf28f01c642d10e6345/c.html">https://www.nea.gov.cn/20260116/b3867495909b4bf28f01c642d10e6345/c.html</a>。</li>
+<li>Copernicus Climate Change Service, ERA5 hourly data on single levels.</li>
+<li>Open-Meteo Historical Weather API.</li>
+<li>NOAA Global Surface Summary of the Day.</li>
+</ol></body></html>

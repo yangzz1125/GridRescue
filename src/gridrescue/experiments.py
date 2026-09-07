@@ -11,6 +11,7 @@ from typing import Any, Mapping
 import numpy as np
 import pandas as pd
 
+from .care import default_care_tasks, evaluate_care_tasks
 from .network import build_ieee33
 from .pipeline import run_scenario
 from .restoration import STRATEGIES, StrategyResult, simulate_strategy
@@ -66,6 +67,11 @@ def scenario_from_dict(payload: Mapping[str, Any]) -> DisasterScenario:
         raise ValueError(f"scenario definition missing fields: {sorted(missing)}")
     return DisasterScenario(
         name=str(payload["name"]),
+        disaster_type=str(payload.get("disaster_type", "")),
+        load_profile=tuple(float(x) for x in payload.get("load_profile", ())),
+        pv_profile=tuple(float(x) for x in payload.get("pv_profile", ())),
+        grid_factor=payload.get("grid_factor"),
+        provenance_json=str(payload.get("provenance_json", "")),
         description=str(payload["description"]),
         failed_branch_ids=tuple(int(branch) for branch in payload["failed_branch_ids"]),
         repair_hours=tuple(int(hours) for hours in payload["repair_hours"]),
@@ -186,7 +192,13 @@ def run_single_scenario(
         for row in rows:
             try:
                 strategy = str(row["strategy"])
-                completed.append(_complete_row(row, pipeline.strategies[strategy], pipeline.validations[strategy]))
+                completed_row = _complete_row(row, pipeline.strategies[strategy], pipeline.validations[strategy])
+                completed_row["feedback_converged"] = bool(pipeline.feedbacks[strategy].converged)
+                completed_row["physical_pass"] = bool(pipeline.validations[strategy].hourly["is_feasible"].all())
+                care = evaluate_care_tasks(default_care_tasks(), pipeline.strategies[strategy], pipeline.validations[strategy])
+                completed_row["care_pass"] = bool(care["task_complete"].all())
+                completed_row["recommendation_eligible"] = bool(completed_row["feedback_converged"] and completed_row["physical_pass"] and completed_row["care_pass"])
+                completed.append(completed_row)
             except Exception as error:
                 completed.append(_failed_row(row, error, "physical_result_extraction"))
         return pd.DataFrame(completed)

@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "scenario": {
+    "name": "台风",
+    "description": "架空线路风偏、倒杆造成分散故障，抢修通行距离增加。",
+    "failed_branch_ids": [
+      2,
+      18,
+      24,
+      30
+    ],
+    "repair_hours": [
+      5,
+      9,
+      8,
+      11
+    ],
+    "pv_derating": 0.22,
+    "grid_carbon_multiplier": 1.12,
+    "crew_distance_km": 72.0,
+    "ambient_temperature_c": 27.0,
+    "disaster_type": ""
+  },
+  "network_source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D",
+  "care_definition_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "spec": {
+    "strategies": [
+      "最小失供恢复"
+    ],
+    "normal_allowance_fractions": [
+      0,
+      0.04,
+      0.05,
+      0.06
+    ],
+    "max_feedback_iterations": 8,
+    "feedback_tolerance_kw": 0.1,
+    "contract_tolerance_kwh": 0.001,
+    "care_tasks": [],
+    "output_dir": "artifacts\\competition2026\\ablation_audited\\typhoon"
+  },
+  "counts": {
+    "anchors": 3,
+    "points": 4,
+    "frontier": 0,
+    "failures": 4,
+    "care_evaluations": 0
+  },
+  "data_boundary": "CareTask values are E-class synthetic scenario templates, not real hospital measurements or clinical standards."
+}

@@ -1,0 +1,35 @@
+{
+  "summaries": [
+    {
+      "strategy_id": "carbon_resilient",
+      "draws": 500,
+      "baseline_kgco2": 48546.675598364,
+      "mean_kgco2": 48545.19277967102,
+      "q05_kgco2": 39829.54894661463,
+      "q95_kgco2": 57258.803022732565,
+      "winner_count": 500.0,
+      "winner_rate": 1.0
+    },
+    {
+      "strategy_id": "eens",
+      "draws": 500,
+      "baseline_kgco2": 51468.66471332851,
+      "mean_kgco2": 51467.09263844301,
+      "q05_kgco2": 42226.76083107106,
+      "q95_kgco2": 60705.24802477842,
+      "winner_count": 0.0,
+      "winner_rate": 0.0
+    },
+    {
+      "strategy_id": "traditional",
+      "draws": 500,
+      "baseline_kgco2": 50498.711256839706,
+      "mean_kgco2": 50497.2003537913,
+      "q05_kgco2": 41597.589708529194,
+      "q95_kgco2": 59426.07370137229,
+      "winner_count": 0.0,
+      "winner_rate": 0.0
+    }
+  ],
+  "boundary": "fixed activity; factor ranges are engineering assumptions"
+}

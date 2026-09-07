@@ -1,0 +1,58 @@
+{
+  "metric": "eens_kwh",
+  "failure_budget": 0,
+  "chosen_strategy": {
+    "strategy": "最小失供恢复",
+    "metric": "eens_kwh",
+    "total": 36,
+    "successes": 36,
+    "failures": 0,
+    "failure_rate": 0.0,
+    "mean": 8846.162756944446,
+    "p95": 26745.4013275,
+    "cvar95": 28185.481255555558,
+    "risk_score": 18515.822006250004,
+    "eligible": true
+  },
+  "summaries": [
+    {
+      "strategy": "传统顺序恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 36,
+      "failures": 0,
+      "failure_rate": 0.0,
+      "mean": 12566.901703055557,
+      "p95": 27713.4454175,
+      "cvar95": 29373.07701333333,
+      "risk_score": 20969.98935819444,
+      "eligible": true
+    },
+    {
+      "strategy": "最小失供恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 36,
+      "failures": 0,
+      "failure_rate": 0.0,
+      "mean": 8846.162756944446,
+      "p95": 26745.4013275,
+      "cvar95": 28185.481255555558,
+      "risk_score": 18515.822006250004,
+      "eligible": true
+    },
+    {
+      "strategy": "碳韧协同恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 35,
+      "failures": 1,
+      "failure_rate": 0.027777777777777776,
+      "mean": 12377.429249142859,
+      "p95": 30201.185279999998,
+      "cvar95": 31573.995108571427,
+      "risk_score": 21975.712178857146,
+      "eligible": false
+    }
+  ]
+}

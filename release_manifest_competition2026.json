@@ -1,0 +1,2796 @@
+{
+  "schema_version": "gridrescue-competition2026-release-1.0",
+  "generated_at": "2026-09-06T06:07:41.799109+00:00",
+  "project": "GridRescue 碳韧智网",
+  "release": "Competition2026",
+  "verification": {
+    "schema_version": "gridrescue-final-verification-1.0",
+    "created_at": "2026-09-06T06:03:25.890877+00:00",
+    "python": "3.11.6",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "checks": {
+      "pytest": {
+        "pass": true,
+        "count": 74,
+        "command": "python -m pytest -q"
+      },
+      "streamlit_health": {
+        "pass": true,
+        "command": "python scripts/smoke_demo.py"
+      },
+      "mrv": {
+        "pass": true,
+        "bundles": [
+          {
+            "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5",
+            "verified": true,
+            "checked_files": 17,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f",
+            "verified": true,
+            "checked_files": 20,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5",
+            "verified": true,
+            "checked_files": 20,
+            "errors": []
+          },
+          {
+            "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a",
+            "verified": true,
+            "checked_files": 20,
+            "errors": []
+          }
+        ],
+        "excluded_intermediate_bundles": [
+          {
+            "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-7b7d78ef3ecd226f",
+            "verified": false,
+            "checked_files": 20,
+            "errors": [
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023",
+              "factor snapshot: record_hash mismatch at china-electricity-2023"
+            ]
+          }
+        ]
+      },
+      "public_sources": {
+        "pass": true,
+        "files": [
+          {
+            "id": "wuhan_heat",
+            "pass": true
+          },
+          {
+            "id": "wuhan_rain",
+            "pass": true
+          },
+          {
+            "id": "xiamen_wind",
+            "pass": true
+          },
+          {
+            "id": "china-electricity-2023",
+            "pass": true
+          },
+          {
+            "id": "noaa-tianhe-2022",
+            "pass": true
+          }
+        ]
+      },
+      "deliverables": {
+        "pass": true,
+        "required": [
+          "docs/submission_application_2026.md",
+          "docs/submission_application_2026.html",
+          "release/submission_application_2026.pdf",
+          "docs/technical_report_2026.md",
+          "docs/competition2026_experiments.md",
+          "docs/data_sources_2026.md",
+          "docs/innovation_evidence_2026.md",
+          "docs/presentation_materials_2026.md",
+          "artifacts/competition2026/figures/figure_source_index.csv",
+          "artifacts/competition2026/validation/desktop.png",
+          "artifacts/competition2026/validation/mobile.png"
+        ]
+      },
+      "anonymous_paths": {
+        "pass": true,
+        "matches": []
+      }
+    },
+    "passed": true
+  },
+  "claim_boundary": {
+    "grid": "public benchmark, not observed feeder",
+    "weather": "ERA5 reanalysis",
+    "factor": "2023 China annual location-based average",
+    "faults_resources_care": "engineering assumptions",
+    "same_service_reduction": false,
+    "third_party_assurance": false
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 9232,
+      "sha256": "2bdf1876e95e8194cc676f837e4a55bbfa9c04656e5bd293116e2dcd3c95b9dc"
+    },
+    {
+      "path": "app.py",
+      "bytes": 40824,
+      "sha256": "c1d3953a89cf7a6dcfd875a4ddf56e8840490e6ef2007af789ad5dd8d9f26e10"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_anchors.csv",
+      "bytes": 802,
+      "sha256": "9b9fca8c3535bc05aeb43bb9017afed49ea00ccb9341e4583649c969e40f369e"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_care_task_evaluations.csv",
+      "bytes": 4954,
+      "sha256": "df426d9ec73aa77899da496283b5a613f8ddf607fd0d9b85f454340119208c1b"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_failures.csv",
+      "bytes": 866,
+      "sha256": "ac998543210fd77fbe6438530f9b2b7ab11ed5e03bbf1c03038546dd83cde59a"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_frontier.csv",
+      "bytes": 2750,
+      "sha256": "5c53ef3ea1c85b14928e7c5044dfcbaba996f8c49d99dd65c350f4b18c6662d2"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_manifest.json",
+      "bytes": 1288,
+      "sha256": "9c7e4b73aa0c9b1c865ecf719dcd07ab4ad011014efbe67fd755c6d02f8a52a3"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/flood/pareto_points.csv",
+      "bytes": 2750,
+      "sha256": "5c53ef3ea1c85b14928e7c5044dfcbaba996f8c49d99dd65c350f4b18c6662d2"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_anchors.csv",
+      "bytes": 817,
+      "sha256": "740d11c090cdf8c02594fa97668118e98e41567af6d8319f1396fe38c8eb7f9a"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_care_task_evaluations.csv",
+      "bytes": 4971,
+      "sha256": "3276afb9310a8b5379dbf74c56b5d9d92d8a4fbd74dde132a9038c8cb3802761"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_failures.csv",
+      "bytes": 866,
+      "sha256": "ac998543210fd77fbe6438530f9b2b7ab11ed5e03bbf1c03038546dd83cde59a"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_frontier.csv",
+      "bytes": 2889,
+      "sha256": "8c4cc5cf95b811575bab6d272b334b368528c32af901fa1ae8d818f4bfb0c493"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_manifest.json",
+      "bytes": 1265,
+      "sha256": "ff17a8ed6a757303f46ef12beda9ea8f2e2ceee8f9cb4ffee8d40a7496ee8542"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/heat/pareto_points.csv",
+      "bytes": 2889,
+      "sha256": "8c4cc5cf95b811575bab6d272b334b368528c32af901fa1ae8d818f4bfb0c493"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_anchors.csv",
+      "bytes": 723,
+      "sha256": "e911e8bf08a249e7b0fca3229ae71db44a91fb4a0661c57f92d6a0c9ff2b4645"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_care_task_evaluations.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_failures.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_frontier.csv",
+      "bytes": 154,
+      "sha256": "43dbdb122fb827d37cefbd17c0e29e16d26d9d3f012eba20bdfdf81624f0af09"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_manifest.json",
+      "bytes": 1304,
+      "sha256": "e2a948224df92753ab5a02b6d9dd9416ec7f6438957ce5e9615de3e902898676"
+    },
+    {
+      "path": "artifacts/competition2026/ablation_audited/typhoon/pareto_points.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/branches_carbon_resilient.csv",
+      "bytes": 56332,
+      "sha256": "b0ef572ead71963fa9ee01ce536e563486c592f60a58743995c3584f53433b49"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/branches_eens.csv",
+      "bytes": 56412,
+      "sha256": "6cee43881ce48b976a0bb0a47eacc055685ab2cfdd5d941cebbb07a18e35cdd8"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/branches_traditional.csv",
+      "bytes": 49257,
+      "sha256": "9347bda487da460c0d3c612625e63e3ddf4b17f26ebf76d4aaae475741e40ceb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/cache_manifest.json",
+      "bytes": 176,
+      "sha256": "8434630805b20e1ff5120940e11bfa52c4ed05916f37acf67b0cd9f1c7724e4c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/care_carbon_resilient.csv",
+      "bytes": 1478,
+      "sha256": "3c88687aef418587582975679e80ad3a09ee160cc124c97307cfef6834f465e4"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/care_eens.csv",
+      "bytes": 1478,
+      "sha256": "c9634a822e66efc10a8fc2df84334336f0f511b980d142d1bc4cfab10cfe04ff"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/care_traditional.csv",
+      "bytes": 1472,
+      "sha256": "4ef4f6e411fe28005fd8887298a892ec55b0ef78decd2852575af6102ca895a7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/dispatch_carbon_resilient.csv",
+      "bytes": 4085,
+      "sha256": "e452e3d681059ee57ae1f2553d14149de1ae0bb57b2abcc506d6d3801febfd6d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/dispatch_eens.csv",
+      "bytes": 3855,
+      "sha256": "4f8cd09e390bf63a9e4a0f216158de44cea123e70f03ddde69d85e2f51ddaef2"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/dispatch_traditional.csv",
+      "bytes": 4270,
+      "sha256": "f70f7de27a69eb5a6719a7da4bfdcd46f5ca1731acb70fd735b74d9acdf48938"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/factor_draws.csv",
+      "bytes": 51481,
+      "sha256": "550c0ab6bd969cfc87b8d6d685e4f32715495888a02dd839773b8b96199d45fb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "836e3679a915431a7f851c465ab5aaf4ae85d626f2ada2f08c40c689c9a3b6ca"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "0f23a271ac4a13b34c489185f3983b801eae0df64bfe7d45c17cdc387e6521e7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "f6ef4e4512b839baf68bec424e0f7abab548745c7fbb9b45cd99223fd880b1fe"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/inputs/factor_snapshot.csv",
+      "bytes": 20831,
+      "sha256": "3a95355dd6e6c372c3865bd444f7b591c370fbd69b31ea662476d9cf19ef4d35"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/inputs/scenario.json",
+      "bytes": 381,
+      "sha256": "44b9e32594895730a65ce3d62e65f1a12182dd6abdd7b790e85fc828f0dbd92d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/actions.csv",
+      "bytes": 9711,
+      "sha256": "244fe9c8201b4e85e13d74cbc5d5107fda4569a14c23169739215d6b12d28aef"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/activity_energy_hourly.csv",
+      "bytes": 129574,
+      "sha256": "20df7d1f6d4756d2bed54c6f37ca9f253f87597407c6b538896c78d25ab3a92d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/carbon_reconciliation.csv",
+      "bytes": 258,
+      "sha256": "da193b1c7fdcde72a579a564d6a604b116fdef43f1eb1163c1c1321fa91f80ae"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/claim_gates.json",
+      "bytes": 1602,
+      "sha256": "4a2bc0f73f56e25d100fc6d8d89d333d196c13d60680bcc3e5993b0000ce9db0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4085,
+      "sha256": "e452e3d681059ee57ae1f2553d14149de1ae0bb57b2abcc506d6d3801febfd6d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/dispatch_eens.csv",
+      "bytes": 3855,
+      "sha256": "4f8cd09e390bf63a9e4a0f216158de44cea123e70f03ddde69d85e2f51ddaef2"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/dispatch_traditional.csv",
+      "bytes": 4270,
+      "sha256": "f70f7de27a69eb5a6719a7da4bfdcd46f5ca1731acb70fd735b74d9acdf48938"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/emission_inventory_hourly.csv",
+      "bytes": 59997,
+      "sha256": "2729e98bd8e5e561ffd1469317a4653dc0b9fdf83ad100e0a5bacaae3ad998cf"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1621,
+      "sha256": "a21d9d18ed98136744835d972defc7fdae65d24b160b279162237aca9817c22a"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/topology_state_eens.csv",
+      "bytes": 1333,
+      "sha256": "831adb99c9c625547d6b6d94d1bf9a881b34b5feef82a928ac7aa11c1a9a0100"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/outputs/topology_state_traditional.csv",
+      "bytes": 1389,
+      "sha256": "996f9a14bb47b65e011718b05385933002d3f14012161a44c767c8263175ec9e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/mrv/run-b95cdd3288ec9002/run_manifest.json",
+      "bytes": 3971,
+      "sha256": "0f9d9499aa6b353eb88c9f7249cd0e169e8f10cf39d00ae70461ff0aff55c071"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/nodes_carbon_resilient.csv",
+      "bytes": 173442,
+      "sha256": "a4719e13baf5e43c79879f003fc21ef8f556447c1dd82e954e25adc679571098"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/nodes_eens.csv",
+      "bytes": 172014,
+      "sha256": "35feaaf12c66207f5e559533fd59d1ef16c91c170ccc3466babaf5c5c151da70"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/nodes_traditional.csv",
+      "bytes": 136234,
+      "sha256": "771593848d596bfa98c132ae8cdbad689a7cfa8cdad7ddcba0a9ca7b61664373"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/physics_carbon_resilient.csv",
+      "bytes": 2578,
+      "sha256": "6637177a9cd847a7335d6be4d8e04169d5a3d56acd0e59e0b45137727e46eb10"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/physics_eens.csv",
+      "bytes": 2561,
+      "sha256": "3527a2854073cdd45cebb6040dd761a561321a8a53b0b704675e748e564a39f7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/physics_traditional.csv",
+      "bytes": 2693,
+      "sha256": "9f14f9d8d007f7aa87f119a16ee6e0cc9640f01caf47ad0d1fc1a0e3a027b525"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/pipeline.pkl",
+      "bytes": 882468,
+      "sha256": "5ca754c897b870a48d53ab7b10808e0a8bb0398e34df1efb4d8f7922fd599222"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/sensitivity_report.json",
+      "bytes": 978,
+      "sha256": "58770f3a51fc910a68ee547ff64a881ba82099fe2927006e56196df4a5161018"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/strategy_comparison.csv",
+      "bytes": 467,
+      "sha256": "0a7ba7cd1ae716c9cfaad88a017b2d5c22406d021d3796ce4e810ec1b01679da"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/voltages_carbon_resilient.csv",
+      "bytes": 44612,
+      "sha256": "3545db7e7d39f710c7098a9316636a61d91f7810f7ec001f6eeae2651b6eb13c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/voltages_eens.csv",
+      "bytes": 43762,
+      "sha256": "39f2b525418cb1617e8cf4391dc8110b118878c1d59f87d9737ec8147c50312c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/flood/voltages_traditional.csv",
+      "bytes": 42142,
+      "sha256": "3a9df3c39b4b587a609627bd6a26e33df140c80120930cf1289dee314807ff2d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/branches_carbon_resilient.csv",
+      "bytes": 57059,
+      "sha256": "71fe67a1b4fa64352f4436881dfc6a60ec591a8a649b03566ed89c679d6de998"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/branches_eens.csv",
+      "bytes": 57101,
+      "sha256": "57dbbb23c844827f3fd3df20047439d64d1ba3c92764a5066e53115e92490948"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/branches_traditional.csv",
+      "bytes": 55919,
+      "sha256": "10aea22a071ddfb0cfbee406ece2a6e30c747396543659baafbd9173ee934870"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/cache_manifest.json",
+      "bytes": 176,
+      "sha256": "eea56791c2a922268621f591c5467dac7e2c637de9c8c1f298435c8d49dadd28"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/care_carbon_resilient.csv",
+      "bytes": 1478,
+      "sha256": "3bafb1f47dc2a6c545b1297a96ea1e8cea7e44be7a5c911b38eb18c11c32d74f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/care_eens.csv",
+      "bytes": 1476,
+      "sha256": "ce6b8d66892e76471d6ac7568a018573149dc7a5021127158214513ca999ec2d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/care_traditional.csv",
+      "bytes": 1478,
+      "sha256": "2afd0e4686b83d4cc99cae490afb9722a6eab998eded056618d86f99222c6aaf"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/dispatch_carbon_resilient.csv",
+      "bytes": 4094,
+      "sha256": "901d286f7546dc5b3887307ba111071f8cdf04cb99fa57669a329cff7a4108fb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/dispatch_eens.csv",
+      "bytes": 4006,
+      "sha256": "9a2adedf3fdaca6671f896f321f618874e62b92af1231943e21800871262d844"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/dispatch_traditional.csv",
+      "bytes": 4111,
+      "sha256": "c40b38ed8f57c3f903f17f6a759278126026a0864181d099d176930de961d2f0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/factor_draws.csv",
+      "bytes": 51497,
+      "sha256": "a5d55c433580c448aa75166de6147a47cc6048e7ef3698284cbd8f626f80dc3d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "43ac48d7418389bf8d2dfc24aee0aa33f5612030c0a97f0eb0831facd05d88f2"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "1b4dbd5b6641c18520d07355820e2b3ccd052100dbc0ea4068b1ad90936541b0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "7a92868e225d16b8a34901cbf5456a617daed5cd8d5313c9e320db4974aafa2a"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/inputs/factor_snapshot.csv",
+      "bytes": 20831,
+      "sha256": "99bce51f0adcd6564dab18955602da883b5a15a68ec9356e0bf27f0869e9c138"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/inputs/scenario.json",
+      "bytes": 363,
+      "sha256": "3df8f8b4fa23029740543fce19c4e3f7c18eece4b4a6fc712794796ee46a81f8"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/actions.csv",
+      "bytes": 6517,
+      "sha256": "1e35835132b091c07d287882f2830347953ba5fe07b62f8e106bd31c12e3327b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/activity_energy_hourly.csv",
+      "bytes": 129696,
+      "sha256": "314a3d6240b0cc43ab7e8a879f8dd838fade1b5b29b563c1b1e4678029f23903"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/carbon_reconciliation.csv",
+      "bytes": 256,
+      "sha256": "86750d6de1a3e6b36e0c44e04393f80972c47a9580290ffc53ffa1d15b16c800"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/claim_gates.json",
+      "bytes": 1601,
+      "sha256": "7754e06a8e6a5cd9a8dd836e8b2823aff765fc8b7219bd68f9c3483110e4a624"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4094,
+      "sha256": "901d286f7546dc5b3887307ba111071f8cdf04cb99fa57669a329cff7a4108fb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/dispatch_eens.csv",
+      "bytes": 4006,
+      "sha256": "9a2adedf3fdaca6671f896f321f618874e62b92af1231943e21800871262d844"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/dispatch_traditional.csv",
+      "bytes": 4111,
+      "sha256": "c40b38ed8f57c3f903f17f6a759278126026a0864181d099d176930de961d2f0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/emission_inventory_hourly.csv",
+      "bytes": 60470,
+      "sha256": "45a93c7477481f3f1df9eb37c0e225b97dbb3235e07b8701fc9d9b79c19be7b9"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1444,
+      "sha256": "8d93717c971ebcf600c54966b5b39aab7585c1d16c0a512a04b2b506e82ee210"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/topology_state_eens.csv",
+      "bytes": 1156,
+      "sha256": "158b1773f125ae6a3cea183f955f818631cd84886cefd3fe95f1c470c84c1fab"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/outputs/topology_state_traditional.csv",
+      "bytes": 1282,
+      "sha256": "cfb5a2b072c018cec41296a99f8f3fe253efcd865c412acbc907c7a1c31c7314"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/mrv/run-bf5bf06931561330/run_manifest.json",
+      "bytes": 3970,
+      "sha256": "888fa1f16e76dbca01e9fc1f3a8b4b5630e0c4614824bd6aee8737cb00dfa536"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/nodes_carbon_resilient.csv",
+      "bytes": 173706,
+      "sha256": "7fd846490998ae4f28bb856b7d0f9823166886af24c8058a5e91d4ec7fd16fe4"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/nodes_eens.csv",
+      "bytes": 171759,
+      "sha256": "fe88705a3222b636eed00b2544aff9d6ebee61bc6569c6645994f3021c7f931e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/nodes_traditional.csv",
+      "bytes": 165420,
+      "sha256": "49ddde9e25e96b976c9f8b836482227614f54a812a28989e112595947c17cb08"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/physics_carbon_resilient.csv",
+      "bytes": 2691,
+      "sha256": "7438e0366dfe505e023891ea1dde5aee8494629a8048347a9bbf9cc8deb01ee5"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/physics_eens.csv",
+      "bytes": 2654,
+      "sha256": "1c9eda1bd0a0afbb304187bc04ae9c61e50db6f21b09f90f2b17d3a2027d7d6e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/physics_traditional.csv",
+      "bytes": 2699,
+      "sha256": "3ee28c5d1adf509e9b0693a57ef5e9d0d8c62239a1613e440d4015255c3fb369"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/pipeline.pkl",
+      "bytes": 884084,
+      "sha256": "4fd81130358e20a755a1e9fffb9d1467a7d687d6dbf88bece8a1378027438ceb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/sensitivity_report.json",
+      "bytes": 969,
+      "sha256": "4388d41052a85a1e6391798b1fa8b243504e9afebfa1c0ac0ee660bbafb92173"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/strategy_comparison.csv",
+      "bytes": 464,
+      "sha256": "bb4722f01ee0b20f2d47c6ab848b85cdb4e7b76b9df1ee131f0846faf6749533"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/voltages_carbon_resilient.csv",
+      "bytes": 44638,
+      "sha256": "a46bbf5e47ad778ad192bc97c5d0a90b58a25d2d377256d392425a0c33ee3c96"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/voltages_eens.csv",
+      "bytes": 43577,
+      "sha256": "88c02d17cccd484e5c71b6e31d6150896231ca67f2b9bb8719af6ad7b5b84f66"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/heat/voltages_traditional.csv",
+      "bytes": 43251,
+      "sha256": "a3875536f34ab965d5f5a6ca0e1d1375c87ab1856dbb447a6d63fa7ef73f8bd0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/branches_carbon_resilient.csv",
+      "bytes": 43224,
+      "sha256": "7956912b3525c2605e6b0caeda78adae09474941d16cc49827b3d0f572d5f188"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/branches_eens.csv",
+      "bytes": 43328,
+      "sha256": "da24aa5e9087cc1861a095b18a4338ea6e9ad52138c5fa525c615f76e6bb0f76"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/branches_traditional.csv",
+      "bytes": 44969,
+      "sha256": "2c20ef9384079fdd8a8e0987c8f54ffdd9a930c8e7d1a5b094d8859a5cfebc1c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/cache_manifest.json",
+      "bytes": 176,
+      "sha256": "afe6d8557264d45dd5aea3452e895631e1db07ac4a6acca6159a7890fddf8e24"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/care_carbon_resilient.csv",
+      "bytes": 1477,
+      "sha256": "0a474db6c805139797d4d5b2198295b3d989d1b9b70e002c4a042c1e040e4a41"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/care_eens.csv",
+      "bytes": 1474,
+      "sha256": "a3e852f11ce6641672ddb97ea83bfcf8e821221027c82fc7be74b15cf6f5d7b6"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/care_traditional.csv",
+      "bytes": 1477,
+      "sha256": "cd4a459cc06c8ff4b025714edae59becfe36027da8e3f08c96546a1309e29135"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/dispatch_carbon_resilient.csv",
+      "bytes": 4042,
+      "sha256": "f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/dispatch_eens.csv",
+      "bytes": 4241,
+      "sha256": "14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/dispatch_traditional.csv",
+      "bytes": 4225,
+      "sha256": "d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/factor_draws.csv",
+      "bytes": 51882,
+      "sha256": "9bc8897a365e072ef72ee972f19038658743d2d4ae654af29b83240dbd1876ae"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "b71201e9a4ff88807b558b158cb1b4d2b7b5075f63ba7a3e20f07ef11c1cf9fe"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "38623b8c1654e86d34886bbd1e72c8ce09630c94d21dfffa3939825a805096ee"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "a0df4848a432a41357a58cb33e201d6b2a261c95849cf80d29939fbda49f01ab"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/inputs/factor_snapshot.csv",
+      "bytes": 20829,
+      "sha256": "e0be1ec68a42afa2600ffce2b4b0b3a2a28c7fd4907bcfc70acc45fa39416800"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/inputs/scenario.json",
+      "bytes": 392,
+      "sha256": "8bdc368584eb99642e00bf75c585f09a09dc6817a1d4e65ea890d37e3e8a9de7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/actions.csv",
+      "bytes": 4339,
+      "sha256": "4e7d1146d67d762d48fad3c2f18bec0dddf217b9b244d2b1830e136cb5ce4237"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/activity_energy_hourly.csv",
+      "bytes": 130450,
+      "sha256": "841f0dbe58b3529b103d93e690dcad44b3bc15a5aa7916b08833921f67ac5d80"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/carbon_reconciliation.csv",
+      "bytes": 320,
+      "sha256": "1744fb239a7131fa3a4dd5e4912993ea8e329402d5a2d7545bd95b4518a213ce"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/claim_gates.json",
+      "bytes": 1605,
+      "sha256": "400e71edfeafd911aa736c6aaab66f5e1cd310e8ebe99eca4351f2585c43f3ff"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4042,
+      "sha256": "f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/dispatch_eens.csv",
+      "bytes": 4241,
+      "sha256": "14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/dispatch_traditional.csv",
+      "bytes": 4225,
+      "sha256": "d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/emission_inventory_hourly.csv",
+      "bytes": 59858,
+      "sha256": "23f7273946585fa14dbca9b76ecdb22e495e271bb52849628bbd690c19f00e80"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1566,
+      "sha256": "37e31a0fb9356b622720b95e45b95c006953ca2376cb0243e0d61ec2f53b138e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/topology_state_eens.csv",
+      "bytes": 1278,
+      "sha256": "bb6b5a28b9c2062ddd307026b8edb8926b83c13f626e646db8d246ab4370a644"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/outputs/topology_state_traditional.csv",
+      "bytes": 1449,
+      "sha256": "d10a90bbd88e8cc08984825559ae427eb2fde6f42cea0b154c1796bba6331b8b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/mrv/run-5e33eb2d166e4fd3/run_manifest.json",
+      "bytes": 3968,
+      "sha256": "4c26996b8fcf84dc70f7eb664351c574429a9658adaaed0d5f7b00c167b6480d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/nodes_carbon_resilient.csv",
+      "bytes": 141319,
+      "sha256": "189a69ee868038fafe814b8d9eab25a75b1ce0de97208eeec1d3095718bacfca"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/nodes_eens.csv",
+      "bytes": 140985,
+      "sha256": "6e42e3882cf5e505d6bae5cc5d1eddd252e8d703d960e4c43bee360c42cb5d04"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/nodes_traditional.csv",
+      "bytes": 144440,
+      "sha256": "0f002236a1a824e9c63ce8f7c5b9257a0968045a0d53877d91ca9be0f9e00347"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/physics_carbon_resilient.csv",
+      "bytes": 2554,
+      "sha256": "9dbce867fe7fdd4ed0e9b94cdbb0e172a424d5cf3b55152aa6ba92f68e7dcddc"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/physics_eens.csv",
+      "bytes": 2666,
+      "sha256": "e933969c8c5ba7a661454fd1ff3090bf156597fba93d5b3659dc5dbc8d0a7f7a"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/physics_traditional.csv",
+      "bytes": 2700,
+      "sha256": "6b293c8458944d3b1ee55b0f47ec90d3ece0b73f1da1dc6f60d757625392e539"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/pipeline.pkl",
+      "bytes": 864576,
+      "sha256": "daf902c8d4add2e89f075ba46d43d93be2ea5e4c6be870c7063fb768d2b49da9"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/sensitivity_report.json",
+      "bytes": 976,
+      "sha256": "d870223a8f63dadb8d24a131af8ec6ebe154c42f96850f6c37701faf0c818ad3"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/strategy_comparison.csv",
+      "bytes": 507,
+      "sha256": "9ec0f85d981e3c433d38e760b6c65a08280ee42a6cf33ffb8f82a492118df1ce"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/voltages_carbon_resilient.csv",
+      "bytes": 39407,
+      "sha256": "d16bc425c826329c51f2eb8cc53344d0a4b44f3fdec637110cf4a31391c499d2"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/voltages_eens.csv",
+      "bytes": 39134,
+      "sha256": "758bc5087900cb1d0bdf1e960b9652d9b3f343ec6746dbe93e9aba5145fcb16c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline/typhoon/voltages_traditional.csv",
+      "bytes": 39534,
+      "sha256": "b13225a760a8a3aaedf446cc2d812d1c5f895f88ef948243792571031461cc2d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "27b3ed179c816bd3f17030b7aa92c01fd2ee46ae4a6aea2e2f644da684e1db8b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "05dbe746f5c12773ea02d075900c987c5f7d612f86418846927193c0208c619b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "07670cfc196d5cbf884bf94e65228857f76b38d1d94f4e8bdbba3fa1d605df11"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "93bebc648fb6c8401ca0e6e552a7caf2afdc02d21f5a69e995e34b647b2df05d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/inputs/factor_snapshot.csv",
+      "bytes": 20831,
+      "sha256": "cc62551ad418a7c251977675e3a10b5fdaff258744d6104a81a2d215c955775c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/inputs/scenario.json",
+      "bytes": 475,
+      "sha256": "28e1d153e2601a95fab774c19f56c50a3dc4ed856c1e84ad890119f3fd6cecd6"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/actions.csv",
+      "bytes": 9711,
+      "sha256": "e20b1a19e199fdcff4d8199503dbe9cf6ca0b27e15fa20cd342d37bf2eb8da5c"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/activity_energy_hourly.csv",
+      "bytes": 129574,
+      "sha256": "6353b08966c87194341db6dca8ab1f9a85b874f008a4cd721f9fbda2a7bfb3ba"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/carbon_reconciliation.csv",
+      "bytes": 258,
+      "sha256": "da193b1c7fdcde72a579a564d6a604b116fdef43f1eb1163c1c1321fa91f80ae"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/claim_gates.json",
+      "bytes": 1602,
+      "sha256": "4a2bc0f73f56e25d100fc6d8d89d333d196c13d60680bcc3e5993b0000ce9db0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4085,
+      "sha256": "e452e3d681059ee57ae1f2553d14149de1ae0bb57b2abcc506d6d3801febfd6d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/dispatch_eens.csv",
+      "bytes": 3855,
+      "sha256": "4f8cd09e390bf63a9e4a0f216158de44cea123e70f03ddde69d85e2f51ddaef2"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/dispatch_traditional.csv",
+      "bytes": 4270,
+      "sha256": "f70f7de27a69eb5a6719a7da4bfdcd46f5ca1731acb70fd735b74d9acdf48938"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/emission_inventory_hourly.csv",
+      "bytes": 59997,
+      "sha256": "8ed400f950d2d187d36aff2467557f8a5a2752e8fe8a8048a11744fa2b7d8e22"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1621,
+      "sha256": "98f28ffeb459177b6e34e170d425f50cd5abc5409fdcf12900433a801acc4706"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/topology_state_eens.csv",
+      "bytes": 1333,
+      "sha256": "099d9ceb4ddc7935c91d8db0bbd4404e9fce64a2b08840eec88779af8df15a6f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/outputs/topology_state_traditional.csv",
+      "bytes": 1389,
+      "sha256": "ea004cac22e686b9e1f7545e5d2103cc9588238a4c82bc4f21e169e43a7af60d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047/run_manifest.json",
+      "bytes": 3971,
+      "sha256": "b6110599ad293f2d251bd708185ed4f46fc762ad9db1dfe3d307949a3ec0f5e5"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/flood/pipeline.pkl",
+      "bytes": 882536,
+      "sha256": "d1f8047152241e6694e7b5384abb906a864c0db2005f0d53fd4a1c814797880b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "91670252d1a72157150207a24c8d09cc40f3f2537e3ad7f43c2e990939fa0ffb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "bbfcee68963f37db1429c41fc005cb38e9adc2f17a3329175dcdf2f8b60724b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "1a14309806d3b63e41d31574d99f0b39ee3ee06c6ce08303e608c3ecba351bb8"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "0394a74408c0066c7f732e99de4cfa2ef1ce3e27f008577208531836aff4fce4"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/inputs/factor_snapshot.csv",
+      "bytes": 20831,
+      "sha256": "fa3f10f707f520f9e99c982043e37c72a359aac98616885e9e9efaab0e4ee810"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/inputs/scenario.json",
+      "bytes": 457,
+      "sha256": "25cbf120452bfeb3d55156de0f6d9b70bfc187a4c93aca52014104045727b949"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/actions.csv",
+      "bytes": 6517,
+      "sha256": "966c5b2a14b7d85e9a8a04a53d93b19eb91628bb77c874c13e98feef2d7563c5"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/activity_energy_hourly.csv",
+      "bytes": 129696,
+      "sha256": "41c0227f8dc5975cc7f83724bc882f78b94720cfc048b2d75261361cebc06d80"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/carbon_reconciliation.csv",
+      "bytes": 256,
+      "sha256": "86750d6de1a3e6b36e0c44e04393f80972c47a9580290ffc53ffa1d15b16c800"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/claim_gates.json",
+      "bytes": 1601,
+      "sha256": "7754e06a8e6a5cd9a8dd836e8b2823aff765fc8b7219bd68f9c3483110e4a624"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4094,
+      "sha256": "901d286f7546dc5b3887307ba111071f8cdf04cb99fa57669a329cff7a4108fb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/dispatch_eens.csv",
+      "bytes": 4006,
+      "sha256": "9a2adedf3fdaca6671f896f321f618874e62b92af1231943e21800871262d844"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/dispatch_traditional.csv",
+      "bytes": 4111,
+      "sha256": "c40b38ed8f57c3f903f17f6a759278126026a0864181d099d176930de961d2f0"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/emission_inventory_hourly.csv",
+      "bytes": 60470,
+      "sha256": "72e7cd4b8a8f6b4073328e1ab8bfd2c7f71243cd67750a95f188fa02a672c0db"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1444,
+      "sha256": "f53febdb117638b20e30c386d755e5da266d426e24259c3a6acbe38c0f529495"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/topology_state_eens.csv",
+      "bytes": 1156,
+      "sha256": "682a8ce114c7df3f11d878e48406923a2ff77039438c711ec52b2233a535fa7b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/outputs/topology_state_traditional.csv",
+      "bytes": 1282,
+      "sha256": "37339ce9336c6aa96fa32bd8da518c79e5597efdce6e0c02bbe7e6e60f1f1049"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/mrv/run-be26ec65a12b84b4/run_manifest.json",
+      "bytes": 3970,
+      "sha256": "776b486579c5aa5411f61af766eec10ab2a4f85bf0c200bb3e5c8422b06df763"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/heat/pipeline.pkl",
+      "bytes": 884152,
+      "sha256": "a3c6e54ccc8a181a753f4eb413aec2721ff7633d39981cab5bf29fb4e973cc99"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "70d8cf6e4299450f888cd7c3a8309d62800a9ae8fdfdad299387c5bb227316eb"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/evidence/evidence_index.json",
+      "bytes": 3096,
+      "sha256": "5b5254fd3ee1c100c58a025b1cef659697709cfcc169a73945907fe271b6e636"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "7d269f8970841d6d7077023b65a0537fcf19fff32edce724f970569f39d7d4ff"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "18f1ee60b4d1d33ae47587f4703eb822242dd6fca074faaeb08da09aed1bb13a"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/inputs/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/inputs/factor_snapshot.csv",
+      "bytes": 20829,
+      "sha256": "58b8871049e5014a54f02713494ac460cb2562f0d7540197bc64674fd3942e5e"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/inputs/scenario.json",
+      "bytes": 486,
+      "sha256": "dc9c893f11a6139dd83cee7ac943fdcc059302dfa5ed9c6d967ce1ca1b64ab10"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/actions.csv",
+      "bytes": 4339,
+      "sha256": "5e194bbc42b0e7eb0a7dd051b8f221a8b9761299ac85af4abe6d43ffb8a63fa8"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/activity_energy_hourly.csv",
+      "bytes": 130450,
+      "sha256": "8cc179a3d1ede999aed55fadf4cff128200f16dc672b4a5e4954414a864d0a9d"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/carbon_reconciliation.csv",
+      "bytes": 320,
+      "sha256": "1744fb239a7131fa3a4dd5e4912993ea8e329402d5a2d7545bd95b4518a213ce"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/claim_gates.json",
+      "bytes": 1605,
+      "sha256": "400e71edfeafd911aa736c6aaab66f5e1cd310e8ebe99eca4351f2585c43f3ff"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4042,
+      "sha256": "f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/dispatch_eens.csv",
+      "bytes": 4241,
+      "sha256": "14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/dispatch_traditional.csv",
+      "bytes": 4225,
+      "sha256": "d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/emission_inventory_hourly.csv",
+      "bytes": 59858,
+      "sha256": "d72bb4c409f4600fbe10a359819c162d186fb81674d0bb162770d820d153f19f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1566,
+      "sha256": "0430f13cce172ba61fbf2d67f0b184d45592182b336bff5996ea364f7917ecf7"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/topology_state_eens.csv",
+      "bytes": 1278,
+      "sha256": "05669d44614aa2b06acc55fa9ca6b6bf5a08acf6865fe884959b7bc2f246444f"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/outputs/topology_state_traditional.csv",
+      "bytes": 1449,
+      "sha256": "d4bee5d297d5e01fb9898f35c948370d282cc0c4239141965944d6c39abbdb6b"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/mrv/run-43bbf17b47c1d8a5/run_manifest.json",
+      "bytes": 3968,
+      "sha256": "3f119fc24a265f683788b403aa5c025ebce1de9e1fb5c68da65b91edef35b741"
+    },
+    {
+      "path": "artifacts/competition2026/baseline_current/typhoon/pipeline.pkl",
+      "bytes": 864644,
+      "sha256": "89e67e046ef5399f7ed2e75d2e96db738cd78d76591876475ec11f12ef459061"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-01-01.csv",
+      "bytes": 2621,
+      "sha256": "881aa49cfed41ca97d1cf83c17f8ebd5845e98c579a484e5f9498786c9702794"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-01-02.csv",
+      "bytes": 2662,
+      "sha256": "d8e2a3034a1aa5ae0d96649c6346b7eea01c41c8061ca75b1c115beb7e117eda"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-01-03.csv",
+      "bytes": 2618,
+      "sha256": "399566330a53184947550c5cc8fb1761936ed44f3bad9ab47397cde6e984df5c"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-01-04.csv",
+      "bytes": 2621,
+      "sha256": "9d68e720dbbfdfa24a0836150c45c8e08e972795d71c5f53b671edbd3943b1bf"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-02-01.csv",
+      "bytes": 2580,
+      "sha256": "492d8021c688fa9d48d9c8cfe144cc2af0136254d404a2f1280ebc582f74c3af"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-02-02.csv",
+      "bytes": 2604,
+      "sha256": "52cb90557cb7579bf8c31cd685fd5f839acdb57e808703446dad2728972c462c"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-02-03.csv",
+      "bytes": 2650,
+      "sha256": "6c6aab0009575f3caa4f0205a27489c159574486366653ed8d49a0b7096e415f"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-02-04.csv",
+      "bytes": 2615,
+      "sha256": "ac3303864ad60744d72039ffcfe3ecdfd21f97c87afcb4732fc249df6d841900"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-03-01.csv",
+      "bytes": 2623,
+      "sha256": "a9a885fb3e78c4ef8c2cf49e8a80c619972f0e5af76dbf4313ac21bc8164b7f9"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-03-02.csv",
+      "bytes": 2637,
+      "sha256": "5f5685397e6792442fc892c0cb58cd7709cb9dec6dbc7db43cb2ce8f2722f56d"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-03-03.csv",
+      "bytes": 2625,
+      "sha256": "97ed8f805bbaad88e29c56b8d0ac4a369727624b428979b7413b5652b10d4e2d"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-01-03-04.csv",
+      "bytes": 2626,
+      "sha256": "f1203c315f489156ecf1ead8610a31d4b863dd265a7d91e7dcbc3bc267caea40"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-01-01.csv",
+      "bytes": 2688,
+      "sha256": "c4b26c849e2636db9244fbc205c759dc17224e3d1e2386c7f3d24bb640bb4dcf"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-01-02.csv",
+      "bytes": 2707,
+      "sha256": "20d5987fd26c13bf7c18e2380535e14b0b6db4a1d3a563fc6467875ab01fd8cd"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-01-03.csv",
+      "bytes": 2662,
+      "sha256": "9d939d4eca8a944916c1c9dbfab1f323d9bca4450792ad57046e84a21c34d203"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-01-04.csv",
+      "bytes": 2662,
+      "sha256": "3b2c19b67800e95344ca348a2f8aa46a755f5d351099c3b0b68572934b2d517c"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-02-01.csv",
+      "bytes": 2643,
+      "sha256": "3389c4af5b1b5cd988f940098ee25af3f4547505f9b9e6dab29c48e252caabe9"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-02-02.csv",
+      "bytes": 2653,
+      "sha256": "69e1d687b344375656d158de561fa63ddf9660472cf82c2c941d7fa38ffb8bd8"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-02-03.csv",
+      "bytes": 2651,
+      "sha256": "7afc4e700e14395ee07ca402ec04b596d306c78c307ec27be73b7850e7649bca"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-02-04.csv",
+      "bytes": 2647,
+      "sha256": "2cf9bcdda1317090c7e147654e0c59ca7654253fbbed183e5ce2c862076e39fb"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-03-01.csv",
+      "bytes": 2711,
+      "sha256": "1952ae3acacbc6215d442a848a1a9c7921f871dd334bf481373b03029ed7de78"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-03-02.csv",
+      "bytes": 2740,
+      "sha256": "c4c3ee73451ddf3c8ea7229ca0ea7a34d7018aaf7db31ac8661ba750a384e04b"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-03-03.csv",
+      "bytes": 2733,
+      "sha256": "b8153e541d230dd2eab823dbae122852e957c0022ebf7c04df8dfaf2fd2fc2b1"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-02-03-04.csv",
+      "bytes": 2739,
+      "sha256": "19ab56e5936e078155d35db90fe52597a43c54f28509b4c3910511cbffac8080"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-01-01.csv",
+      "bytes": 2558,
+      "sha256": "500f5b0cce9d3ed3bc9635e6d529acb90d11a02057b7a841eecf8e7dc050c9a2"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-01-02.csv",
+      "bytes": 2529,
+      "sha256": "279ad074d59e6e252b57a17831419b99cd89f1e885f9829a7adf8838017dc267"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-01-03.csv",
+      "bytes": 2567,
+      "sha256": "3d3b2b0a73503b2fdff50eb47ac1ba69661db383441030439ae7ace273d31879"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-01-04.csv",
+      "bytes": 2559,
+      "sha256": "80716b34de49c2ca92d14f404ee883d88e0cfc805b116074a8e8b50330123b15"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-02-01.csv",
+      "bytes": 2567,
+      "sha256": "6217f926259df4b67bb5ed6337e22ea508fc8f28b0b5c4ba2e94b8b2d33e8f1c"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-02-02.csv",
+      "bytes": 2547,
+      "sha256": "c7d7ce649afa202d92c51d230ed13335b96fdc582ec6a65bf4fd409e4509bbf4"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-02-03.csv",
+      "bytes": 2567,
+      "sha256": "dc4bd8ba3075f59f10c0233e89766a8e5ffbfe18fd891445dd4d74b18377ac43"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-02-04.csv",
+      "bytes": 2541,
+      "sha256": "7219c6a25d9756b8ed52f7f26824fd8abbb5247e27acbaa3dc3fa2bee8c32c9e"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-03-01.csv",
+      "bytes": 2580,
+      "sha256": "0bd721ebd523011c779fa5a0405cc9fe252851d0d856de957d30a68283b48149"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-03-02.csv",
+      "bytes": 2575,
+      "sha256": "60f2a66eb6c0881e401263efe1dda7274e14d2a5c7245384f3894440c8ba7252"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-03-03.csv",
+      "bytes": 2596,
+      "sha256": "d0d5696c07ffa74e4c0244e4ab2c48ee878a6efc3a875da6add3d8e486b9a2ae"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/W10-03-03-04.csv",
+      "bytes": 2596,
+      "sha256": "6f1be11a53db8150e682eb66b5f3e067a6446a7d1eb1dfefcadb7abf63b4f1db"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/catalog_manifest.json",
+      "bytes": 460,
+      "sha256": "f981b3d705eaa64ae0ac84bd007a18749fcf76350c1ce2681ccd6ee7c52a2ba7"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/experiment_runs.csv",
+      "bytes": 73150,
+      "sha256": "5f4994b4d5efb8a8cff09192f197b921bb77d7a6c704a37282ab9773743df608"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/failure_manifest.json",
+      "bytes": 54,
+      "sha256": "fd4207a93c5a9b7dd0836fd5a15fe8b461452396dc01e7ec0105361ad9343d4e"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/paired_report.json",
+      "bytes": 784,
+      "sha256": "9d9185b32566063435d5101b4ab0cc0899bd71907c041725b179578f9af943cb"
+    },
+    {
+      "path": "artifacts/competition2026/batch36/validation_summary.csv",
+      "bytes": 3783,
+      "sha256": "e4e159f4d373ef83a87104f0ac469e2121831bdaf80187464f7ad20787e0d1d1"
+    },
+    {
+      "path": "artifacts/competition2026/experiment_manifest.json",
+      "bytes": 207,
+      "sha256": "fb228ab5b69c3891204258753a9ea8c63eac486cabafcd1d09e47abb0c3522db"
+    },
+    {
+      "path": "artifacts/competition2026/figures/01_strategy_comparison.png",
+      "bytes": 88055,
+      "sha256": "cd94e9f55fd937e13f16590338d2cc8b79b5cdfb71550761492204eecc025a4b"
+    },
+    {
+      "path": "artifacts/competition2026/figures/02_paired_tradeoff.png",
+      "bytes": 67103,
+      "sha256": "57af69da93e3aec1998429fb8226c02a94e25806bfaa62de328083263e87dfac"
+    },
+    {
+      "path": "artifacts/competition2026/figures/03_tail_risk.png",
+      "bytes": 54059,
+      "sha256": "b27b498a15be0c302ac747229cf8a111a696d1f27e98655f357c79b668622709"
+    },
+    {
+      "path": "artifacts/competition2026/figures/04_contract_gates.png",
+      "bytes": 39755,
+      "sha256": "881e8c57ba278e098581d0eb6d95e951c33c010710e7b821b3285e077881abe5"
+    },
+    {
+      "path": "artifacts/competition2026/figures/05_public_weather.png",
+      "bytes": 151775,
+      "sha256": "5716b39311ad9ffa8d5921605319073d8f045b716a59e9033e0dce1a43601842"
+    },
+    {
+      "path": "artifacts/competition2026/figures/06_public_replay_gates.png",
+      "bytes": 65429,
+      "sha256": "39d8a81ba411e15e77f6410e394dd763cdf1ad8f9cf29897586450297c68acf2"
+    },
+    {
+      "path": "artifacts/competition2026/figures/figure_source_index.csv",
+      "bytes": 2107,
+      "sha256": "b59dba2fc2a5d30ed7ca7b06be13e9b230b75174ac92138a392fe8bfe704ecf2"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/care_task_definitions.json",
+      "bytes": 1731,
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_anchors.csv",
+      "bytes": 791,
+      "sha256": "508bdf7bb6292d22daed6f7d190e9f2d36d778eff0cfa61d515a956b21a23196"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_care_task_evaluations.csv",
+      "bytes": 4970,
+      "sha256": "63267cff562e80d9edb8603eee11a30422f8fe0d1f0ba1010621e9d35e75ed89"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_failures.csv",
+      "bytes": 811,
+      "sha256": "2ac9ebe6115fc677e6e476ee1bbe13b0736b2447b5436c0b26831066bcb05c51"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_frontier.csv",
+      "bytes": 2932,
+      "sha256": "db661a784aab1409ae96782b6f35089c43065c12bad99c8795e9bed8a916e2e7"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_manifest.json",
+      "bytes": 3038,
+      "sha256": "6949ef849279657ea22f106511645c269a8943941a7432ded0eb8e334dc4b40f"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/strict/pareto_points.csv",
+      "bytes": 2932,
+      "sha256": "db661a784aab1409ae96782b6f35089c43065c12bad99c8795e9bed8a916e2e7"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_anchors.csv",
+      "bytes": 802,
+      "sha256": "9b9fca8c3535bc05aeb43bb9017afed49ea00ccb9341e4583649c969e40f369e"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_care_task_evaluations.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_failures.csv",
+      "bytes": 811,
+      "sha256": "2ac9ebe6115fc677e6e476ee1bbe13b0736b2447b5436c0b26831066bcb05c51"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_frontier.csv",
+      "bytes": 2665,
+      "sha256": "6d7c183cc3152b8bdbbdf27f7573176849fb644c9d0fc64f327f873b1c16a7d9"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_manifest.json",
+      "bytes": 1325,
+      "sha256": "2009e247c06b838152dc7d5d1f34bbbe096aa27683e0d892afd51fd98462b974"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/flood/without_care/pareto_points.csv",
+      "bytes": 2665,
+      "sha256": "6d7c183cc3152b8bdbbdf27f7573176849fb644c9d0fc64f327f873b1c16a7d9"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/care_task_definitions.json",
+      "bytes": 1731,
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_anchors.csv",
+      "bytes": 811,
+      "sha256": "6262af6d865e3b79f73083339e593dcf9a5227188366c1f4a5a148b1c8c54437"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_care_task_evaluations.csv",
+      "bytes": 4972,
+      "sha256": "c129c6ec286a0de8366637efd9a45da9f33692abff2001087c624d5602d5f751"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_failures.csv",
+      "bytes": 811,
+      "sha256": "2ac9ebe6115fc677e6e476ee1bbe13b0736b2447b5436c0b26831066bcb05c51"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_frontier.csv",
+      "bytes": 3086,
+      "sha256": "db9db9054afc2073a4af446bcd06d460764e02fdc9cea8f7097988dd90d744ee"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_manifest.json",
+      "bytes": 3015,
+      "sha256": "93f1dd41cc27092d7cc1d84adf917073a8ebd3d2373f030d71268b63325fcfc8"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/strict/pareto_points.csv",
+      "bytes": 3086,
+      "sha256": "db9db9054afc2073a4af446bcd06d460764e02fdc9cea8f7097988dd90d744ee"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_anchors.csv",
+      "bytes": 817,
+      "sha256": "740d11c090cdf8c02594fa97668118e98e41567af6d8319f1396fe38c8eb7f9a"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_care_task_evaluations.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_failures.csv",
+      "bytes": 811,
+      "sha256": "2ac9ebe6115fc677e6e476ee1bbe13b0736b2447b5436c0b26831066bcb05c51"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_frontier.csv",
+      "bytes": 2807,
+      "sha256": "c8da18c486553e23afa30be18a2254a7b0a9806c1ac12e1974ca8f5e82b846f4"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_manifest.json",
+      "bytes": 1302,
+      "sha256": "4e3bc2f666bf70d44b4d62ab4d143e03afab3df6f2e59f85122428b16f14b477"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/heat/without_care/pareto_points.csv",
+      "bytes": 2807,
+      "sha256": "c8da18c486553e23afa30be18a2254a7b0a9806c1ac12e1974ca8f5e82b846f4"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/care_task_definitions.json",
+      "bytes": 1731,
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_anchors.csv",
+      "bytes": 724,
+      "sha256": "9bbb67bbb9453efdd27f388ea277973676b5ea672728979ac60a698a56462e1f"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_care_task_evaluations.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_failures.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_frontier.csv",
+      "bytes": 154,
+      "sha256": "43dbdb122fb827d37cefbd17c0e29e16d26d9d3f012eba20bdfdf81624f0af09"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_manifest.json",
+      "bytes": 3054,
+      "sha256": "9e3283b6acfbf9f9e868c60b704e21b5a9203fe5a645335a2fbb8889c24554bc"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/strict/pareto_points.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/care_task_definitions.json",
+      "bytes": 135,
+      "sha256": "aa208e0bcaea36f9dcb33d424c72ea80bea86578a6e49ef441f76e4dd89eb2e1"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_anchors.csv",
+      "bytes": 723,
+      "sha256": "e911e8bf08a249e7b0fca3229ae71db44a91fb4a0661c57f92d6a0c9ff2b4645"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_care_task_evaluations.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_failures.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_frontier.csv",
+      "bytes": 154,
+      "sha256": "43dbdb122fb827d37cefbd17c0e29e16d26d9d3f012eba20bdfdf81624f0af09"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_manifest.json",
+      "bytes": 1342,
+      "sha256": "bf03d7de809232798c845ce43171066c7ea29a613fb1524bf07985447d0b0cbe"
+    },
+    {
+      "path": "artifacts/competition2026/pareto/typhoon/without_care/pareto_points.csv",
+      "bytes": 697,
+      "sha256": "9552903332714407516284dd9446ce609450070efaac890b5be3d3295a9e2c03"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/summary.csv",
+      "bytes": 1764,
+      "sha256": "f3044a297b78ed06ef537ebea9c7740ce93efcff454db8059ac90504f99d0762"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "18e3676cce4d3e0923aedb9c58e3ece2bcf5f765f4d5e14eddc96c23c1f0a55b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/care_carbon_resilient.csv",
+      "bytes": 1513,
+      "sha256": "ce2ba2a11fb5d619e01b9901315ced76c267bda8416c23f34016f6ec2e19811f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/care_eens.csv",
+      "bytes": 1512,
+      "sha256": "3892af32c4ca34c91101d87e6d97d3bb6a5e453fe0635b1748fbe24d337578f0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/care_traditional.csv",
+      "bytes": 1465,
+      "sha256": "aa2338492fc438fd8312ed3e780dd760dc7adb0bf71c1ed035be56ef4f94108b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/factor_draws.csv",
+      "bytes": 51481,
+      "sha256": "77a3f6b04e3590ca904596cf71afb4dfc918977af0f55827cc8e4eb10aa4c335"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/input_profiles.csv",
+      "bytes": 987,
+      "sha256": "f117e2108bb9f3e5a2ab74c3301de293624d53649c20ec99ece3110883edcebe"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/evidence/evidence_index.json",
+      "bytes": 3615,
+      "sha256": "081ac07b96bb3281d8e4e667214afbc5e8cac729687d57b9354b87dadabc821f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "6f4b378e6a09eb339aed1c5c7757892ab93f7e4caf495605289339cdc85b182b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "3448829476aa77fcccc126af30bb5d4baf4f63f3678852e7d0cbe603855c81e1"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/factor_registry.csv",
+      "bytes": 1368,
+      "sha256": "fc9d220fbd7ce2c180aa86c7ea9c8027f5cf886c09d45d00c3c48111037a8c16"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/factor_snapshot.csv",
+      "bytes": 23039,
+      "sha256": "5f0fc8d163a7b2e75d13e0d16f8ef7fbd7b02397ce24be8a0534db18fb23a663"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/grid_factor.html",
+      "bytes": 12617,
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/public_source_manifest.json",
+      "bytes": 2000,
+      "sha256": "de3794e6086548f32a79a4e4c88c01d2ecbc8c4cd64716afe4eeaecdd86f4353"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/scenario.json",
+      "bytes": 3357,
+      "sha256": "e5fd582ef2f5b459bbd3cee3c2c77c889152e4485ea5039b34ea2cbd207f0d3f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/inputs/weather.json",
+      "bytes": 1345,
+      "sha256": "c7acb1d6edb8b287376b918000ae7df7b79a51f1bddd788f0916e76bce9051e8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/actions.csv",
+      "bytes": 6517,
+      "sha256": "579a1b04e6d8005c1eb54d393fd329982551574ffaaa697cdf13c15e6e988ab8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/activity_energy_hourly.csv",
+      "bytes": 129726,
+      "sha256": "4ea16f7bf6e7fb0cf408c30ae57912b53c09c0ed67250abfd9d0d73d6344fdb1"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/carbon_reconciliation.csv",
+      "bytes": 313,
+      "sha256": "98ca1f89eaf67ea2bb33f7452bf6ab57a4b5705fbb30931164945547511fd8f8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/claim_gates.json",
+      "bytes": 1604,
+      "sha256": "a900c6d2dbd3f7c8c04c5301391bb46cae24e935fdad48eb9b502b5aad1b5ebb"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4127,
+      "sha256": "c0482ae0a17af892f5f5839a0d264bfd2b34f82fd6492445a3a62606ad0670d3"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/dispatch_eens.csv",
+      "bytes": 4159,
+      "sha256": "190e8c540695167c41f733784ee4e18e43d077791d2d2108425031d13c5c3078"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/dispatch_traditional.csv",
+      "bytes": 4200,
+      "sha256": "b462ffa2233790daf4a55199dd662538d5efd804e544efccf4413ba148ba4d51"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/emission_inventory_hourly.csv",
+      "bytes": 60972,
+      "sha256": "d0bed833af1920c640c2052fec82ad38649d7df92c3b520cb0c222f6e946f32f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1444,
+      "sha256": "5d83641abd30151d4bd8df50c598d136dc26ac0a728c7557c918ce22ccba7803"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/topology_state_eens.csv",
+      "bytes": 1156,
+      "sha256": "40714a43cfd39b5216394eda79f7d4e01ae73236be2bef64533e55ebfc791f86"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/outputs/topology_state_traditional.csv",
+      "bytes": 1282,
+      "sha256": "78fcaf83d9c48a7418182dff4694fcc563059e8fe9f9854251e2e31c9e30da44"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/mrv/run-2e53fc26375db25f/run_manifest.json",
+      "bytes": 3971,
+      "sha256": "67373b634230e5f92957e24496120b91fd4a82368c30fa1d17fa91beda64928a"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/nodes_carbon_resilient.csv",
+      "bytes": 176513,
+      "sha256": "972d9325105dca93d864963ebe52549124b79957eb69d44e0ba57d0bd4ea125a"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/nodes_eens.csv",
+      "bytes": 176187,
+      "sha256": "644b7e8e4de28171efbdd87306f981f55352239b8ca0fdeed74b7129ce5d8cbb"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/nodes_traditional.csv",
+      "bytes": 170369,
+      "sha256": "06b78074335176fc18f8d725c6870704a20e1d180baee426e9755f9c9b63545d"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/physics_carbon_resilient.csv",
+      "bytes": 2736,
+      "sha256": "437f6c5b5fa56f5c22a19c6c50307222b1c1e22dc4afdf80f2ed8520113a1408"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/physics_eens.csv",
+      "bytes": 2739,
+      "sha256": "5fc5654594f33970ff83d8026fe08f9fbc411cd52934ad791efba161e84fd519"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/physics_traditional.csv",
+      "bytes": 2719,
+      "sha256": "ba5c12ae8f575ece3b2834cdb8e0f7986197659794c29f5eb3335cd6d88a4caa"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/pipeline.pkl",
+      "bytes": 886575,
+      "sha256": "717af4afff6deae4dce78af30cfebc0cc82b24a3b4bf28ca1470118da950e94b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/sensitivity_report.json",
+      "bytes": 972,
+      "sha256": "88891a0f813ab7c3e1ffe6d44556bb31787bc101fc373283377e51d3005d5ce7"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/strategy_comparison.csv",
+      "bytes": 457,
+      "sha256": "8e463737cafcca9839c8491bd85577e510be6c44c136e1827ae97a36b834acf9"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/voltages_carbon_resilient.csv",
+      "bytes": 45216,
+      "sha256": "f8cd215cfd9d1e3b8768a0d840a3e61383436af920eaf4abd8f19bc9f71d8fd8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/voltages_eens.csv",
+      "bytes": 45077,
+      "sha256": "ba1ffdaecc3aef6578d1d0f20f8136051223603804545001f5d762c16becf466"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_heat/voltages_traditional.csv",
+      "bytes": 44830,
+      "sha256": "4b728ca37d08b9ef24b492cffd129e8867ef7ae294caa3f79455afc31317f930"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "4a1a1b21522923976abc636bb61678ef62464c5c1fe3cdf616ff8e5bd1b5e1ea"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/care_carbon_resilient.csv",
+      "bytes": 1464,
+      "sha256": "5d4505698d3ee7e3ff6b6b6b01488df1df0396242687c19a7fb96c3d57b8c741"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/care_eens.csv",
+      "bytes": 1466,
+      "sha256": "abd4a3dccdc388ee88bd22be7d3bfcc12e297c81955f415d3799421566339f99"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/care_traditional.csv",
+      "bytes": 1460,
+      "sha256": "d76939e7c97e8e530662f54531eb2823da39c3aa6d0376f709c3d22cac7e4f97"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/factor_draws.csv",
+      "bytes": 51622,
+      "sha256": "f303b7d58b8483f315f0f971e81ff454ae725860b41afeb98484da420106b87f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/input_profiles.csv",
+      "bytes": 988,
+      "sha256": "ddbf6ade2318552a61215ecb4061e99f875cd633cb0c805c3b5a76fddb91d89b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/evidence/evidence_index.json",
+      "bytes": 3615,
+      "sha256": "670d325e378ba67e5c25aa940f5774bba6db958d36f97aa80dee4174f3f865b8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "61dd39293142de9213d8bb79baba311f47af7bc1c23ceff3e7c629531a72b967"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "5f3cd60e508b67e5e86e4899e26b8b068b1d4c6a2bdf1d4d9eff8e8a7661d864"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/factor_registry.csv",
+      "bytes": 1368,
+      "sha256": "fc9d220fbd7ce2c180aa86c7ea9c8027f5cf886c09d45d00c3c48111037a8c16"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/factor_snapshot.csv",
+      "bytes": 23039,
+      "sha256": "c2d32346717e80021f13c9701022251128135aeb5815084eaec65314c59b7319"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/grid_factor.html",
+      "bytes": 12617,
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/public_source_manifest.json",
+      "bytes": 2000,
+      "sha256": "f6702609a95d572b21a7183edeef3d16c3dac4acf1ca30a678c7ea266a0c2a59"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/scenario.json",
+      "bytes": 3376,
+      "sha256": "4910d2e3b02fe4c3b10722884f401cbbeab2db97a14bf6741581b54c37e6ce56"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/inputs/weather.json",
+      "bytes": 1343,
+      "sha256": "25b27cff9d5cf3b0d565c4d9a146fcb87b196e9b78a2e15d28f1b1f8fbe3ed42"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/actions.csv",
+      "bytes": 9711,
+      "sha256": "d24a2e1dea738974c4e11a63bc3225a1d629a38e509dfe7051c99c97ad21ff16"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/activity_energy_hourly.csv",
+      "bytes": 129602,
+      "sha256": "e72dcf720d047341ade0eb65d4071db70dbc39a69ab697035342cab4e2a98f8e"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/carbon_reconciliation.csv",
+      "bytes": 250,
+      "sha256": "c9bf4c0f76756c3873bfd75b6ef2d5b19e97859626ce5a57f13ab8f1f487f74d"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/claim_gates.json",
+      "bytes": 1629,
+      "sha256": "f1eaf1d878bd7b5e07ebf36ab3bcdf81986079b7f3fe50f0b33cefa755cdc6a0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4065,
+      "sha256": "e9a8b8803abdbadba1a1975177842f01039931d4ac937cfacdde2dfd4d56d830"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/dispatch_eens.csv",
+      "bytes": 4032,
+      "sha256": "14d2f2ed2fac6beae9c1347334578230666ae2acb0fdc814c334d0957e158e9d"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/dispatch_traditional.csv",
+      "bytes": 4306,
+      "sha256": "3cbd4787052ae2222ae5a1a5b36d88e483b98b6ecb5ce28ee30f6f5ace111da0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/emission_inventory_hourly.csv",
+      "bytes": 60334,
+      "sha256": "d2596a5e6ab67b94bd9a2c9356cc5b53bf0971eee3d44d991eb9bb0762850c9d"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1621,
+      "sha256": "81d5bb4e84a811bbc07e8d7333752773ea5d11158f88b29585b09acb3674a3d9"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/topology_state_eens.csv",
+      "bytes": 1333,
+      "sha256": "f4c3781c709d46401da90a9eb1a626976b97440e16f84141df54265adbf749ac"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/outputs/topology_state_traditional.csv",
+      "bytes": 1389,
+      "sha256": "adecaf76310a982b69672bec19b7385796c714aaa10535f64d8fb24d6a4e4d5b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/mrv/run-1901686f5d3d6eb5/run_manifest.json",
+      "bytes": 3996,
+      "sha256": "1a425061177ec0774a4667e53741e66e2ab326a6b5975f7e8c57a1b8fe24d6c9"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/nodes_carbon_resilient.csv",
+      "bytes": 176144,
+      "sha256": "386944ba1d2666777d872a9c0eb25aa759f7fb05108a728f1710981d7953354b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/nodes_eens.csv",
+      "bytes": 176368,
+      "sha256": "3e1ada7cda18ba6c2201410f3ff7ee78d6936c74976f662737e8fcd114d73adc"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/nodes_traditional.csv",
+      "bytes": 139986,
+      "sha256": "474852ad4f00a3790342a2f08e00026e66054cf2c1822f72a3b1b3d52aefc0c2"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/physics_carbon_resilient.csv",
+      "bytes": 2623,
+      "sha256": "6b6e9b794faccfeb3e6cc13132d2cbb4131c58979290c11db97b2b11875735a1"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/physics_eens.csv",
+      "bytes": 2622,
+      "sha256": "3a28ef91ea9aee3b6d255d41e54c81283b6df2befa14fb2dcf0d349c781a4827"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/physics_traditional.csv",
+      "bytes": 2693,
+      "sha256": "836cd99e358074e7fffa4926060ee8464db7f1ae2ccdc1af26ff7fb8931b4954"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/pipeline.pkl",
+      "bytes": 885414,
+      "sha256": "3b076d9feb04bebe9165c4b3abbae697aa73feb2e4da1b3a38e374911b99bc66"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/sensitivity_report.json",
+      "bytes": 975,
+      "sha256": "317b16dbe16408170c9a6fea1e8423adab4ecc758d10a75e8cbeca1ec6107469"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/strategy_comparison.csv",
+      "bytes": 470,
+      "sha256": "863a849fee065de3a8cc0c660fca5646b31b5b2a553c36a9ea90a98e69de5486"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/voltages_carbon_resilient.csv",
+      "bytes": 45092,
+      "sha256": "0606af08cab6595fb4899d3509b7226242fcb65692d4ec365e477bc822ec5142"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/voltages_eens.csv",
+      "bytes": 44993,
+      "sha256": "c236b1ba975bf3242700d4e18206691584bcc5de3df97b45a6af7ed9bdd13a7f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/wuhan_rain/voltages_traditional.csv",
+      "bytes": 43420,
+      "sha256": "e7a6374083f891fb004ae59f05963ec70525ac3fa225b03b3501b312b9375d67"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/cache_manifest.json",
+      "bytes": 167,
+      "sha256": "8b7391b1ad9db377bf4bcb4255c63fbd4bbd6d1e680304bf6540e1867c8da7a8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/care_carbon_resilient.csv",
+      "bytes": 1474,
+      "sha256": "ba7d5f8831b27d2c951b8c6d3726adfe83a96f6fe738f362dcb1c58a20ca7fc2"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/care_eens.csv",
+      "bytes": 1474,
+      "sha256": "81e05bd97a926f15e3695269d6847bbe2fbaaeee36ff9508e9dc7f691e0c43f7"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/care_traditional.csv",
+      "bytes": 1474,
+      "sha256": "884ef64ef4b6b8a3fd56deac466c3da7fbaf6bb1d86d890c6a0f1aec49619ac3"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/factor_draws.csv",
+      "bytes": 52089,
+      "sha256": "1cf7c0e8e452840c3ff063acbc32dacb80ca47e1ca8835fce59104862177afb4"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/input_profiles.csv",
+      "bytes": 942,
+      "sha256": "430349e29793c703c9e278924ebf4917c524f99f5dbbfb453ea0f6288a7f96f9"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/evidence/evidence_index.json",
+      "bytes": 3615,
+      "sha256": "25b1df14589d24b6eda40f0f3f6db284e5814bf1b01d0fd6e8914e46f2fcbb6f"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/evidence/seal.json",
+      "bytes": 680,
+      "sha256": "b431b2fd96528ab4fa59957c90cadf3e2aa09b8fb28a72905e775131ae682d51"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/evidence/verification.json",
+      "bytes": 242,
+      "sha256": "a5810bf8321b9217959092dac3db26a3bf00dcc620868cb2a93762e8af13cc81"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/config.json",
+      "bytes": 260,
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/factor_registry.csv",
+      "bytes": 1368,
+      "sha256": "fc9d220fbd7ce2c180aa86c7ea9c8027f5cf886c09d45d00c3c48111037a8c16"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/factor_snapshot.csv",
+      "bytes": 23039,
+      "sha256": "e729d37b9abf5b148d27d0ab378f00cfe397ce74e4d2749730647d7be3b1773b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/grid_factor.html",
+      "bytes": 12617,
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/network_snapshot.json",
+      "bytes": 26710,
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/public_source_manifest.json",
+      "bytes": 1997,
+      "sha256": "48f427099cc36678c5ae85b625197b398cdf736daec82a593eb9f1ee62bbb620"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/scenario.json",
+      "bytes": 3329,
+      "sha256": "ae72b0641684472f0010ceb79e15ecf7b6d49e16e8a661142894e25d560dcd96"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/inputs/weather.json",
+      "bytes": 1332,
+      "sha256": "794e533d8e6d4d5413964da704992de508c571a68da754315eb9c08a1eb940f0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/actions.csv",
+      "bytes": 4339,
+      "sha256": "f1ec29d62cf087f36e153f97570c6c82268a11d07101a5bc5c965a5e982704af"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/activity_energy_hourly.csv",
+      "bytes": 130256,
+      "sha256": "d0ac052ca49bc546523711e29d8f53a12b21eda93dd518322212b4da8ee0bb1a"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/carbon_reconciliation.csv",
+      "bytes": 317,
+      "sha256": "06cdb81d7e9e3edd621a3e25924810ba0c608ff934b579357f95c0798de2f738"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/claim_gates.json",
+      "bytes": 1632,
+      "sha256": "2b6697b24b4169803fff458bb90d5be06db73e9d6a016eea5423c40087216ce0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/dispatch_carbon_resilient.csv",
+      "bytes": 4197,
+      "sha256": "b6dbb669c50b41966292e46af520d590dc256cc2bcc9b20e48af0227302b8bc8"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/dispatch_eens.csv",
+      "bytes": 4181,
+      "sha256": "f5b2f263fbe3de4543a5b3224c4b6834524894c41533aa39832b448b1f9538b1"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/dispatch_traditional.csv",
+      "bytes": 4241,
+      "sha256": "423fea700285cbf3c7cbec1cf9fb6d046eb39066fc80e7afcb2ee06e03509a17"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/emission_inventory_hourly.csv",
+      "bytes": 60339,
+      "sha256": "34aa7d0921e872c0c4624158abfc15aa1485f49b04de20919a6d14feedd2ab32"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/topology_state_carbon_resilient.csv",
+      "bytes": 1566,
+      "sha256": "937e86e14d567c76c5391214ce911754031feeefdf6c85a4dab93c321a534319"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/topology_state_eens.csv",
+      "bytes": 1278,
+      "sha256": "6752375272ec10016ffe67720f171eb3917cb739b948b77472fbd8058c869c1b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/outputs/topology_state_traditional.csv",
+      "bytes": 1449,
+      "sha256": "8b964bf5e7541c49cd7d382b815be2dcd821eedb31e2e6826645798592d64f54"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/mrv/run-65fae9f1348d6e4a/run_manifest.json",
+      "bytes": 4000,
+      "sha256": "816fd21afead72d770964ab8db160dcb9eebb30d8b77e5f44a49b3c83b89d8ac"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/nodes_carbon_resilient.csv",
+      "bytes": 144201,
+      "sha256": "e81eb1b71e9105f27293b462a29660d8725b019d455173207c4d3e17b1ef0607"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/nodes_eens.csv",
+      "bytes": 144444,
+      "sha256": "17d3e8f3a541b3d77bb076089c97b62ef1a5f39a758e75df802d40592c02b7ef"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/nodes_traditional.csv",
+      "bytes": 148017,
+      "sha256": "fdc0df8e3af36ce311734c1dac39e60bd9d7c8eeb68afdc551a50ee24943d344"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/physics_carbon_resilient.csv",
+      "bytes": 2665,
+      "sha256": "d20f3d66df7bcab16906fbd8a2b0f569d99659cc3f481615ba5612911350a194"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/physics_eens.csv",
+      "bytes": 2678,
+      "sha256": "1ca9919117a3c2cf30105c64ee23d62529762e3959059d0cf4d769dbf1c3dc1b"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/physics_traditional.csv",
+      "bytes": 2665,
+      "sha256": "dbd99ed18a6e89e1a05de66e667ae3a0ef5d91814fa0fdeed06caa7dd786f792"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/pipeline.pkl",
+      "bytes": 867540,
+      "sha256": "dcd19119ffffac28380d6679d27a60aceb6e48868c3e23ba0cae7a3ce7b45601"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/sensitivity_report.json",
+      "bytes": 973,
+      "sha256": "75a5fccc7ffd2705abcd69dac8b8f4e6c4df90be7ea714a23fca93246b65e1d0"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/strategy_comparison.csv",
+      "bytes": 506,
+      "sha256": "cf9b3da9aea91d605dd40ed2fe9f59d1482016fcf625a3f8aa226cbf5d007694"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/voltages_carbon_resilient.csv",
+      "bytes": 40007,
+      "sha256": "f3ed72c7755cf57aa441eaab8139e54d96bf24b5b1269f434367091a80dfecb5"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/voltages_eens.csv",
+      "bytes": 40221,
+      "sha256": "e2e848677770ca51ee6abaf39a18aed418a958ad3fd4dcfccf155aa79252cf4c"
+    },
+    {
+      "path": "artifacts/competition2026/public_replay/xiamen_wind/voltages_traditional.csv",
+      "bytes": 40712,
+      "sha256": "018908473dac844e6107c5438beaa604cf37d7f76a77b2d09cea0fb7c26bba11"
+    },
+    {
+      "path": "artifacts/competition2026/risk_report.json",
+      "bytes": 1467,
+      "sha256": "e53be7a52548685f2147f16cfad254398ef50ca81c2f18b05b20a1522527cf7d"
+    },
+    {
+      "path": "artifacts/competition2026/validation/baseline.json",
+      "bytes": 98008,
+      "sha256": "58d482656dd69695b541471b89f4931c7b6d527139e3fa23ccb7975fe7bbbc58"
+    },
+    {
+      "path": "artifacts/competition2026/validation/baseline_pytest.log",
+      "bytes": 113,
+      "sha256": "14bf78606132b9867ec4cfeb0604824f97dbdcb225bd953636b2cb3ba232f9a9"
+    },
+    {
+      "path": "artifacts/competition2026/validation/browser_check.json",
+      "bytes": 108,
+      "sha256": "4ca30f8dc513e114089b2745103734d3f823c761996d3280754caa171e293ac4"
+    },
+    {
+      "path": "artifacts/competition2026/validation/desktop.png",
+      "bytes": 179925,
+      "sha256": "2faafa6417286ad416f9e79b16771d9ef8bade91d0e7775ec426be6c0b00bab3"
+    },
+    {
+      "path": "artifacts/competition2026/validation/final_pytest.log",
+      "bytes": 194,
+      "sha256": "3ea8a4b6f4476f85b98c822150b1d201c85859162bda153ae5971cc40eeec982"
+    },
+    {
+      "path": "artifacts/competition2026/validation/final_smoke.log",
+      "bytes": 79,
+      "sha256": "9724559a0dc6f88a505698025dd96bb94cfa67fbb010cd282410cd58f6e62340"
+    },
+    {
+      "path": "artifacts/competition2026/validation/final_verification.json",
+      "bytes": 5720,
+      "sha256": "bf8f54c374ea46c5b9f79b896b0ce02cccf637e48408faab56bcb15a9a0f99b0"
+    },
+    {
+      "path": "artifacts/competition2026/validation/mobile.png",
+      "bytes": 47083,
+      "sha256": "5ade8a9dac30a11d25aaa5273b15eeed0dd2dbae639e4c9456be526f6c602e03"
+    },
+    {
+      "path": "data/case33bw.m",
+      "bytes": 4866,
+      "sha256": "b40831eeb444669ae876e2996f0dda9f05cd83e81b314b8dfca51e4890cca95d"
+    },
+    {
+      "path": "data/factor_registry.csv",
+      "bytes": 1138,
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "data/public/raw/electricity_factor_2023.html",
+      "bytes": 12617,
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497"
+    },
+    {
+      "path": "data/public/raw/noaa_tianhe_2022.csv",
+      "bytes": 81481,
+      "sha256": "9a456fdf452f33b206192aae31d335d38250ec0cf4a09d008cd23bb19a3942c2"
+    },
+    {
+      "path": "data/public/raw/wuhan_heat.json",
+      "bytes": 1345,
+      "sha256": "c7acb1d6edb8b287376b918000ae7df7b79a51f1bddd788f0916e76bce9051e8"
+    },
+    {
+      "path": "data/public/raw/wuhan_rain.json",
+      "bytes": 1343,
+      "sha256": "25b27cff9d5cf3b0d565c4d9a146fcb87b196e9b78a2e15d28f1b1f8fbe3ed42"
+    },
+    {
+      "path": "data/public/raw/xiamen_wind.json",
+      "bytes": 1332,
+      "sha256": "794e533d8e6d4d5413964da704992de508c571a68da754315eb9c08a1eb940f0"
+    },
+    {
+      "path": "data/public/source_manifest.json",
+      "bytes": 4526,
+      "sha256": "6414205520e667725ae386ad32ebe815b4d47f113499610c9260ff424ceab180"
+    },
+    {
+      "path": "data/public/station_context.json",
+      "bytes": 768,
+      "sha256": "96bb8db7f243d48d08acbd3a435b4825607308cab2120def157853c729834b17"
+    },
+    {
+      "path": "docs/claim_dictionary.md",
+      "bytes": 2484,
+      "sha256": "b10bca48b3e86f8b629fae24e7d6208664c69d506cd3d7fee8aec26d2ea9cef4"
+    },
+    {
+      "path": "docs/competition2026_experiments.md",
+      "bytes": 4090,
+      "sha256": "59703978b6cd123728f0c10dc6149310ad224180d5a6d965aac767416a7f531f"
+    },
+    {
+      "path": "docs/contest_fit_2026.md",
+      "bytes": 2505,
+      "sha256": "8ccdcf57d3cfe56e902d5c98a7f9164bed464ec0542da523bdf4040d71e0b87b"
+    },
+    {
+      "path": "docs/data_sources_2026.md",
+      "bytes": 3557,
+      "sha256": "2d3c2419046c484c8d89fd69acf9c5174906033fe7ac20e487a148f495e048b9"
+    },
+    {
+      "path": "docs/innovation_evidence_2026.md",
+      "bytes": 2900,
+      "sha256": "6d6075650ba09de7f98996392083fbf50f2ff6927db28228af96b02d6713f3ab"
+    },
+    {
+      "path": "docs/presentation_materials_2026.md",
+      "bytes": 3404,
+      "sha256": "86834c91eb86f696a6b279994441f1e4f5895a7870220b9fb9bfaaa18948585e"
+    },
+    {
+      "path": "docs/submission_application_2026.html",
+      "bytes": 8509,
+      "sha256": "68651102103e43518bb8dfda39d615cfdb18670e81aa7d37444752ed895fcacf"
+    },
+    {
+      "path": "docs/submission_application_2026.md",
+      "bytes": 7329,
+      "sha256": "a4d5e8881b583ce9ff52ff1a698fb26c9ae578b187985c934035a01edc29b034"
+    },
+    {
+      "path": "docs/submission_checklist_2026.md",
+      "bytes": 2081,
+      "sha256": "433e97b72fd9c6374a64944a62cfe2b4ae29a5e4f45c1749f1fe7762626ccfc5"
+    },
+    {
+      "path": "docs/technical_report_2026.md",
+      "bytes": 4874,
+      "sha256": "5fd9495333d43a0e3f9c163c8d1569986664593e2908dfa6490e42a0803eb373"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 541,
+      "sha256": "485728645d9b0eaf9ef7b7a1ab127522776afd4467585876164224640489f7c0"
+    },
+    {
+      "path": "release/submission_application_2026.pdf",
+      "bytes": 302481,
+      "sha256": "b88a91e67346f66b3ed7f62715ca4cb796d2938854f4697824c0aae7f80b9cbc"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 89,
+      "sha256": "f0b74587b40a104c277445d40a2a14ab228c395eb7e73f1cdfa73c869aa06734"
+    },
+    {
+      "path": "scripts/audit_claims.py",
+      "bytes": 1274,
+      "sha256": "5265d03973dde5f8646c09c4f338fa4edb63f896f026a35804fc5083956a91f2"
+    },
+    {
+      "path": "scripts/build_c0_c4_gate.py",
+      "bytes": 3000,
+      "sha256": "698668414afc25a14f571a1eb3ec1dec64fc0a040a4ff360480fe64de989bf53"
+    },
+    {
+      "path": "scripts/build_competition_figures.py",
+      "bytes": 5301,
+      "sha256": "8a19048826c436fa707f3528da2ae91319dd4fd8c98df16833a7735268a88695"
+    },
+    {
+      "path": "scripts/build_figures.py",
+      "bytes": 5844,
+      "sha256": "aa39e330e150d90affced650a67c2018a67d17fe429ac900b64b7f148c1fd802"
+    },
+    {
+      "path": "scripts/build_mrv_sensitivity.py",
+      "bytes": 1694,
+      "sha256": "5fccc063cab406cc60724d6ea568d662748dbb479ab0276576fcaac74abe3963"
+    },
+    {
+      "path": "scripts/build_paired_report.py",
+      "bytes": 2319,
+      "sha256": "76428815e27d7da77894523d6a4129ab63d4bddbbe55f4cd36a989a4c459331f"
+    },
+    {
+      "path": "scripts/build_risk_report.py",
+      "bytes": 2451,
+      "sha256": "de40f507cfc3846f8483336712f72065dd5f8e85f5814cdf9be4da08b8fda3c5"
+    },
+    {
+      "path": "scripts/build_submission.py",
+      "bytes": 3910,
+      "sha256": "641f86ee685450b3b90534359ff7a12ca54fa2af5e995fc68b2a62b4272b4447"
+    },
+    {
+      "path": "scripts/build_submission_document.py",
+      "bytes": 1848,
+      "sha256": "3926b8f2a9a9bb5fed07529e33260ba686423783f96d5f989131689291434dc2"
+    },
+    {
+      "path": "scripts/capture_baseline.py",
+      "bytes": 1713,
+      "sha256": "82c2bd1b481b5fb62214a4d59d8050e48999de7cb88895fa49535096fa91de9e"
+    },
+    {
+      "path": "scripts/check_submission_ready.py",
+      "bytes": 2917,
+      "sha256": "7858212a263eefc00c4d53e4f1c9131078a8315650af7719e689d24553daa57d"
+    },
+    {
+      "path": "scripts/fetch_public_data.py",
+      "bytes": 3098,
+      "sha256": "0d0f0e430c547ce5c59eedf563f295f25d02ecbb113353f4863dfaa5e8725757"
+    },
+    {
+      "path": "scripts/fetch_station_context.py",
+      "bytes": 1688,
+      "sha256": "917acc15fc7504fa90984444b1b119471110d422825e7781e79f5247961a700a"
+    },
+    {
+      "path": "scripts/finalize_verification.py",
+      "bytes": 4138,
+      "sha256": "edc404db0a0d87af647329a9dae0c7da90285c567df57354886d10527fcce84f"
+    },
+    {
+      "path": "scripts/preview_competition.py",
+      "bytes": 1762,
+      "sha256": "f1449fd2aa1f1cea10a53a7b6ca7d1185f7ec7e35047594421b564495149713b"
+    },
+    {
+      "path": "scripts/refresh_demo_baselines.py",
+      "bytes": 1015,
+      "sha256": "792f408e386ec5c52e8c556ce26f79c5eb089c72b84f75745e95d6d92dba62ae"
+    },
+    {
+      "path": "scripts/run_competition_validation.py",
+      "bytes": 5780,
+      "sha256": "f6ef79c0d3c0fb150fa8abb5a97e18fdd602fdedf6fe64425a49f535373198bd"
+    },
+    {
+      "path": "scripts/run_public_replay.py",
+      "bytes": 3056,
+      "sha256": "f6b33f25e628cdc11d4b7a41651f917e99d5da81d7ba350635bd866b544a5127"
+    },
+    {
+      "path": "scripts/run_strict_contract_demo.py",
+      "bytes": 3050,
+      "sha256": "646f5bbc4c4f042853583fa17dee7cbf72541ffb3fc9333c4377718e01a431d6"
+    },
+    {
+      "path": "scripts/run_wave10_batch.py",
+      "bytes": 1867,
+      "sha256": "4b97a8ab9f4512d6257778531c17cd1d078e258c45fc5f3325724a0a9c1e6e82"
+    },
+    {
+      "path": "scripts/smoke_demo.py",
+      "bytes": 1918,
+      "sha256": "c68ce76c05bd4a1a4faab0372afb67e4611ecc07d7a4d0f7b148d2be0fa53f3a"
+    },
+    {
+      "path": "src/gridrescue/__init__.py",
+      "bytes": 64,
+      "sha256": "4e6c23be08f892842c5adc520b55785f8c6daeb04dd41f61a66e3aed70778e43"
+    },
+    {
+      "path": "src/gridrescue/carbon.py",
+      "bytes": 1681,
+      "sha256": "fcab035091b3512b49bd580df6bdd3c36cfc624f986de96abf2489fd69ba1756"
+    },
+    {
+      "path": "src/gridrescue/care.py",
+      "bytes": 13173,
+      "sha256": "2edb248d9237b58acee19fc4c41dd70d30db70f268d5e3c59680e6cf4b2922fb"
+    },
+    {
+      "path": "src/gridrescue/case33_data.py",
+      "bytes": 2687,
+      "sha256": "79a3ce44860060b0834ff6a3598058424eb6fa6995c53bc9bbed19aef987ff1e"
+    },
+    {
+      "path": "src/gridrescue/cli.py",
+      "bytes": 5658,
+      "sha256": "d8d21ba3f8d15daa8a3d15e87b081fc8a9989890cba449eae00edcd947726ce1"
+    },
+    {
+      "path": "src/gridrescue/dispatch.py",
+      "bytes": 22595,
+      "sha256": "7e16fe9714ca32c0d33a31ffe639d3ee784774a55d00602c6d8c9009b9e7fe9c"
+    },
+    {
+      "path": "src/gridrescue/experiments.py",
+      "bytes": 17965,
+      "sha256": "460e80ae3b1b4e699a85ea0c45f92bbbe2c5fa130dacb9957e69ba129a8f3db1"
+    },
+    {
+      "path": "src/gridrescue/facts.py",
+      "bytes": 1759,
+      "sha256": "7e5c2e5a8f29d92aff10536e500e3b3f48dd5c75c781f4d59a49fc82373d376a"
+    },
+    {
+      "path": "src/gridrescue/faults.py",
+      "bytes": 3228,
+      "sha256": "f718bc10ed5370a0e3ce4c7631749f9bc07c0239a78f37091f5bf06d4f69b4d4"
+    },
+    {
+      "path": "src/gridrescue/islands.py",
+      "bytes": 17182,
+      "sha256": "7c84fad065fd01ca2b558563eafbfe5575a90e2d8bb41b29a8ba7075144ad5ff"
+    },
+    {
+      "path": "src/gridrescue/metrics.py",
+      "bytes": 2002,
+      "sha256": "cefb0342a4baf5753c72217a454957a3ce31bcd4d4afaa79ef60e2a33cd0e0e9"
+    },
+    {
+      "path": "src/gridrescue/mrv.py",
+      "bytes": 45069,
+      "sha256": "d72c7e5472a293228c16762c68b7aa942e21773e9261cb2b84858fb3e97bc255"
+    },
+    {
+      "path": "src/gridrescue/mrv_sensitivity.py",
+      "bytes": 3864,
+      "sha256": "95228caf030a7aeae255d0433e43fc26307110568b9960d2ee222c15ab41dbd5"
+    },
+    {
+      "path": "src/gridrescue/network.py",
+      "bytes": 5590,
+      "sha256": "ddf4a3eb417447d58d640c7724491aafc9fdfc6958f5c3954ea40670f3edbc2a"
+    },
+    {
+      "path": "src/gridrescue/paired_stats.py",
+      "bytes": 3804,
+      "sha256": "ae3fd42ff8651a7baf91b592c1cc4da01b0eb62eb9baecb4aea88f8951ddf4ee"
+    },
+    {
+      "path": "src/gridrescue/pareto.py",
+      "bytes": 29680,
+      "sha256": "ac9d48e90dcb75128c7dcc3857a10661c79c43b84f00edc27079723d5ae83882"
+    },
+    {
+      "path": "src/gridrescue/pipeline.py",
+      "bytes": 8547,
+      "sha256": "05b160f3a7437254a3cdf49651b459f9530ab8905dce42640f3b9c43a1cf40d7"
+    },
+    {
+      "path": "src/gridrescue/powerflow.py",
+      "bytes": 22371,
+      "sha256": "36c8ce76433139b393b91bdfd8af152596ec0d7a81cdbb6dace2c9bbf285355c"
+    },
+    {
+      "path": "src/gridrescue/public_data.py",
+      "bytes": 3519,
+      "sha256": "b8498702ae4b211afb13a7a97d336a9fbdd156cc55fed7ecbaefa247608a533f"
+    },
+    {
+      "path": "src/gridrescue/report.py",
+      "bytes": 1917,
+      "sha256": "8fa6e88b564abc69a8438ae92c784eac850e4e5c7dc8cffc0f7d18dde33c8da8"
+    },
+    {
+      "path": "src/gridrescue/restoration.py",
+      "bytes": 12748,
+      "sha256": "b41fddde28dd9392ef101ff13bfeef04cf491a8d3b4c21899dc59aea1cd47aee"
+    },
+    {
+      "path": "src/gridrescue/risk.py",
+      "bytes": 4456,
+      "sha256": "4bd71f84aea147242005da9fed2ddd7182f862d94bd5ac7a9ce8183f7190e450"
+    },
+    {
+      "path": "src/gridrescue/scenario_catalog.py",
+      "bytes": 6668,
+      "sha256": "80579e13fec201025e32eb89f348a20cdb716dee766cfc425d0d30910d11e752"
+    },
+    {
+      "path": "src/gridrescue/scenarios.py",
+      "bytes": 6280,
+      "sha256": "9048fbd131c0ebaf4b3bc136612ca24c1d28fd7c8c98841af44c2e9b3d1d64de"
+    },
+    {
+      "path": "tests/test_app_mrv.py",
+      "bytes": 2533,
+      "sha256": "44bfb19226cef83eac45ebb0a4bdef4a03e7eb6f837d5c13e9115b700efe3034"
+    },
+    {
+      "path": "tests/test_app_workbench.py",
+      "bytes": 3679,
+      "sha256": "e5423686c266fc8ea996552d08c7b94317ff5190a8a50fbdca9bfe4505c85f57"
+    },
+    {
+      "path": "tests/test_care.py",
+      "bytes": 4321,
+      "sha256": "5e1cba763ed524fe6df48373ba62bd32ea8e34524fcc0d8f3aa387a7c67298dd"
+    },
+    {
+      "path": "tests/test_competition_regressions.py",
+      "bytes": 3054,
+      "sha256": "e8e5552f8ae6e41760586d202ce231d530ee15b248514461df94af2cefb422f7"
+    },
+    {
+      "path": "tests/test_core.py",
+      "bytes": 6276,
+      "sha256": "4c4627f4fcdaea0ca3fbfb8e024939fd461114ec859888d79b0fcfdc8c397861"
+    },
+    {
+      "path": "tests/test_experiments.py",
+      "bytes": 4246,
+      "sha256": "0d7aa42602632bf696a396e97b68a3a8cacc0220211d3e2b467bd803030f4bc4"
+    },
+    {
+      "path": "tests/test_facts.py",
+      "bytes": 569,
+      "sha256": "13ceac651bec3006d66a1f96cee5e6a6e91b896b8b8675baef85dcdd7b6a9135"
+    },
+    {
+      "path": "tests/test_islands.py",
+      "bytes": 2876,
+      "sha256": "1734c773e5460ee38bee6455ddd28bebd5f30ea30c01a6a03af1862ee471aa85"
+    },
+    {
+      "path": "tests/test_mrv.py",
+      "bytes": 9750,
+      "sha256": "edb1f1238fbe396f64269c65659da6ef518dd84b73df2595c6fb8df896d7e4ad"
+    },
+    {
+      "path": "tests/test_mrv_sensitivity.py",
+      "bytes": 795,
+      "sha256": "b418590b11ab2d0864da889f33ad95fc4275e9cdcd25ee865b8e244753b4389f"
+    },
+    {
+      "path": "tests/test_paired_stats.py",
+      "bytes": 962,
+      "sha256": "a5bf836392bd2bb35c5e4b59e98095db759e454efe083e2f1911a7eed933c30c"
+    },
+    {
+      "path": "tests/test_pareto.py",
+      "bytes": 4815,
+      "sha256": "c11d1c3f4d4c2317d1a9afda8e69ebd1132dc8e7b914a239a4ba6b6f1097a331"
+    },
+    {
+      "path": "tests/test_public_data.py",
+      "bytes": 1478,
+      "sha256": "10fb094f0aaf4b5fbd152cc4af3916ce43433ff4ebe6b2c7645fe5de1355745e"
+    },
+    {
+      "path": "tests/test_risk.py",
+      "bytes": 871,
+      "sha256": "48f45fcec9f97262c4469e35745a57b0f21b8c564d42cfd887a901a55c1b4627"
+    },
+    {
+      "path": "tests/test_scenario_catalog.py",
+      "bytes": 1148,
+      "sha256": "d31403d3ecc177b6b4b36387f4940aa2840ccaef1ec4cedcc335c1de6ef02e49"
+    },
+    {
+      "path": "tests/test_submission.py",
+      "bytes": 927,
+      "sha256": "dca9e78bc68be1834a4674691a466b02e9c46b9b5257433e463a3b9bf4529247"
+    }
+  ]
+}

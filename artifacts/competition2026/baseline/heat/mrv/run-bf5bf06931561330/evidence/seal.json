@@ -1,0 +1,12 @@
+{
+  "action_ledger_terminal_hashes": {
+    "carbon_resilient": "sha256:e91ca66b879eb8d73a4dc24bb091e227cd2d631fc052e56f06b44befc31693ea",
+    "eens": "sha256:d6644a0ab8095237e0305c3000a96530f1386556d3a3a844b0289757b147f41f",
+    "traditional": "sha256:fad59b6f0c96da7d83e72fe24b3554d7aa80e549b0282a0529647181c775bda6"
+  },
+  "evidence_index_sha256": "sha256:43ac48d7418389bf8d2dfc24aee0aa33f5612030c0a97f0eb0831facd05d88f2",
+  "manifest_sha256": "sha256:888fa1f16e76dbca01e9fc1f3a8b4b5630e0c4614824bd6aee8737cb00dfa536",
+  "meaning": "File-integrity seal only; not third-party assurance.",
+  "run_id": "run-bf5bf06931561330",
+  "schema_version": "gridrescue-seal-1.0"
+}

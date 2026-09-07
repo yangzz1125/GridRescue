@@ -1,0 +1,35 @@
+{
+  "eens_kwh": {
+    "n": 35,
+    "mean": 3290.273801428572,
+    "lo": 3121.6932111785713,
+    "hi": 3447.5777609571423,
+    "confidence": 0.95,
+    "seed": 20260822,
+    "n_resamples": 2000,
+    "total_pairs": 36,
+    "excluded_pairs": 1
+  },
+  "critical_eens_kwh": {
+    "n": 35,
+    "mean": -15.480759142857096,
+    "lo": -22.885925300000075,
+    "hi": -8.72477652857136,
+    "confidence": 0.95,
+    "seed": 20260822,
+    "n_resamples": 2000,
+    "total_pairs": 36,
+    "excluded_pairs": 1
+  },
+  "total_carbon_kg": {
+    "n": 35,
+    "mean": -2409.3884544184175,
+    "lo": -2556.354892123146,
+    "hi": -2261.18484253025,
+    "confidence": 0.95,
+    "seed": 20260822,
+    "n_resamples": 2000,
+    "total_pairs": 36,
+    "excluded_pairs": 1
+  }
+}

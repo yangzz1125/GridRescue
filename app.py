@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import os
@@ -15,6 +16,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
+from ui import setup_ui, render_brand, render_heading, render_metrics
+
 ROOT = Path(__file__).resolve().parent
 EVIDENCE_FREEZE_DATE = "2026-08-22"
 sys.path.insert(0, str(ROOT / "src"))
@@ -22,61 +25,52 @@ sys.path.insert(0, str(ROOT / "src"))
 from gridrescue.care import default_care_tasks, evaluate_care_tasks  # noqa: E402
 from gridrescue.facts import FACTS  # noqa: E402
 from gridrescue.islands import build_island_passports  # noqa: E402
-from gridrescue.mrv import STRATEGY_SLUGS, verify_mrv_bundle  # noqa: E402
+from gridrescue.mrv import STRATEGY_SLUGS, verify_mrv_bundle, _code_bundle_hash  # noqa: E402
 from gridrescue.network import graph_from_state  # noqa: E402
 from gridrescue.pareto import ParetoScanSpec, scan_pareto  # noqa: E402
-from gridrescue.pipeline import run_pipeline  # noqa: E402
+from gridrescue.pipeline import run_pipeline, run_scenario  # noqa: E402
+from gridrescue.public_data import load_public_scenario, PUBLIC  # noqa: E402
 from gridrescue.powerflow import validate_dispatch  # noqa: E402
 from gridrescue.restoration import STRATEGIES, state_at_hour  # noqa: E402
-from gridrescue.real_event_replay import load_weather_csv, summarize_weather  # noqa: E402
 from gridrescue.risk import choose_strategy, summarize_risk  # noqa: E402
 from gridrescue.scenarios import SCENARIOS  # noqa: E402
 
 
-st.set_page_config(page_title="GridRescue 碳韧智网", page_icon="⚡", layout="wide")
-st.markdown(
-    """
-    <style>
-    .block-container {padding-top: 1.2rem; max-width: 1500px;}
-    [data-testid="stMetric"] {background:#0d1c25;border:1px solid #244b5e;
-      border-radius:12px;padding:12px;}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+PUBLIC_CASES = {"武汉高温 · 2022-08-15": "wuhan_heat", "武汉降雨 · 2020-07-06": "wuhan_rain", "厦门大风 · 2016-09-15": "xiamen_wind"}
+CODE_FINGERPRINT = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((ROOT / "src").rglob("*.py")))).hexdigest()
 
-st.title("⚡ 碳韧智网 GridRescue")
-st.caption("极端天气配电网碳—韧性协同恢复决策 · 低碳保供预案工作台")
+setup_ui()
 
 with st.sidebar:
-    scenario_name = st.selectbox("灾害场景", list(SCENARIOS))
+    render_brand()
+    st.markdown('<div class="sidebar-section">01 / 推演参数</div>', unsafe_allow_html=True)
+    scenario_name = st.selectbox("灾害场景", list(SCENARIOS) + list(PUBLIC_CASES))
     strategy = st.radio("恢复策略", STRATEGIES, index=2)
+    st.divider()
+    st.markdown('<div class="sidebar-section">02 / 恢复进程</div>', unsafe_allow_html=True)
     hour = st.slider("恢复进程 / 小时", 0, 23, 4)
-    st.caption("演示证据预设")
-    mode = st.radio(
-        "证据预设",
-        ("主推荐 · PASS", "受控预算候选 · CLAIM GATED", "NO_GFM反例 · BLOCKED"),
-        horizontal=False,
-        key="workbench_evidence_preset",
-        help="现场演示预设：主推荐、受控服务预算候选或 NO_GFM 物理阻断反例。",
-    )
-    st.info("碳核算仅比较柴油、上级电网和抢修车辆等恢复增量排放，不把恢复电量直接认定为减排。")
+    st.caption(f"T+{hour:02d}:00 / 24小时恢复窗口")
+    st.markdown('<div class="sidebar-footer">MATPOWER case33bw<br>33 节点 · 32 支路 · 5 联络线<br>12.66 kV / 10 MVA</div>', unsafe_allow_html=True)
+    with st.expander("数据与核算边界", icon=":material/info:"):
+        st.caption("网络、故障与生命线任务含工程假设；碳清单仅核算购电、柴油与车辆。服务不等价时不主张严格减排。")
 
 
 @st.cache_data(show_spinner="正在推演三种恢复策略……")
-def cached_pipeline(name: str):
-    # The official demo ships a deterministic pickle generated from the same
-    # source tree.  Loading it avoids a 15–30s cold-start solve during judging;
-    # deleting the cache or setting GRIDRESCUE_FORCE_LIVE=1 restores live solve.
-    cache_slug = {"暴雨内涝": "flood", "台风": "typhoon", "极端高温": "heat"}.get(name)
-    cache_path = ROOT / "artifacts" / "wave10" / "pipeline_cache" / f"{cache_slug}.pkl" if cache_slug else None
-    if cache_path and cache_path.exists() and os.getenv("GRIDRESCUE_FORCE_LIVE", "0") != "1":
-        with cache_path.open("rb") as handle:
-            return pickle.load(handle)
-    return run_pipeline(name)
+def cached_pipeline(name: str, code_fingerprint: str):
+    public_key = PUBLIC_CASES.get(name)
+    slug = public_key or {"暴雨内涝": "flood", "台风": "typhoon", "极端高温": "heat"}[name]
+    directory = ROOT / "artifacts/competition2026" / ("public_replay" if public_key else "baseline_current") / slug
+    cache, metadata = directory / "pipeline.pkl", directory / "cache_manifest.json"
+    if os.getenv("GRIDRESCUE_FORCE_LIVE", "0") != "1" and cache.exists() and metadata.exists():
+        info = json.loads(metadata.read_text(encoding="utf-8"))
+        data = cache.read_bytes()
+        if info.get("code_sha256") == code_fingerprint and info.get("cache_sha256") == hashlib.sha256(data).hexdigest():
+            # Release-owned local caches only, never uploads or external paths.
+            return pickle.loads(data)
+    return run_scenario(load_public_scenario(public_key)) if public_key else run_pipeline(name)
 
 
-@st.cache_data(show_spinner="正在计算受控服务 ε-constraint Pareto 前沿……")
+@st.cache_data(show_spinner="正在计算同服务 ε-constraint Pareto 前沿……")
 def cached_pareto(name: str):
     return scan_pareto(
         name,
@@ -94,25 +88,29 @@ def _load_json_object(path: Path) -> dict[str, Any]:
     return value
 
 
-@st.cache_data(show_spinner=False)
 def load_wave11_risk_report() -> dict[str, Any] | None:
     """Load the deterministic CVaR report without making the live demo wait."""
-    path = ROOT / "artifacts" / "wave11" / "risk_report" / "risk_report.json"
-    if not path.exists():
-        return None
+    path = Path(os.getenv("GRIDRESCUE_RISK_REPORT", str(ROOT / "artifacts" / "competition2026" / "risk_report.json")))
     try:
-        return _load_json_object(path)
+        report = _load_json_object(path)
+        if not isinstance(report.get("summaries"), list) or "chosen_strategy" not in report:
+            return None
+        return report
     except (OSError, ValueError, json.JSONDecodeError):
         return None
 
 
-@st.cache_data(show_spinner=False)
 def load_wave11_mrv_sensitivity() -> dict[str, Any] | None:
-    path = ROOT / "artifacts" / "wave11" / "mrv_sensitivity" / "sensitivity_report.json"
+    key = PUBLIC_CASES.get(scenario_name)
+    slug = key or {"暴雨内涝": "flood", "台风": "typhoon", "极端高温": "heat"}[scenario_name]
+    path = ROOT / "artifacts/competition2026" / ("public_replay" if key else "baseline") / slug / "sensitivity_report.json"
     if not path.exists():
         return None
     try:
-        return _load_json_object(path)
+        report = _load_json_object(path)
+        rows = report.get("summaries")
+        required = {"strategy_id", "baseline_kgco2", "q05_kgco2", "q95_kgco2", "winner_rate"}
+        return report if isinstance(rows, list) and all(isinstance(row, dict) and required.issubset(row) for row in rows) else None
     except (OSError, ValueError, json.JSONDecodeError):
         return None
 
@@ -172,7 +170,6 @@ def summarize_factor_data_class(registry: pd.DataFrame) -> dict[str, str | int]:
     }
 
 
-@st.cache_data(show_spinner=False)
 def load_mrv_ui_state(bundle_text: str) -> dict[str, Any]:
     bundle = Path(bundle_text)
     semantic_errors: list[str] = []
@@ -220,7 +217,6 @@ def load_mrv_ui_state(bundle_text: str) -> dict[str, Any]:
     }
 
 
-@st.cache_data(show_spinner=False)
 def build_mrv_bundle_zip(bundle_text: str) -> bytes:
     bundle = Path(bundle_text)
     buffer = io.BytesIO()
@@ -229,149 +225,6 @@ def build_mrv_bundle_zip(bundle_text: str) -> bytes:
             if path.is_file():
                 archive.write(path, path.relative_to(bundle).as_posix())
     return buffer.getvalue()
-
-
-@st.cache_data(show_spinner=False)
-def load_real_event_replay() -> dict[str, Any] | None:
-    """Load the checked-in public-data replay without running an optimizer."""
-    event_root = ROOT / "data" / "events" / "event_001"
-    required = {
-        "event_metadata.json",
-        "replay_manifest.json",
-        "weather_houston_20210215_20210217.csv",
-        "weather_metadata.json",
-        "node_mapping.csv",
-        "strategy_comparison.csv",
-    }
-    if not all((event_root / name).exists() for name in required):
-        return None
-    try:
-        metadata = _load_json_object(event_root / "event_metadata.json")
-        manifest = _load_json_object(event_root / "replay_manifest.json")
-        weather_metadata = _load_json_object(event_root / "weather_metadata.json")
-        weather = load_weather_csv(event_root / "weather_houston_20210215_20210217.csv")
-        weather_summary = summarize_weather(
-            weather,
-            source_id=str(manifest.get("weather", {}).get("source_id", "Open-Meteo-historical-archive")),
-        )
-        mapping = pd.read_csv(event_root / "node_mapping.csv")
-        comparison = pd.read_csv(event_root / "strategy_comparison.csv")
-        comparison_path = ROOT / "data" / "events" / "real_event_comparison.csv"
-        cross_comparison = pd.read_csv(comparison_path) if comparison_path.exists() else comparison.copy()
-        return {
-            "root": event_root,
-            "metadata": metadata,
-            "manifest": manifest,
-            "weather_metadata": weather_metadata,
-            "weather": weather,
-            "weather_summary": weather_summary,
-            "mapping": mapping,
-            "comparison": comparison,
-            "cross_comparison": cross_comparison,
-        }
-    except (OSError, ValueError, KeyError, pd.errors.ParserError):
-        return None
-
-
-def render_real_event_replay_panel() -> None:
-    """Render evidence-backed event replay and its explicit model boundary."""
-    st.subheader("Real event replay / 真实事件回放")
-    replay = load_real_event_replay()
-    if replay is None:
-        st.error("event_001 replay artifacts are missing or invalid")
-        return
-
-    metadata = replay["metadata"]
-    manifest = replay["manifest"]
-    weather_summary = replay["weather_summary"]
-    mapping = replay["mapping"]
-    comparison = replay["comparison"]
-    cross_comparison = replay["cross_comparison"]
-    event_id = str(metadata.get("event_id", manifest.get("event_id", "event_001")))
-    event_type = str(metadata.get("event_type", manifest.get("event_type", "unknown")))
-    county = str(metadata.get("county", manifest.get("county", "unknown")))
-    peak = float(metadata.get("peak_customers", manifest.get("peak_customers", 0.0)))
-    duration = float(metadata.get("duration_h", manifest.get("observed_duration_h", 0.0)))
-    fraction = float(manifest.get("outage_fraction", peak / max(float(manifest.get("reference_customers", 1.0)), 1.0)))
-
-    st.caption(
-        f"{event_id} · {event_type} · {county} · public outage statistics + historical weather · "
-        "not Wuhan feeder telemetry"
-    )
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Peak customers", f"{peak:,.0f}")
-    m2.metric("Observed duration", f"{duration:.2f} h")
-    m3.metric("Regional outage proxy", f"{100 * fraction:.2f}%")
-    m4.metric("Weather rows", str(weather_summary.rows))
-
-    weather = replay["weather"]
-    weather_plot = weather.melt(
-        id_vars=["timestamp"],
-        value_vars=["temperature_2m_c", "precipitation_mm", "wind_speed_10m_kmh"],
-        var_name="variable",
-        value_name="value",
-    )
-    st.plotly_chart(
-        px.line(
-            weather_plot,
-            x="timestamp",
-            y="value",
-            color="variable",
-            markers=True,
-            title="Houston historical weather window / 小时天气",
-            labels={"value": "value", "timestamp": "UTC time", "variable": "weather field"},
-        ),
-        width="stretch",
-    )
-
-    left, right = st.columns([1.1, 1])
-    with left:
-        st.markdown("#### 33-node statistical mapping")
-        st.dataframe(
-            mapping[["node_id", "base_load_kw", "node_weight", "outage_fraction", "estimated_unserved_kw", "duration_h"]],
-            width="stretch",
-            hide_index=True,
-            height=360,
-        )
-    with right:
-        st.markdown("#### Strategy comparison")
-        st.dataframe(comparison, width="stretch", hide_index=True)
-        st.download_button(
-            "Download replay manifest",
-            json.dumps(manifest, ensure_ascii=False, indent=2),
-            file_name="event_001_replay_manifest.json",
-            mime="application/json",
-        )
-
-    st.markdown("#### Cross-event robustness / 跨事件对比")
-    st.caption("Two public event records are compared after the same 33-node statistical mapping; this is a robustness check, not a U.S.-wide estimate.")
-    if not cross_comparison.empty:
-        st.plotly_chart(
-            px.bar(
-                cross_comparison,
-                x="event_id",
-                y="total_carbon_kg",
-                color="strategy",
-                barmode="group",
-                title="Carbon inventory by public event and strategy",
-                labels={"event_id": "public event", "total_carbon_kg": "kgCO2", "strategy": "strategy"},
-            ),
-            width="stretch",
-        )
-        st.dataframe(
-            cross_comparison[["event_id", "state", "county", "strategy", "eens_kwh", "critical_recovery_pct", "total_carbon_kg"]],
-            width="stretch",
-            hide_index=True,
-        )
-
-    st.info(
-        "Claim boundary: `E_external_aggregate` + `regional_statistical_mapping`. "
-        "Representative branches are severity proxies, not Harris County line telemetry; "
-        "weather is a historical grid point, not an on-site feeder sensor."
-    )
-    with st.expander("Source and attribution"):
-        st.write(metadata)
-        st.write(replay["weather_metadata"])
 
 
 def render_mrv_evidence_panel(state: dict[str, Any] | None, strategy_name: str) -> None:
@@ -443,30 +296,38 @@ def render_mrv_evidence_panel(state: dict[str, Any] | None, strategy_name: str) 
     )
 
 
-result = cached_pipeline(scenario_name)
+public_input = load_public_scenario(PUBLIC_CASES[scenario_name]) if scenario_name in PUBLIC_CASES else None
+result = cached_pipeline(scenario_name, CODE_FINGERPRINT)
+if public_input is not None and result.scenario != public_input:
+    st.error("缓存输入与当前公开数据不一致，拒绝使用。请强制现场复算。")
+    st.stop()
 selected = result.strategies[strategy]
 metrics = selected.metrics
 mrv_bundle_dir = resolve_mrv_bundle(
-    ROOT / "artifacts",
-    scenario_name,
+    ROOT / "artifacts" / "competition2026",
+    result.scenario.name,
     result.model.source_sha256,
     override=os.getenv("GRIDRESCUE_MRV_BUNDLE"),
 )
 mrv_state = load_mrv_ui_state(str(mrv_bundle_dir)) if mrv_bundle_dir else None
+if mrv_state is not None:
+    matched = True
+    for current_name, current_result in result.strategies.items():
+        archived_path = mrv_bundle_dir / "outputs" / f"dispatch_{STRATEGY_SLUGS[current_name]}.csv"
+        try:
+            archived = pd.read_csv(archived_path).set_index("hour")
+            current = current_result.dispatch.frame
+            matched = matched and archived.index.equals(current.index) and set(current.columns).issubset(archived.columns)
+            if matched:
+                matched = bool(((archived[current.columns] - current).abs() <= 1e-4).all().all())
+        except (OSError, ValueError, KeyError):
+            matched = False
+    mrv_state["current_result_match"] = matched and mrv_state["manifest"].get("code", {}).get("code_bundle_sha256") == _code_bundle_hash(ROOT)
+    with st.sidebar:
+        st.caption("证据对应当前推演" if mrv_state["current_result_match"] else "历史证据仅供归档查阅，不对应当前推演，不能用于当前推荐")
 
-with st.sidebar:
-    st.caption(
-        f"网络：MATPOWER case33bw · {result.model.base_kv:.2f} kV / "
-        f"{result.model.base_mva:.0f} MVA · SHA-256 {result.model.source_sha256[:12]}…"
-    )
-
-c1, c2, c3, c4, c5, c6 = st.columns(6)
-c1.metric("关键负荷恢复率", f"{metrics.critical_recovery_pct:.1f}%")
-c2.metric("EENS", f"{metrics.eens_kwh:.0f} kWh")
-c3.metric("恢复阶段碳排", f"{metrics.total_carbon_kg:.0f} kg")
-c4.metric("柴油发电", f"{metrics.diesel_energy_kwh:.0f} kWh")
-c5.metric("新能源消纳", f"{metrics.renewable_consumed_kwh:.0f} kWh")
-c6.metric("开关/修复动作", f"{metrics.switch_operations} 次")
+render_heading(scenario_name, strategy)
+render_metrics(metrics)
 
 
 def _gate_label(value: object) -> str:
@@ -477,9 +338,7 @@ def render_decision_workbench() -> None:
     """Render the evaluator-first decision surface before the legacy tabs."""
 
     st.header("评委决策工作台")
-    st.caption(
-        f"{FACTS.frozen_label} · {FACTS.project} · 只读证据优先，现场探索与正式结论分离"
-    )
+    st.caption("候选与最小失供参考的资格比较")
     if mrv_state is None:
         st.warning("当前灾种没有匹配冻结MRV证据；推荐卡仅展示现场推演，不进入正式主张。")
         comparison: dict[str, Any] = {}
@@ -492,84 +351,56 @@ def render_decision_workbench() -> None:
             .get("strategies", {})
             .get(STRATEGY_SLUGS.get("碳韧协同恢复", "carbon_resilient"), {})
         )
-        display_verified = bool(mrv_state.get("display_verified"))
+        display_verified = bool(mrv_state.get("display_verified") and mrv_state.get("current_result_match"))
 
     candidate_name = "碳韧协同恢复"
     reference_name = "最小失供恢复"
     claim_label = "受控服务预算下的清单差异"
     normal_budget = 100 * float(comparison.get("normal_service_budget_fraction", 0.08))
-    inventory_difference = float(comparison.get("inventory_difference_kgCO2", metrics.total_carbon_kg))
-    candidate_inventory = float(comparison.get("candidate_inventory_kgCO2", metrics.total_carbon_kg))
+    candidate_metrics = result.strategies["碳韧协同恢复"].metrics
+    reference_metrics = result.strategies["最小失供恢复"].metrics
+    inventory_difference = float(comparison.get("inventory_difference_kgCO2", candidate_metrics.total_carbon_kg - reference_metrics.total_carbon_kg))
+    candidate_inventory = float(comparison.get("candidate_inventory_kgCO2", candidate_metrics.total_carbon_kg))
     reference_inventory = float(comparison.get("reference_inventory_kgCO2", candidate_inventory - inventory_difference))
 
-    h1, h2, h3, h4 = st.columns(4)
-    # Keep the headline qualification synchronized with the evidence preset below.
-    # Reruns receive the latest radio value via session_state; this avoids a visible
-    # PASS + NO_GFM BLOCKED contradiction during the evaluator walkthrough.
-    preset_mode = str(st.session_state.get("workbench_evidence_preset", "主推荐 · PASS"))
-    if preset_mode.startswith("NO_GFM"):
-        qualification = "BLOCKED"
-    elif preset_mode.startswith("受控"):
-        qualification = "CLAIM GATED"
-    else:
-        qualification = "PASS" if display_verified and gate.get("inventory_eligible") else "BLOCKED"
-
+    h1, h4 = st.columns([1.4, 1])
     h1.metric("推荐候选", candidate_name)
+    h2, h3 = st.columns(2)
     h2.metric("普通服务预算", f"{normal_budget:.0f}%")
-    h3.metric("候选-参考清单差", f"{inventory_difference:+.0f} kgCO2")
-    h4.metric("推荐资格", qualification)
+    h3.metric("候选-参考清单差", f"{inventory_difference:+,.0f} kgCO2")
+    recommendation_pass = bool(display_verified and gate.get("inventory_eligible") is True
+                               and gate.get("care_task_pass") is True
+                               and gate.get("grid_physical_pass") is True
+                               and comparison.get("controlled_tradeoff_pass") is True)
+    h4.metric("推荐资格", "PASS" if recommendation_pass else "BLOCKED")
 
-    risk_report = load_wave11_risk_report()
-    if risk_report:
-        st.markdown("#### 尾部风险推荐 / CVaR")
-        chosen = risk_report.get("chosen_strategy") or {}
-        r1, r2, r3, r4 = st.columns(4)
-        r1.metric("Risk metric", str(risk_report.get("metric", "eens_kwh")))
-        r2.metric("Recommended", str(chosen.get("strategy", "—")))
-        r3.metric("CVaR95", f"{float(chosen.get('cvar95', 0.0)):.0f}") if chosen else r3.metric("CVaR95", "—")
-        r4.metric("Failure budget", f"{100 * float(risk_report.get('failure_budget', 0.0)):.0f}%")
-        st.caption(
-            "均值之外同时看 P95/CVaR95；失败点保留在分母，超过失败预算的策略不进入推荐。"
-        )
-        summaries = risk_report.get("summaries", [])
-        if summaries:
-            display = pd.DataFrame(summaries)
-            columns = [c for c in ["strategy", "mean", "p95", "cvar95", "failure_rate", "risk_score", "eligible"] if c in display]
-            st.dataframe(display[columns], width="stretch", hide_index=True)
-
-    sensitivity = load_wave11_mrv_sensitivity()
-    if sensitivity:
-        st.markdown("#### MRV 因子不确定性传播")
-        st.caption("固定 activity inventory，仅扰动 factor registry；不改变 Care/Physics gate，也不升级碳主张等级。")
-        sensitivity_rows = sensitivity.get("summaries", [])
-        if sensitivity_rows:
-            st.dataframe(
-                pd.DataFrame(sensitivity_rows)[
-                    ["strategy_id", "baseline_kgco2", "q05_kgco2", "q95_kgco2", "winner_rate"]
-                ],
-                width="stretch",
-                hide_index=True,
-            )
-
-    st.markdown("#### 三道门")
+    st.divider()
+    st.markdown("#### 推荐资格校验")
     g1, g2, g3 = st.columns(3)
     with g1:
         st.metric("Care / 服务合同", _gate_label(gate.get("care_task_pass")))
-        st.caption("生命线任务、功率、时窗和连续性约束")
+        st.caption("功率 / 时窗")
     with g2:
         st.metric("Physics / 物理校验", _gate_label(gate.get("grid_physical_pass")))
-        st.caption("P/Q反馈、潮流、电压与热限")
+        st.caption("潮流 / 热限")
     with g3:
         st.metric("MRV / 证据复算", "PASS" if display_verified else "BLOCKED")
-        st.caption("activity → factor → inventory → seal")
+        st.caption("清单 / 校验")
 
+    with st.expander("证据预设", icon=":material/tune:"):
+        mode = st.radio(
+            "证据预设",
+            ("主推荐 · PASS", "受控预算候选 · CLAIM GATED", "NO_GFM反例 · BLOCKED"),
+            key="workbench_evidence_preset",
+            label_visibility="collapsed",
+        )
     if mode.startswith("NO_GFM"):
         st.error("BLOCKED / NO_GFM：孤岛缺少成网型电源条件，候选不进入推荐；保留失败原因与重放入口。")
         st.code("gate=G2\nreason=NO_GFM\nrecommendation=disabled", language="text")
     elif mode.startswith("受控"):
         st.warning(
             f"{reference_name} → {candidate_name}：same_service_pass=false。当前只可展示{claim_label}，"
-            "当前主张应保持为受控服务预算下的清单差异。"
+            "不能写成严格同服务减排。"
         )
         st.dataframe(
             pd.DataFrame(
@@ -582,24 +413,75 @@ def render_decision_workbench() -> None:
             hide_index=True,
         )
     else:
-        st.success("主推荐通过服务、物理和证据三门；以下正式证据来自冻结V08 bundle。")
-        st.caption(
-            f"run_id={mrv_state.get('manifest', {}).get('run_id', 'unknown') if mrv_state else 'unknown'} · "
-            f"seal={'SEALED' if display_verified else 'NOT SEALED'} · data_class={FACTS.factor_class}"
-        )
+        if recommendation_pass:
+            st.success("主推荐通过三门校验 · 受控服务预算", icon=":material/check_circle:")
+        else:
+            st.error("推荐被阻断：服务、物理或证据资格未全部通过。", icon=":material/block:")
+        st.caption("服务不等价时，只比较受控服务预算下的碳清单差异。")
 
     with st.expander("主张边界与证据入口", expanded=False):
         st.write(
-            "当前正式气体边界为 CO2，单位为 kgCO2，因子为E类合成工程假设；"
-            "same_service_pass=false，claim_status=controlled_service_budget_inventory_difference。"
+            "当前气体边界为 CO2，单位为 kgCO2。基准场景为工程假设；公开案例使用年度官方电力因子，柴油和车辆仍含工程假设。"
         )
-        st.write("冻结证据：V08 / 2026-08-22 / 3 bundles × 17 files。Seal只代表文件完整性与内部复算。")
+        st.write(f"claim_status={comparison.get('claim_status', 'unavailable')} · same_service_pass={comparison.get('same_service_pass', False)}")
+        st.write("Seal只代表文件完整性与内部复算，不代表第三方核证。")
 
 
-render_decision_workbench()
+def render_statistics():
+    st.subheader("风险与不确定性")
+    st.caption("36场景合成压力集 / 与当前单场景推荐分别评估")
+    risk_report = load_wave11_risk_report()
+    if risk_report:
+        chosen = risk_report.get("chosen_strategy") or {}
+        r1, r2, r3 = st.columns(3)
+        r1.metric("风险优选策略", str(chosen.get("strategy", "无合格策略")))
+        r2.metric("CVaR95", f"{float(chosen['cvar95']):,.0f} kWh" if chosen else "无合格策略")
+        r3.metric("允许失败率", f"{100 * float(risk_report.get('failure_budget', 0)):.0f}%")
+        with st.expander("尾部风险明细", icon=":material/analytics:"):
+            summaries = risk_report.get("summaries", [])
+            if summaries:
+                labels = {"strategy": "恢复策略", "mean": "平均EENS", "p95": "P95", "cvar95": "CVaR95", "failure_rate": "失败率", "risk_score": "风险评分", "eligible": "推荐资格"}
+                frame = pd.DataFrame(summaries)
+                columns = [c for c in labels if c in frame]
+                st.dataframe(frame[columns].rename(columns=labels), hide_index=True, width="stretch",
+                             column_config={"失败率": st.column_config.NumberColumn(format="percent"),
+                                            **{label: st.column_config.NumberColumn(format="%.1f") for label in ("平均EENS", "P95", "CVaR95", "风险评分")}})
+            st.caption("失败点保留在分母；超过失败预算的策略不进入风险推荐。")
+    else:
+        st.info("尾部风险报告不可用：文件缺失、损坏或格式不完整。")
+    sensitivity = load_wave11_mrv_sensitivity()
+    if sensitivity:
+        with st.expander("碳因子敏感性 · 500次抽样", icon=":material/show_chart:"):
+            st.caption("固定活动清单，仅扰动因子。区间为工程范围假设，不是官方置信区间。")
+            rows = sensitivity.get("summaries", [])
+            if rows:
+                frame = pd.DataFrame(rows)
+                frame["strategy_id"] = frame["strategy_id"].replace({v: k for k, v in STRATEGY_SLUGS.items()})
+                labels = {"strategy_id": "恢复策略", "baseline_kgco2": "基准 kgCO2", "q05_kgco2": "P05 kgCO2", "q95_kgco2": "P95 kgCO2", "winner_rate": "最低清单占比"}
+                st.dataframe(frame[list(labels)].rename(columns=labels), hide_index=True, width="stretch",
+                             column_config={"最低清单占比": st.column_config.NumberColumn(format="percent"),
+                                            **{label: st.column_config.NumberColumn(format="%.1f") for label in ("基准 kgCO2", "P05 kgCO2", "P95 kgCO2")}})
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
+
+def render_public_sources():
+    if scenario_name not in PUBLIC_CASES:
+        return
+    provenance = json.loads(result.scenario.provenance_json)
+    weather_source = provenance["weather"]
+    with st.expander("公开数据来源与逐时输入", expanded=True, icon=":material/database:"):
+        st.write("ERA5气象再分析 + 官方年度电力因子 + 公开测试馈线 + 合成故障。不是现场电网实测。")
+        st.write(f"天气日期：{weather_source['date']} · 网格：{weather_source['actual_coordinates']} · 时区：Asia/Shanghai")
+        st.write("电力因子：2023年全国年平均 0.5306 kgCO2/kWh；跨年度参考情景，不是历史事件排放重建。")
+        st.link_button("气象原始来源", weather_source["url"], icon=":material/open_in_new:")
+        st.link_button("官方因子来源", provenance["grid_factor"]["url"], icon=":material/open_in_new:")
+        weather_frame = pd.DataFrame(json.loads((PUBLIC / weather_source['path']).read_text(encoding='utf-8'))['hourly'])
+        st.dataframe(weather_frame, hide_index=True, width="stretch")
+        st.download_button("下载气象CSV", weather_frame.to_csv(index=False).encode('utf-8-sig'), file_name=f"{PUBLIC_CASES[scenario_name]}_weather.csv", mime="text/csv", icon=":material/download:")
+
+
+overview, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
     [
+        "决策总览",
         "恢复数字孪生",
         "三策略对照",
         "能源与碳流",
@@ -608,7 +490,6 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
         "公平Pareto",
         "成岛护照",
         "生命线任务",
-        "Real event replay",
     ]
 )
 
@@ -616,11 +497,11 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
 def network_figure(selected_hour: int) -> go.Figure:
     state = state_at_hour(result.model, result.scenario, selected.plan, selected_hour)
     graph = graph_from_state(result.model, set(state.failed_branch_ids), set(state.closed_tie_ids))
-    layout_graph = nx.Graph()
-    layout_graph.add_nodes_from(result.model.nodes.index)
-    for row in result.model.branches.itertuples():
-        layout_graph.add_edge(int(row.from_node), int(row.to_node), branch_id=int(row.branch_id))
-    position = nx.spring_layout(layout_graph, seed=18, k=0.54)
+    # Fixed bus positions preserve feeder structure across hours and strategies.
+    position = {node: (node, 0) for node in range(18)}
+    position.update({node: (node - 16, 2) for node in range(18, 22)})
+    position.update({node: (node - 19, -2) for node in range(22, 25)})
+    position.update({node: (node - 19, 2) for node in range(25, 33)})
 
     def edge_trace(branch_ids: set[int], color: str, dash: str, name: str, width: float = 2.0):
         edge_x: list[float | None] = []
@@ -645,14 +526,17 @@ def network_figure(selected_hour: int) -> go.Figure:
     normal_active = active_ids - closed_ties
     open_ties = set(result.model.tie_branch_ids) - closed_ties
 
-    node_x, node_y, colors, labels, sizes = [], [], [], [], []
+    node_x, node_y, colors, labels, sizes, symbols = [], [], [], [], [], []
+    served_nodes = selected.dispatch.node_frame
+    served_nodes = served_nodes[served_nodes["hour"] == selected_hour].set_index("node_id")
     for node in graph.nodes():
         node_x.append(position[node][0])
         node_y.append(position[node][1])
-        energized = node in state.energized_nodes
+        energized = node == result.model.root_node or float(served_nodes.loc[node, "served_load_kw"]) > 1e-3
         level = int(result.model.nodes.loc[node, "critical_level"])
-        colors.append("#37d39a" if energized else ("#ff5c5c" if level >= 2 else "#f3a712"))
-        sizes.append(18 + level * 4)
+        colors.append("#087e72" if energized else ("#bd4940" if level >= 2 else "#b38b3f"))
+        sizes.append(11 + level * 2)
+        symbols.append("square" if node == result.model.root_node else "diamond" if level >= 3 else "circle")
         labels.append(
             f"N{node + 1:02d}<br>{result.model.nodes.loc[node, 'node_type']}<br>"
             f"负荷 {result.model.nodes.loc[node, 'base_load_kw']:.0f} kW / "
@@ -663,30 +547,62 @@ def network_figure(selected_hour: int) -> go.Figure:
         y=node_y,
         mode="markers+text",
         text=[f"N{x + 1}" for x in graph.nodes()],
-        textposition="top center",
+        textposition=["top center" if node % 2 else "bottom center" for node in graph.nodes()],
+        textfont=dict(size=10, color="#506565"),
         hovertext=labels,
         hoverinfo="text",
-        marker=dict(color=colors, size=sizes, line=dict(width=1, color="#d7e6eb")),
+        marker=dict(color=colors, size=sizes, symbol=symbols, line=dict(width=2, color="#ffffff")),
+        name="节点", showlegend=False,
     )
     fig = go.Figure(
         [
-            edge_trace(open_ties, "#98a8b0", "dot", "未闭合联络线", 1.2),
-            edge_trace(normal_active, "#55717c", "solid", "运行支路", 2.0),
-            edge_trace(closed_ties, "#22b8a7", "solid", "已闭合联络线", 3.2),
-            edge_trace(failed_ids, "#ff4d4f", "dash", "故障支路", 3.2),
+            edge_trace(open_ties, "#c5cecd", "dot", "待用联络", 1.3),
+            edge_trace(normal_active, "#6d9390", "solid", "运行支路", 2.0),
+            edge_trace(closed_ties, "#087e72", "solid", "闭合联络", 2.8),
+            edge_trace(failed_ids, "#bd4940", "dash", "故障支路", 2.8),
             node_trace,
         ]
     )
     fig.update_layout(
-        title=f"T+{selected_hour}h · 活跃故障 {len(state.failed_branch_ids)} · 孤岛 {len(state.islands)}",
         showlegend=True,
-        margin=dict(l=5, r=5, t=45, b=5),
-        xaxis=dict(visible=False),
-        yaxis=dict(visible=False),
-        height=610,
+        margin=dict(l=12, r=12, t=16, b=40),
+        xaxis=dict(visible=False, range=[-.6, 17.7], fixedrange=True),
+        yaxis=dict(visible=False, range=[-3.0, 3.0], fixedrange=True),
+        legend=dict(orientation="h", y=-.04, x=0, font=dict(size=10)),
+        plot_bgcolor="#f5f8f7",
+        height=370,
+        dragmode=False,
     )
     return fig
 
+
+with overview:
+    map_column, decision_column = st.columns([1.65, 1], gap="large")
+    with map_column, st.container(key="overview-map"):
+        st.subheader("配电拓扑")
+        st.caption(f"{strategy} · T+{hour:02d}:00 · 33节点 / 5联络线")
+        st.plotly_chart(network_figure(hour), width="stretch", key="overview-network", theme=None,
+                        config={"displayModeBar": False, "scrollZoom": False, "responsive": True})
+        current_state = state_at_hour(result.model, result.scenario, selected.plan, hour)
+        m1, m2, m3 = st.columns(3)
+        m1.metric("活跃故障", len(current_state.failed_branch_ids))
+        m2.metric("联络开关闭合", len(current_state.closed_tie_ids))
+        m3.metric("非根孤岛", len(current_state.islands))
+        st.caption("节点颜色：绿色已供电，红色关键失供，琥珀色普通失供。菱形为一级关键节点。")
+    with decision_column, st.container(key="overview-decision"):
+        render_decision_workbench()
+    st.divider()
+    trend_column, risk_column = st.columns([1.65, 1], gap="large")
+    with trend_column:
+        st.subheader("24小时服务轨迹")
+        st.caption("三策略逐时总失供功率 / kW")
+        trend = pd.DataFrame({name: item.dispatch.frame["unserved_critical_kw"] + item.dispatch.frame["unserved_normal_kw"] for name, item in result.strategies.items()})
+        fig = px.line(trend, labels={"index": "恢复小时", "value": "失供功率 / kW", "variable": "策略"})
+        fig.update_traces(line_width=2)
+        fig.update_layout(height=260, margin=dict(l=0, r=10, t=10, b=25))
+        st.plotly_chart(fig, width="stretch", theme=None, key="overview-trend", config={"displayModeBar": False})
+    with risk_column:
+        render_statistics()
 
 with tab1:
     left, right = st.columns([1.45, 1])
@@ -757,6 +673,7 @@ with tab4:
     st.dataframe(validation.hourly, width="stretch")
 
 with tab5:
+    render_public_sources()
     render_mrv_evidence_panel(mrv_state, strategy)
     st.divider()
     st.markdown(selected.report)
@@ -774,7 +691,7 @@ with tab5:
 
 
 with tab6:
-    st.subheader("受控服务 ε-constraint 碳—韧性前沿")
+    st.subheader("同服务 ε-constraint 碳—韧性前沿")
     st.write(
         "先按医院、其他关键负荷、普通负荷的词典序求出物理服务锚点，再只允许普通负荷在"
         "明确的 ε 范围内让步，求最低恢复阶段碳排。每个候选重新执行 P/Q 潮流、孤岛平衡、"
@@ -785,7 +702,9 @@ with tab6:
         "0% 点是物理验证后的最小普通失供服务锚点。"
     )
     run_key = f"pareto_result::{scenario_name}"
-    if st.button("运行4点物理Pareto扫描", type="primary", key=f"run-pareto-{scenario_name}"):
+    if scenario_name in PUBLIC_CASES:
+        st.info("公开气象案例的严格Pareto尚未运行；下列按钮禁用，不替换为合成案例结果。")
+    if st.button("运行4点物理Pareto扫描", type="primary", key=f"run-pareto-{scenario_name}", disabled=scenario_name in PUBLIC_CASES):
         st.session_state[run_key] = cached_pareto(scenario_name)
 
     pareto_result = st.session_state.get(run_key)
@@ -828,7 +747,7 @@ with tab6:
                     "normal_eens_kwh": "普通负荷 EENS / kWh",
                     "total_carbon_kg": "恢复阶段碳排 / kgCO2",
                 },
-                title="同一医院与关键服务合同下的受控普通服务 Pareto 前沿",
+                title="同一医院与关键服务合同下的可执行 Pareto 前沿",
             )
             fig.update_traces(textposition="top center")
             st.plotly_chart(fig, width="stretch")
@@ -909,10 +828,6 @@ with tab8:
         file_name=f"GridRescue_{scenario_name}_{strategy}_care_tasks.csv",
         mime="text/csv",
     )
-
-
-with tab9:
-    render_real_event_replay_panel()
 
 
 with tab7:

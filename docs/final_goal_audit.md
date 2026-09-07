@@ -1,6 +1,6 @@
 # 原始目标完成审计
 
-**审计日期：2026-08-26（Wave11维护版）**
+**审计日期：2026-08-23**
 
 ## 要求—证据矩阵
 
@@ -16,7 +16,7 @@
 ## 当前工程证据
 
 ```text
-pytest：62 passed
+pytest：61 passed
 Streamlit health：ok
 ZIP testzip：None
 strict-contract-9：18 points / 12 eligible / 6 blocked
@@ -25,7 +25,7 @@ strict-contract-9：18 points / 12 eligible / 6 blocked
 正式发布包：
 
 ```text
-D:\桌面\GridRescue\_Wave11\_P1\release\GridRescue_Wave11_P1_Submission.zip
+C:\Users\ASUS\Documents\Codex\2026-08-22\n\outputs\GridRescue_Wave11_P1_Submission.zip
 ```
 
 ## Go / No-Go
@@ -40,7 +40,7 @@ D:\桌面\GridRescue\_Wave11\_P1\release\GridRescue_Wave11_P1_Submission.zip
 ## 现场前唯一必做项
 
 1. 盲审一次并记录问题；
-2. 按五分钟（目标4分55秒）脚本完整录屏；
+2. 按 180 秒脚本完整录屏；
 3. 将 Wave11-P1 ZIP、录屏和申报书放入两个独立备份位置。
 
 ## 最新发布核验
@@ -48,11 +48,7 @@ D:\桌面\GridRescue\_Wave11\_P1\release\GridRescue_Wave11_P1_Submission.zip
 ```text
 checker: scripts/check_submission_ready.py
 checks: passed=true
-pytest: 62 passed
+pytest: 61 passed
 streamlit smoke: ok
 archive: GridRescue_Wave11_P1_Submission.zip
 ```
-
-
-
-

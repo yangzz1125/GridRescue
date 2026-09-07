@@ -1,0 +1,98 @@
+{
+  "downloaded_at": "2026-09-06T03:26:28.377529+00:00",
+  "sources": [
+    {
+      "id": "wuhan_heat",
+      "path": "raw/wuhan_heat.json",
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=30.59&longitude=114.3&start_date=2022-08-15&end_date=2022-08-15&hourly=temperature_2m%2Cprecipitation%2Cwind_speed_10m%2Cshortwave_radiation&models=era5&timezone=Asia%2FShanghai&wind_speed_unit=ms",
+      "sha256": "c7acb1d6edb8b287376b918000ae7df7b79a51f1bddd788f0916e76bce9051e8",
+      "date": "2022-08-15",
+      "disaster_type": "极端高温",
+      "source_type": "reanalysis",
+      "model": "ERA5",
+      "timezone": "Asia/Shanghai",
+      "requested_coordinates": [
+        30.59,
+        114.3
+      ],
+      "actual_coordinates": [
+        30.5,
+        114.25
+      ],
+      "license": "Open-Meteo API data CC BY 4.0; credit Open-Meteo and Copernicus/ECMWF; verify API use conditions before commercial deployment",
+      "meaning": "Historical weather window; feeder, faults and repairs remain synthetic assumptions"
+    },
+    {
+      "id": "wuhan_rain",
+      "path": "raw/wuhan_rain.json",
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=30.59&longitude=114.3&start_date=2020-07-06&end_date=2020-07-06&hourly=temperature_2m%2Cprecipitation%2Cwind_speed_10m%2Cshortwave_radiation&models=era5&timezone=Asia%2FShanghai&wind_speed_unit=ms",
+      "sha256": "25b27cff9d5cf3b0d565c4d9a146fcb87b196e9b78a2e15d28f1b1f8fbe3ed42",
+      "date": "2020-07-06",
+      "disaster_type": "暴雨内涝",
+      "source_type": "reanalysis",
+      "model": "ERA5",
+      "timezone": "Asia/Shanghai",
+      "requested_coordinates": [
+        30.59,
+        114.3
+      ],
+      "actual_coordinates": [
+        30.5,
+        114.25
+      ],
+      "license": "Open-Meteo API data CC BY 4.0; credit Open-Meteo and Copernicus/ECMWF; verify API use conditions before commercial deployment",
+      "meaning": "Historical weather window; feeder, faults and repairs remain synthetic assumptions"
+    },
+    {
+      "id": "xiamen_wind",
+      "path": "raw/xiamen_wind.json",
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=24.48&longitude=118.08&start_date=2016-09-15&end_date=2016-09-15&hourly=temperature_2m%2Cprecipitation%2Cwind_speed_10m%2Cshortwave_radiation&models=era5&timezone=Asia%2FShanghai&wind_speed_unit=ms",
+      "sha256": "794e533d8e6d4d5413964da704992de508c571a68da754315eb9c08a1eb940f0",
+      "date": "2016-09-15",
+      "disaster_type": "台风",
+      "source_type": "reanalysis",
+      "model": "ERA5",
+      "timezone": "Asia/Shanghai",
+      "requested_coordinates": [
+        24.48,
+        118.08
+      ],
+      "actual_coordinates": [
+        24.5,
+        118.0
+      ],
+      "license": "Open-Meteo API data CC BY 4.0; credit Open-Meteo and Copernicus/ECMWF; verify API use conditions before commercial deployment",
+      "meaning": "Historical weather window; feeder, faults and repairs remain synthetic assumptions"
+    },
+    {
+      "id": "china-electricity-2023",
+      "path": "raw/electricity_factor_2023.html",
+      "url": "https://www.nea.gov.cn/20260116/b3867495909b4bf28f01c642d10e6345/c.html",
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497",
+      "source_type": "official_statistics",
+      "value": 0.5306,
+      "unit": "kgCO2/kWh",
+      "year": 2023,
+      "geography": "China national",
+      "uncertainty_pct": null,
+      "meaning": "Annual location-based average, not hourly or marginal emissions; reference-year scenario, not historical event emission reconstruction"
+    },
+    {
+      "id": "noaa-tianhe-2022",
+      "path": "raw/noaa_tianhe_2022.csv",
+      "url": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/2022/57494099999.csv",
+      "sha256": "9a456fdf452f33b206192aae31d335d38250ec0cf4a09d008cd23bb19a3942c2",
+      "source_type": "station_daily_summary",
+      "station": "57494099999",
+      "name": "TIANHE, CH",
+      "latitude": 30.783758,
+      "longitude": 114.2081,
+      "date": "2022-08-15",
+      "temperature_mean_c": 33.72222222222222,
+      "temperature_samples": 24,
+      "temperature_max_c": 38.5,
+      "temperature_min_c": 28.61111111111111,
+      "meaning": "NOAA GSOD daily summary from station observations; UTC daily window differs from local ERA5 day, no direct bias/accuracy claim; no station precipitation inserted into hourly model"
+    }
+  ]
+}
