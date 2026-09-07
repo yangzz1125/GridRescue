@@ -5,7 +5,7 @@
 - 唯一开发目录及 Git 根目录：`D:/桌面/GridRescue/_Wave11/_P1`（A）。所有下文相对路径均从这里计算。
 - 2026-09-07 按用户批准，将 `D:/桌面/GridRescue_Wave11_P1`（B）的有效文件完整替换到 A。后续不要继续编辑 B；B 保持迁移时原状。
 - 这是 B 的 Competition2026 实现，不是迁移前 A 的实现。不要依照旧交接记录导入不存在的 `gridrescue.api`、`real_event_mapping`、`real_event_replay` 或医院 CSV 加载接口。
-- 本次只迁移、初始化 Git 和更新交接文档，没有修改 B 的业务代码、重算实验或重新发布。
+- 迁移阶段只复制 B 并初始化 Git；后续开发记录见本文末尾。源 B 不再同步修改。
 
 ## Git 与恢复
 
@@ -119,9 +119,20 @@ python -m gridrescue.mrv verify artifacts/competition2026/baseline_current/flood
 - Streamlit 健康检查端口18766通过，临时进程已退出。
 - 本次未重跑36场景、未重新截图、未修改算法、未重建发布包。历史文档中74项测试为旧验收，不能冒充本次数据。
 
+## 前端开发记录（2026-09-07）
+
+- 修复 `app.py` 的预设与顶部资格不同步：读取当前 session state，NO_GFM 显示 BLOCKED，受控预设在实际证据通过时显示 CLAIM GATED，返回主推荐恢复真实资格。
+- 缺失或不合格证据始终优先 BLOCKED，不允许演示预设把失败升级为 PASS。三门明确标为“当前推演证据”，保持真实值，NO_GFM 文案标明演示预设。
+- 将旧的仅检查错误文字测试替换为有效证据下完整切换测试，另扩展缺失证据的三预设回归；测试数量未增加，但覆盖更强。
+- UI/MRV 专项：12 passed；全量：75 passed in 171.04s。新增回归在修复前确实因 PASS != BLOCKED 失败。
+- Playwright 实测1440×1000桌面、390×844手机：三预设状态、6个KPI、33节点、无页面级横向溢出；桌面9标签页和小时滑块切换通过。截图和检查在 `artifacts/frontend_review_20260907/`，没有覆盖旧验收图。
+- 浏览器脚本增加可选输出目录，复跑命令：`python scripts/check_frontend.py --url http://127.0.0.1:8501 --output artifacts/frontend_review_20260907`。该脚本假设默认暴雨页面具有合格的当前证据。
+- 本地开发服务本轮启动于 `http://127.0.0.1:8501`，进程33884，日志在系统临时目录 `gridrescue_frontend_8501.log`；后续会话先确认存活，不假设服务永久运行。
+- 未修改求解模块、因子、冻结证据、CSS或发布ZIP；本轮不是全面视觉重构。
+
 ## 已知后续事项
 
-1. NO_GFM 证据预设仍可能出现顶部推荐 PASS、下方 BLOCKED 的矛盾。现有测试未覆盖有效 PASS 切换为 NO_GFM 的完整路径；本次迁移未修复。
+1. 手机拓扑标签较密，风险卡长策略名仍可能省略；后续前端打磨应针对实际截图处理，不仅检查页面无横向溢出。
 2. `release/GridRescue_Competition2026_Submission.zip` 是 B 原有旧包，未包含最新 UI 文件。`build_submission.py` 白名单已经更新，但重新发布前必须重跑验收并重建包。
 3. `ui.py` 仅抽出部分展示函数；本次不继续分拆 `app.py` 或更换前端框架。
 4. A 独有 API、医院来源字段与 OEDI 功能没有自动合并；仅在用户明确需要时逐项移植和回归。

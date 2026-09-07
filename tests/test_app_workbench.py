@@ -17,13 +17,27 @@ def test_decision_workbench_is_visible_and_has_three_gates(monkeypatch):
     assert any(item.label == "证据预设" for item in at.radio)
 
 
-def test_workbench_no_gfm_preset_renders_blocked_state(monkeypatch):
-    monkeypatch.setenv("GRIDRESCUE_MRV_BUNDLE", str(BUNDLE))
+def test_workbench_presets_update_qualification_and_restore_evidence(monkeypatch):
+    bundle = ROOT / "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047"
+    monkeypatch.setenv("GRIDRESCUE_MRV_BUNDLE", str(bundle))
     at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
-    preset = next(item for item in at.radio if item.label == "证据预设")
-    preset.set_value("NO_GFM反例 · BLOCKED").run(timeout=180)
     assert not at.exception
-    assert any("NO_GFM" in item.value for item in at.error)
+    assert next(x.value for x in at.metric if x.label == "推荐资格") == "PASS"
+    gate_labels = {"Care / 服务合同", "Physics / 物理校验", "MRV / 证据复算"}
+    evidence = {x.label: x.value for x in at.metric if x.label in gate_labels}
+    for mode, expected in (
+        ("NO_GFM反例 · BLOCKED", "BLOCKED"),
+        ("受控预算候选 · CLAIM GATED", "CLAIM GATED"),
+        ("主推荐 · PASS", "PASS"),
+    ):
+        next(x for x in at.radio if x.label == "证据预设").set_value(mode).run(timeout=180)
+        assert not at.exception
+        assert next(x.value for x in at.metric if x.label == "推荐资格") == expected
+        assert {x.label: x.value for x in at.metric if x.label in gate_labels} == evidence
+        if mode.startswith("NO_GFM"):
+            assert any("NO_GFM" in x.value for x in at.error)
+        if expected != "PASS":
+            assert not any("主推荐通过" in x.value for x in at.success)
 
 
 def test_missing_bundle_never_claims_success(monkeypatch, tmp_path):
@@ -32,6 +46,11 @@ def test_missing_bundle_never_claims_success(monkeypatch, tmp_path):
     assert not at.exception
     assert next(x.value for x in at.metric if x.label == "推荐资格") == "BLOCKED"
     assert not any("主推荐通过" in x.value for x in at.success)
+    for mode in ("受控预算候选 · CLAIM GATED", "NO_GFM反例 · BLOCKED", "主推荐 · PASS"):
+        next(x for x in at.radio if x.label == "证据预设").set_value(mode).run(timeout=180)
+        assert not at.exception
+        assert next(x.value for x in at.metric if x.label == "推荐资格") == "BLOCKED"
+        assert not any("主推荐通过" in x.value for x in at.success)
 
 
 def test_risk_report_is_visible(monkeypatch):

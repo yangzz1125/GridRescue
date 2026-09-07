@@ -372,10 +372,15 @@ def render_decision_workbench() -> None:
                                and gate.get("care_task_pass") is True
                                and gate.get("grid_physical_pass") is True
                                and comparison.get("controlled_tradeoff_pass") is True)
-    h4.metric("推荐资格", "PASS" if recommendation_pass else "BLOCKED")
+    # Streamlit updates widget state before rerunning, even for controls below this metric.
+    mode = str(st.session_state.get("workbench_evidence_preset", "主推荐 · PASS"))
+    qualification = "BLOCKED"
+    if recommendation_pass and not mode.startswith("NO_GFM"):
+        qualification = "CLAIM GATED" if mode.startswith("受控") else "PASS"
+    h4.metric("推荐资格", qualification)
 
     st.divider()
-    st.markdown("#### 推荐资格校验")
+    st.markdown("#### 当前推演证据")
     g1, g2, g3 = st.columns(3)
     with g1:
         st.metric("Care / 服务合同", _gate_label(gate.get("care_task_pass")))
@@ -395,7 +400,7 @@ def render_decision_workbench() -> None:
             label_visibility="collapsed",
         )
     if mode.startswith("NO_GFM"):
-        st.error("BLOCKED / NO_GFM：孤岛缺少成网型电源条件，候选不进入推荐；保留失败原因与重放入口。")
+        st.error("BLOCKED / NO_GFM 演示预设：孤岛缺少成网型电源条件，候选不进入推荐；保留失败原因与重放入口。")
         st.code("gate=G2\nreason=NO_GFM\nrecommendation=disabled", language="text")
     elif mode.startswith("受控"):
         st.warning(

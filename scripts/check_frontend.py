@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -11,8 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--url', default='http://127.0.0.1:4158')
+    parser.add_argument('--output', type=Path, default=ROOT / 'artifacts/frontend_review')
     args = parser.parse_args()
-    output = ROOT / 'artifacts/frontend_review'
+    output = args.output
     output.mkdir(parents=True, exist_ok=True)
     checks = []
     with sync_playwright() as p:
@@ -41,6 +42,24 @@ def main():
                 page.get_by_text('碳韧协同恢复 · T+05:00 · 33节点 / 5联络线', exact=True).wait_for(timeout=180000)
                 page.screenshot(path=str(output / 'desktop_hour5.png'), full_page=True)
                 checks.append({'all_tabs_navigable': True, 'hour_slider_updates': True})
+            decision = page.locator('.st-key-overview-decision')
+            qualification = decision.get_by_test_id('stMetric').filter(
+                has=page.get_by_text('推荐资格', exact=True)
+            ).get_by_test_id('stMetricValue')
+            expect(qualification).to_have_text('PASS')
+            decision.locator('summary').filter(has_text='证据预设').click()
+            for preset, expected in [('NO_GFM反例 · BLOCKED', 'BLOCKED'),
+                                     ('受控预算候选 · CLAIM GATED', 'CLAIM GATED'),
+                                     ('主推荐 · PASS', 'PASS')]:
+                decision.get_by_text(preset, exact=True).click()
+                expect(qualification).to_have_text(expected, timeout=180000)
+                assert page.locator('[data-testid="stException"]').count() == 0
+                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), (label, preset)
+                if expected == 'BLOCKED':
+                    expect(decision.get_by_text('BLOCKED / NO_GFM 演示预设', exact=False)).to_be_visible()
+                    decision.evaluate("element => element.scrollIntoView({block: 'start'})")
+                    page.screenshot(path=str(output / f'{label}_blocked.png'), full_page=True)
+                checks.append({'viewport': label, 'preset': preset, 'qualification': expected})
             page.close()
         browser.close()
     (output / 'checks.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
