@@ -1,0 +1,38 @@
+[
+  {
+    "scenario": "暴雨内涝",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  },
+  {
+    "scenario": "台风",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  },
+  {
+    "scenario": "极端高温",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  },
+  {
+    "scenario": "武汉高温 · 2022-08-15",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  },
+  {
+    "scenario": "武汉降雨 · 2020-07-06",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  },
+  {
+    "scenario": "厦门大风 · 2016-09-15",
+    "tabs": 9,
+    "strategy_cards": 3,
+    "exceptions": 0
+  }
+]

@@ -16,7 +16,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from ui import setup_ui, render_brand, render_heading, render_metrics
+from ui import setup_ui, render_brand, render_heading, render_metrics, render_strategy_comparison, STRATEGY_COLORS
 
 ROOT = Path(__file__).resolve().parent
 EVIDENCE_FREEZE_DATE = "2026-08-22"
@@ -46,7 +46,13 @@ with st.sidebar:
     scenario_name = st.selectbox("灾害场景", list(SCENARIOS) + list(PUBLIC_CASES))
     strategy = st.radio("恢复策略", STRATEGIES, index=2)
     st.divider()
-    hour = st.slider("恢复进程 / 小时", 0, 23, 4)
+    def step_hour(delta):
+        st.session_state["restoration_hour"] = max(0, min(23, st.session_state.get("restoration_hour", 4) + delta))
+
+    hour = st.slider("恢复进程 / 小时", 0, 23, 4, key="restoration_hour")
+    previous_hour, next_hour = st.columns(2)
+    previous_hour.button("", key="hour-previous", help="上一小时", icon=":material/chevron_left:", on_click=step_hour, args=(-1,), disabled=hour == 0, width="stretch")
+    next_hour.button("", key="hour-next", help="下一小时", icon=":material/chevron_right:", on_click=step_hour, args=(1,), disabled=hour == 23, width="stretch")
     st.caption(f"T+{hour:02d}:00 / 24小时恢复窗口")
     st.markdown('<div class="sidebar-footer">MATPOWER case33bw<br>33 节点 · 32 支路 · 5 联络线<br>12.66 kV / 10 MVA</div>', unsafe_allow_html=True)
     with st.expander("数据与核算边界", icon=":material/info:"):
@@ -363,10 +369,9 @@ def render_decision_workbench() -> None:
 
     h1, h4 = st.columns([1.4, 1])
     h1.metric("推荐候选", candidate_name)
-    h2, h3 = st.columns(2)
-    h2.metric("普通服务预算", f"{normal_budget:.0f}%")
-    with h3, st.container(key="inventory-difference"):
+    with st.container(key="inventory-difference"):
         st.metric("候选-参考清单差", f"{inventory_difference:+,.0f} kgCO2")
+    st.metric("普通服务预算", f"{normal_budget:.0f}%")
     recommendation_pass = bool(display_verified and gate.get("inventory_eligible") is True
                                and gate.get("care_task_pass") is True
                                and gate.get("grid_physical_pass") is True
@@ -535,7 +540,7 @@ def network_figure(selected_hour: int) -> go.Figure:
         node_y.append(position[node][1])
         energized = node == result.model.root_node or float(served_nodes.loc[node, "served_load_kw"]) > 1e-3
         level = int(result.model.nodes.loc[node, "critical_level"])
-        colors.append("#087e72" if energized else ("#bd4940" if level >= 2 else "#b38b3f"))
+        colors.append("#63d7ae" if energized else ("#ff776f" if level >= 2 else "#ebc36b"))
         sizes.append(11 + level * 2)
         symbols.append("square" if node == result.model.root_node else "diamond" if level >= 3 else "circle")
         labels.append(
@@ -551,18 +556,18 @@ def network_figure(selected_hour: int) -> go.Figure:
         mode="markers+text",
         text=[f"N{x + 1}" for x in graph.nodes()],
         textposition=["top center" if position[node][0] % 2 else "bottom center" for node in graph.nodes()],
-        textfont=dict(size=10, color="#506565"),
+        textfont=dict(size=10, color="#d2e4db"),
         hovertext=labels,
         hoverinfo="text",
-        marker=dict(color=colors, size=sizes, symbol=symbols, line=dict(width=2, color="#ffffff")),
+        marker=dict(color=colors, size=sizes, symbol=symbols, line=dict(width=2, color="#202927")),
         name="节点", showlegend=False,
     )
     fig = go.Figure(
         [
-            edge_trace(open_ties, "#c5cecd", "dot", "待用联络", 1.3),
-            edge_trace(normal_active, "#6d9390", "solid", "运行支路", 2.0),
-            edge_trace(closed_ties, "#087e72", "solid", "闭合联络", 2.8),
-            edge_trace(failed_ids, "#bd4940", "dash", "故障支路", 2.8),
+            edge_trace(open_ties, "#677e72", "dot", "待用联络", 1.3),
+            edge_trace(normal_active, "#80ad99", "solid", "运行支路", 2.0),
+            edge_trace(closed_ties, "#63d7ae", "solid", "闭合联络", 3.0),
+            edge_trace(failed_ids, "#ff776f", "dash", "故障支路", 3.0),
             node_trace,
         ]
     )
@@ -571,21 +576,23 @@ def network_figure(selected_hour: int) -> go.Figure:
         margin=dict(l=12, r=12, t=16, b=40),
         xaxis=dict(visible=False, range=[-.6, 17.7], fixedrange=True),
         yaxis=dict(visible=False, range=[-3.0, 3.0], fixedrange=True),
-        legend=dict(orientation="h", y=-.04, x=0, font=dict(size=10)),
-        plot_bgcolor="#ffffff",
-        height=370,
+        legend=dict(orientation="h", y=-.04, x=0, font=dict(size=10, color="#d2e4db")),
+        paper_bgcolor="#202927", plot_bgcolor="#202927",
+        hoverlabel=dict(bgcolor="#ffffff", font_color="#22282c"),
+        height=360,
         dragmode=False,
     )
     return fig
 
 
 with overview:
-    map_column, decision_column = st.columns([1.65, 1], gap="large")
+    map_column, decision_column = st.columns([1.8, 1], gap="large")
     with map_column, st.container(key="overview-map"):
-        st.subheader("配电拓扑")
-        st.caption(f"{strategy} · T+{hour:02d}:00 · 33节点 / 5联络线")
-        st.plotly_chart(network_figure(hour), width="stretch", key="overview-network", theme=None,
-                        config={"displayModeBar": False, "scrollZoom": False, "responsive": True})
+        st.subheader("配电网恢复现场")
+        with st.container(key="network-surface"):
+            st.caption(f"{strategy} · T+{hour:02d}:00 · 33节点 / 5联络线")
+            st.plotly_chart(network_figure(hour), width="stretch", key="overview-network", theme=None,
+                            config={"displayModeBar": False, "scrollZoom": False, "responsive": True})
         current_state = state_at_hour(result.model, result.scenario, selected.plan, hour)
         m1, m2, m3 = st.columns(3)
         m1.metric("活跃故障", len(current_state.failed_branch_ids))
@@ -595,7 +602,10 @@ with overview:
     with decision_column, st.container(key="overview-decision"):
         render_decision_workbench()
     st.divider()
-    trend_column, risk_column = st.columns([1.65, 1], gap="large")
+    st.subheader("三种恢复策略，服务与碳清单同时比较")
+    st.caption("同一灾害输入 · 24小时累计值 · 失供量不同，不构成严格同服务减排证明")
+    render_strategy_comparison(result.comparison, strategy)
+    trend_column, risk_column = st.columns([1.8, 1], gap="large")
     with trend_column:
         st.subheader("24小时服务轨迹")
         st.caption("三策略逐时总失供功率 / kW")
@@ -611,7 +621,7 @@ with overview:
 with tab1:
     left, right = st.columns([1.45, 1])
     with left:
-        st.plotly_chart(network_figure(hour), width="stretch")
+        st.plotly_chart(network_figure(hour), width="stretch", theme=None)
     with right:
         st.subheader("恢复动作时间线")
         actions = selected.plan.actions.copy()
@@ -620,39 +630,56 @@ with tab1:
         st.write(result.scenario.description)
 
 with tab2:
+    st.subheader("策略对照")
+    st.caption("相同灾害输入与时间边界；服务水平存在差异，不按碳排单独排名。")
     comparison = result.comparison.copy()
-    metric_labels = {
-        "eens_kwh": "EENS",
-        "diesel_energy_kwh": "柴油电量",
-        "total_carbon_kg": "碳排放",
-        "peak_unserved_kw": "峰值失供",
-    }
-    long_rows = []
-    for metric, label in metric_labels.items():
-        maximum = max(float(comparison[metric].max()), 1e-6)
-        for row in comparison.itertuples():
-            long_rows.append({"策略": row.strategy, "指标": label, "相对值": getattr(row, metric) / maximum * 100})
-    st.plotly_chart(px.bar(pd.DataFrame(long_rows), x="指标", y="相对值", color="策略", barmode="group"), width="stretch")
-    st.dataframe(comparison, width="stretch", hide_index=True)
+    render_strategy_comparison(comparison, strategy)
+    carbon_column, service_column = st.columns(2)
+    for column, metric, title, unit in (
+        (carbon_column, "total_carbon_kg", "恢复碳清单", "kgCO2"),
+        (service_column, "eens_kwh", "累计失供电量", "kWh"),
+    ):
+        with column:
+            st.subheader(title)
+            fig = px.bar(comparison, x=metric, y="strategy", color="strategy", orientation="h",
+                         color_discrete_map=STRATEGY_COLORS, text_auto=",.0f",
+                         labels={metric: unit, "strategy": ""})
+            fig.update_traces(textposition="outside", cliponaxis=False)
+            fig.update_layout(showlegend=False, height=280,
+                              xaxis_range=[0, max(float(comparison[metric].max()), 1) * 1.25],
+                              margin=dict(l=105, r=40, t=16, b=40), yaxis_automargin=True)
+            st.plotly_chart(fig, width="stretch", theme=None)
+    with st.expander("完整指标与数据下载"):
+        st.dataframe(comparison, width="stretch", hide_index=True)
+        st.download_button("下载策略对照", comparison.to_csv(index=False).encode("utf-8-sig"),
+                           file_name="strategy_comparison.csv", mime="text/csv", icon=":material/download:")
 
 with tab3:
     frame = selected.dispatch.frame
-    st.plotly_chart(
-        px.area(
-            frame,
-            y=["grid_import_kw", "diesel_generation_kw", "battery_discharge_kw", "pv_available_kw"],
-            labels={"value": "kW", "index": "恢复小时", "variable": "能源来源"},
-        ),
-        width="stretch",
+    st.subheader("恢复期间的能源供给")
+    supply = frame[["grid_import_kw", "diesel_generation_kw", "battery_discharge_kw"]].rename(
+        columns={"grid_import_kw": "上级电网", "diesel_generation_kw": "柴油机", "battery_discharge_kw": "储能放电"}
     )
-    st.plotly_chart(
-        px.line(
-            frame,
-            y=["unserved_critical_kw", "unserved_normal_kw", "battery_soc_kwh"],
-            labels={"value": "kW / kWh", "index": "恢复小时"},
-        ),
-        width="stretch",
-    )
+    supply["光伏利用"] = frame["pv_available_kw"] - frame["renewable_curtailment_kw"]
+    fig = px.area(supply, labels={"value": "供电功率 / kW", "index": "恢复小时", "variable": "来源"},
+                  color_discrete_sequence=["#326bd6", "#c08b49", "#8a77b4", "#168365"])
+    fig.update_layout(height=350, legend_title_text="", xaxis_title="恢复小时")
+    st.plotly_chart(fig, width="stretch", theme=None)
+    unmet_column, storage_column = st.columns(2)
+    with unmet_column:
+        st.subheader("未满足的负荷")
+        unmet = frame[["unserved_critical_kw", "unserved_normal_kw"]].rename(
+            columns={"unserved_critical_kw": "关键负荷", "unserved_normal_kw": "普通负荷"})
+        fig = px.line(unmet, labels={"value": "失供功率 / kW", "index": "恢复小时"},
+                      color_discrete_sequence=["#c75e54", "#9aa3ab"])
+        fig.update_layout(height=290, legend_title_text="", xaxis_title="恢复小时")
+        st.plotly_chart(fig, width="stretch", theme=None)
+    with storage_column:
+        st.subheader("储能剩余电量")
+        fig = px.area(frame, y="battery_soc_kwh", labels={"battery_soc_kwh": "储能电量 / kWh", "index": "恢复小时"},
+                      color_discrete_sequence=["#8a77b4"])
+        fig.update_layout(height=290, xaxis_title="恢复小时")
+        st.plotly_chart(fig, width="stretch", theme=None)
 
 with tab4:
     validation = result.validations[strategy]
@@ -662,14 +689,18 @@ with tab4:
     v3.metric("24h估算线损", f"{validation.hourly['estimated_loss_kw'].sum():.1f} kWh")
     v4.metric("物理不可行小时", f"{int((~validation.hourly['is_feasible']).sum())}")
     v5.metric("孤岛功率缺口", f"{validation.hourly['unserved_balance_kw'].sum():.1f} kWh")
-    st.plotly_chart(
-        px.line(
-            validation.hourly,
-            y=["max_branch_loading_pct", "min_voltage_pu"],
-            labels={"value": "负载率% / 电压pu", "index": "恢复小时"},
-        ),
-        width="stretch",
-    )
+    voltage_column, loading_column = st.columns(2)
+    for column, metric, title, unit, limit in (
+        (voltage_column, "min_voltage_pu", "最低节点电压", "pu", .95),
+        (loading_column, "max_branch_loading_pct", "最大支路负载率", "%", 100),
+    ):
+        with column:
+            st.subheader(title)
+            fig = px.line(validation.hourly, y=metric, labels={metric: unit, "index": "恢复小时"})
+            fig.add_hline(y=limit, line_dash="dash", line_color="#c75e54",
+                          annotation_text=f"工程限值 {limit:g} {unit}", annotation_position="top left")
+            fig.update_layout(height=300, xaxis_title="恢复小时")
+            st.plotly_chart(fig, width="stretch", theme=None)
     st.caption(
         "采用MATPOWER case33bw的逐节点P/Q与逐支路R/X执行径向前推回代。"
         "无成网电源或资源越限的孤岛直接标记为不可行，不注入虚拟电源；线路热限额为独立工程假设。"

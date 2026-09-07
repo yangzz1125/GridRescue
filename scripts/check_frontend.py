@@ -28,6 +28,17 @@ def main():
             page.screenshot(path=str(output / f'{label}.png'), full_page=True)
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), label
             assert page.locator('.kpi').count() == 6
+            assert page.locator('.kpi-value').evaluate_all('''elements => elements.every(e => {
+                const number = document.createRange();
+                number.selectNodeContents(e.firstChild);
+                return e.scrollWidth <= e.clientWidth + 1 && number.getClientRects().length === 1;
+            })'''), (label, 'KPI number clipped or split')
+            cards = page.locator('.strategy-results:visible .strategy-result')
+            assert cards.count() == 3
+            assert page.locator('.strategy-results:visible .strategy-result.selected').count() == 1
+            assert cards.evaluate_all('''elements => elements.every(e =>
+                e.scrollWidth <= e.clientWidth + 1)
+            '''), (label, 'strategy card overflow')
             points = page.locator('.st-key-overview-map .scatterlayer .point').count()
             assert points == 33, points
             labels = page.locator('.st-key-overview-map .textpoint text')
@@ -57,6 +68,8 @@ def main():
                 for tab in ['恢复数字孪生', '三策略对照', '能源与碳流', '潮流校验', 'MRV报告', '公平Pareto', '成岛护照', '生命线任务']:
                     page.get_by_role('tab', name=tab, exact=True).click()
                     assert page.get_by_role('tab', name=tab, exact=True).get_attribute('aria-selected') == 'true'
+                    page.get_by_test_id('stMain').evaluate('element => {element.scrollTop = 0;}')
+                    page.screenshot(path=str(output / f'tab_{tab}.png'), full_page=True)
                 page.get_by_role('tab', name='决策总览', exact=True).click()
                 slider = page.get_by_role('slider', name='恢复进程 / 小时')
                 slider.focus()

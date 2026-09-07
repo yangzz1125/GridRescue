@@ -110,6 +110,14 @@ def test_redesigned_overview_keeps_controls_and_updates_time():
     assert any("T+12:00" in x.value for x in at.caption)
     labels = {x.label for x in at.metric}
     assert {"活跃故障", "联络开关闭合", "非根孤岛", "推荐资格"}.issubset(labels)
+    assert any('class="strategy-results"' in x.value for x in at.markdown)
+    next(x for x in at.button if x.key == "hour-next").click().run()
+    assert next(x.value for x in at.slider if x.label == "恢复进程 / 小时") == 13
+    next(x for x in at.slider if x.label == "恢复进程 / 小时").set_value(23).run()
+    assert next(x.disabled for x in at.button if x.key == "hour-next")
+    next(x for x in at.slider if x.label == "恢复进程 / 小时").set_value(0).run()
+    assert next(x.disabled for x in at.button if x.key == "hour-previous")
+    assert not at.exception
 
 
 
