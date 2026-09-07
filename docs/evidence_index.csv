@@ -1,0 +1,7 @@
+evidence_id,kind,source,freeze_date,status,allowed_use
+V08-MANIFEST,manifest,release_manifest_v08.json,2026-08-22,PASS,正式事实源
+MRV-FLOOD,bundle,artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188,2026-08-22,PASS,暴雨内涝只读证据
+MRV-TYPHOON,bundle,artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6,2026-08-22,PASS,台风只读证据
+MRV-HEAT,bundle,artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3,2026-08-22,PASS,极端高温只读证据
+TEST-SUITE,test,tests/,2026-08-22,PASS,46项回归测试
+FACTSHEET,control,docs/competition_factsheet.yaml,2026-08-23,ACTIVE,UI与材料唯一事实入口

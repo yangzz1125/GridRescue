@@ -1,0 +1,4 @@
+scenario,strategy,anchor_phase,solve_success,feedback_converged,feedback_iterations,feedback_residual_kw,failure_reason,hospital_demand_kwh,hospital_eens_kwh,other_essential_demand_kwh,other_essential_eens_kwh,normal_demand_kwh,normal_eens_kwh,served_kwh
+暴雨内涝,最小失供恢复,hospital,True,False,8,6.213283000000004,,3626.37,0.0,28608.030000000002,3249.3719340000007,42609.8475,2264.0102540000003,69330.86531200001
+暴雨内涝,最小失供恢复,other_essential,True,True,8,0.0020409999999912998,,3626.37,0.0045499999998881435,28608.030000000002,0.0,42609.8475,4833.406805999999,70010.836144
+暴雨内涝,最小失供恢复,normal,True,True,6,0.01013999999999271,,3626.37,0.004623999999978423,28608.030000000002,0.0296120000000073,42609.8475,1348.5669520000001,73495.646312

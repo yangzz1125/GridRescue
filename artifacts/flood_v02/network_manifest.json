@@ -1,0 +1,18 @@
+{
+  "source_name": "MATPOWER case33bw (Baran & Wu 33-bus distribution system)",
+  "source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D",
+  "base_mva": 10.0,
+  "base_kv": 12.66,
+  "active_load_kw": 3715.0,
+  "reactive_load_kvar": 2300.0,
+  "normally_closed_branches": 32,
+  "normally_open_ties": 5,
+  "capacity_assumption": "GridRescue engineering thermal limits v0.2; MATPOWER rateA/B/C are unspecified",
+  "base_powerflow": {
+    "converged": true,
+    "iterations": 9,
+    "minimum_voltage_pu": 0.9130904791897203,
+    "active_loss_kw": 202.67713060429185,
+    "reactive_loss_kvar": 135.14097188025713
+  }
+}

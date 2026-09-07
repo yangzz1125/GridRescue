@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scenario": {
+    "name": "暴雨内涝",
+    "description": "低洼区域电缆与开关站受淹，多点故障且光伏出力降低。",
+    "failed_branch_ids": [
+      6,
+      13,
+      27
+    ],
+    "repair_hours": [
+      7,
+      10,
+      6
+    ],
+    "pv_derating": 0.38,
+    "grid_carbon_multiplier": 1.08,
+    "crew_distance_km": 46.0,
+    "ambient_temperature_c": 25.0
+  },
+  "network_source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D",
+  "spec": {
+    "strategies": [
+      "最小失供恢复"
+    ],
+    "normal_allowance_fractions": [
+      0.0,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06
+    ],
+    "max_feedback_iterations": 8,
+    "feedback_tolerance_kw": 0.1,
+    "contract_tolerance_kwh": 0.001,
+    "output_dir": "artifacts\\pareto_flood_probe"
+  },
+  "counts": {
+    "anchors": 3,
+    "points": 6,
+    "frontier": 4,
+    "failures": 2
+  }
+}

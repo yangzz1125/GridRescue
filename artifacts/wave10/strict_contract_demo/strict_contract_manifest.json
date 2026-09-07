@@ -1,0 +1,36 @@
+{
+  "schema_version": "gridrescue-wave10-strict-contract-demo-1.0",
+  "generated_at": "2026-08-23",
+  "freeze_date": "2026-08-22",
+  "scenario_count": 3,
+  "allowance_fractions": [
+    0.0,
+    0.04
+  ],
+  "strategy": "碳韧协同恢复",
+  "strict_contract": true,
+  "scenarios": [
+    {
+      "scenario_id": "W10-01-01-01",
+      "payload_sha256": "f5f8eac1889aee925b8be4b171d897e62b81d271a73ab51a5457792814295c6b",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-02-01-02",
+      "payload_sha256": "a107d335a6fc21adc95f3b4dd355d0451dc8b9e6be696697dfa925928b9cc246",
+      "points": 2,
+      "frontier_eligible": 0,
+      "failures": 2
+    },
+    {
+      "scenario_id": "W10-03-03-04",
+      "payload_sha256": "27e31745de07030cc1e8775c512930dd13d7fbe16042ae22fcd97d7924be312d",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    }
+  ],
+  "claim_boundary": "representative strict-contract feasibility demo; not a 36-scenario generalization"
+}

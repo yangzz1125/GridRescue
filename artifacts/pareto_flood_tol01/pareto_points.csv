@@ -1,0 +1,2 @@
+run_id,scenario,strategy,scan_axis,normal_allowance_fraction,hospital_eens_cap_kwh,other_essential_eens_cap_kwh,normal_eens_cap_kwh,solve_success,contract_pass,physical_pass,frontier_eligible,failure_phase,failure_reason,solve_seconds,nondominated
+6a8d6a0ac946208e,暴雨内涝,最小失供恢复,normal_eens,0.0,0.01,0.02860803,4520.712425000001,False,False,False,False,candidate_solve,RuntimeError: spatial resource dispatch failed: infeasible,2.168644499997754,False

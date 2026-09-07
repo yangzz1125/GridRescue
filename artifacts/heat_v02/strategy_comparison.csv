@@ -1,0 +1,4 @@
+strategy,eens_kwh,critical_eens_kwh,critical_recovery_pct,restoration_time_h,peak_unserved_kw,diesel_energy_kwh,renewable_consumed_kwh,renewable_curtailment_kwh,switch_operations,total_carbon_kg
+传统顺序恢复,1780.4553,0.0,100.0,11,251.2293,1400.2957,7698.7595,0.0025,2,50497.7091
+最小失供恢复,411.4186,0.0,100.0,0,162.8708,0.0008,7698.7614,0.0006,4,51468.6647
+碳韧协同恢复,4198.4395,0.0,100.0,4,2525.3516,0.0,7698.762,0.0,4,48545.2244

@@ -1,0 +1,11 @@
+{
+  "gas_basis": "CO2",
+  "horizon_h": 24,
+  "normal_service_budget_fraction": 0.08,
+  "strategies": {
+    "传统顺序恢复": "traditional",
+    "最小失供恢复": "eens",
+    "碳韧协同恢复": "carbon_resilient"
+  },
+  "time_step_h": 1.0
+}

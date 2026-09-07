@@ -1,0 +1,17 @@
+{
+  "event_id": "Texas-1",
+  "event_type": "Severe Weather",
+  "state": "Texas",
+  "county": "Harris",
+  "fips": "48201",
+  "event_began": "2021-02-10 15:00:00",
+  "event_restoration": "2021-02-23 15:00:00",
+  "outage_start": "2021-02-16 06:15:00",
+  "outage_end": "2021-02-17 21:30:00",
+  "duration_h": 39.25,
+  "peak_customers": 455986.0,
+  "reference_customers": 4000000,
+  "selection_rule": "max_customers then duration within event_id=Texas-1 and county=Harris",
+  "source_archive": "data/outage/raw/OEDI_Outage_Dataset_R1.zip",
+  "source_member": "Outage_Dataset/eaglei_outages_with_events_2021.csv"
+}

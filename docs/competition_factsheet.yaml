@@ -1,0 +1,46 @@
+schema_version: gridrescue-competition-factsheet-1.0
+project: GridRescue 碳韧智网
+release: V08
+freeze_date: '2026-08-22'
+generated_at: '2026-08-23'
+positioning: 服务合同门控、证据承载的低碳韧性配电网恢复数字孪生
+evidence:
+  tests:
+    command: python -m pytest -q
+    passed: 46
+    duration_s: 160.6
+  mrv:
+    bundles: 3
+    checked_files_per_bundle: 17
+    all_verified: true
+    run_ids:
+      - run-7e495c4e6e73c188
+      - run-4b8304d99d10acc6
+      - run-1e9a1d2c4cd2e0c3
+scenarios:
+  official:
+    - 暴雨内涝
+    - 台风
+    - 极端高温
+  data_class: E
+  data_label: 合成工程假设 / engineering_prior / conditional
+carbon:
+  gas_basis: CO2
+  unit: kgCO2
+  time_step_h: 1.0
+  same_service_pass: false
+  claim_status: controlled_service_budget_inventory_difference
+  seal_meaning: 文件完整性与内部复算；不代表现场实测或第三方核证
+  excluded_from_main_inventory:
+    - 弃光机会损失
+    - 开关与修复动作本身
+claims:
+  allowed:
+    - 受控服务预算下的运行碳清单差异
+    - 方案级、可复算的MRV证据链
+    - 合成压力集上的预案级决策孪生原型
+  prohibited:
+    - 严格同服务减排
+    - 现场实测或第三方核证
+    - 实时SCADA/OMS自动控制
+    - 真实临床或现场灾害概率

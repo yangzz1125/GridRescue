@@ -1,0 +1,59 @@
+{
+  "schema_version": "gridrescue-wave10-paired-report-1.0",
+  "generated_at": "2026-08-23",
+  "freeze_date": "2026-08-22",
+  "catalog": "36 synthetic scenarios; same scenario_id paired across strategies",
+  "candidate": "碳韧协同恢复",
+  "reference": "最小失供恢复",
+  "rows": [
+    {
+      "metric": "eens_kwh",
+      "total_pairs": 36,
+      "eligible_pairs": 36,
+      "failed_pairs": 0,
+      "mean_delta": 3192.8515422222217,
+      "median_delta": 3377.6295599999994,
+      "wins": 0,
+      "ties": 0,
+      "losses": 36,
+      "bootstrap": "{\"n\": 36, \"mean\": 3192.8515422222217, \"lo\": 3046.782475541666, \"hi\": 3324.0610472777776, \"confidence\": 0.95, \"seed\": 20260822, \"n_resamples\": 2000}"
+    },
+    {
+      "metric": "critical_eens_kwh",
+      "total_pairs": 36,
+      "eligible_pairs": 36,
+      "failed_pairs": 0,
+      "mean_delta": -15.050738055555534,
+      "median_delta": 0.0,
+      "wins": 12,
+      "ties": 24,
+      "losses": 0,
+      "bootstrap": "{\"n\": 36, \"mean\": -15.050738055555534, \"lo\": -22.73523881249991, \"hi\": -7.991977722222176, \"confidence\": 0.95, \"seed\": 20260822, \"n_resamples\": 2000}"
+    },
+    {
+      "metric": "critical_recovery_pct",
+      "total_pairs": 36,
+      "eligible_pairs": 36,
+      "failed_pairs": 0,
+      "mean_delta": 0.046604166666664976,
+      "median_delta": 0.0,
+      "wins": 0,
+      "ties": 24,
+      "losses": 12,
+      "bootstrap": "{\"n\": 36, \"mean\": 0.046604166666664976, \"lo\": 0.02474718055555425, \"hi\": 0.07039918055555339, \"confidence\": 0.95, \"seed\": 20260822, \"n_resamples\": 2000}"
+    },
+    {
+      "metric": "total_carbon_kg",
+      "total_pairs": 36,
+      "eligible_pairs": 36,
+      "failed_pairs": 0,
+      "mean_delta": -2331.345088055557,
+      "median_delta": -2443.7005050000007,
+      "wins": 36,
+      "ties": 0,
+      "losses": 0,
+      "bootstrap": "{\"n\": 36, \"mean\": -2331.345088055557, \"lo\": -2447.950317958335, \"hi\": -2203.792227215278, \"confidence\": 0.95, \"seed\": 20260822, \"n_resamples\": 2000}"
+    }
+  ],
+  "claim_boundary": "descriptive paired experiment; same_service_pass remains false in official V08 claim gate"
+}

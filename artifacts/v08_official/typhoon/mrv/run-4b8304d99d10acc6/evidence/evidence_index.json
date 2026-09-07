@@ -1,0 +1,91 @@
+{
+  "files": [
+    {
+      "bytes": 260,
+      "path": "inputs/config.json",
+      "sha256": "sha256:eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e"
+    },
+    {
+      "bytes": 1138,
+      "path": "inputs/factor_registry.csv",
+      "sha256": "sha256:88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "bytes": 20829,
+      "path": "inputs/factor_snapshot.csv",
+      "sha256": "sha256:7ca3b05f5991d57d790c7ab25a2e590113f48140253c2d530ec20702ef7d3b75"
+    },
+    {
+      "bytes": 26710,
+      "path": "inputs/network_snapshot.json",
+      "sha256": "sha256:4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7"
+    },
+    {
+      "bytes": 368,
+      "path": "inputs/scenario.json",
+      "sha256": "sha256:70781ce1c82b9450c97bdcd5c5e5f3adfeed61635043f10109970d0301de8567"
+    },
+    {
+      "bytes": 4339,
+      "path": "outputs/actions.csv",
+      "sha256": "sha256:4e0267560cf31ff8c69a491cf0f6048d0971eaf628c06c22670db3cc6d1580df"
+    },
+    {
+      "bytes": 130450,
+      "path": "outputs/activity_energy_hourly.csv",
+      "sha256": "sha256:a88403ff954e45f7beaf17dd1e0df7f3065afee146610abb1b8c8efa091c49fd"
+    },
+    {
+      "bytes": 320,
+      "path": "outputs/carbon_reconciliation.csv",
+      "sha256": "sha256:1744fb239a7131fa3a4dd5e4912993ea8e329402d5a2d7545bd95b4518a213ce"
+    },
+    {
+      "bytes": 1605,
+      "path": "outputs/claim_gates.json",
+      "sha256": "sha256:400e71edfeafd911aa736c6aaab66f5e1cd310e8ebe99eca4351f2585c43f3ff"
+    },
+    {
+      "bytes": 4042,
+      "path": "outputs/dispatch_carbon_resilient.csv",
+      "sha256": "sha256:f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b"
+    },
+    {
+      "bytes": 4241,
+      "path": "outputs/dispatch_eens.csv",
+      "sha256": "sha256:14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da"
+    },
+    {
+      "bytes": 4225,
+      "path": "outputs/dispatch_traditional.csv",
+      "sha256": "sha256:d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f"
+    },
+    {
+      "bytes": 59858,
+      "path": "outputs/emission_inventory_hourly.csv",
+      "sha256": "sha256:fc046cfbea7ef61908e8942d3e59986aeb696b1f96c99de461924cd1ac8d080f"
+    },
+    {
+      "bytes": 1566,
+      "path": "outputs/topology_state_carbon_resilient.csv",
+      "sha256": "sha256:b0df9ab4fed0924b426c9c33de94452fd8ec139a5f5b6b08958fe36cb8d16078"
+    },
+    {
+      "bytes": 1278,
+      "path": "outputs/topology_state_eens.csv",
+      "sha256": "sha256:8e636e71e0860f8535a58d9b3182d37c88c058c04d6e4ea553e594d9529d9127"
+    },
+    {
+      "bytes": 1449,
+      "path": "outputs/topology_state_traditional.csv",
+      "sha256": "sha256:a6631af748c0045c94cc1464708b938532e40b924e23268149ddd4dc8250f336"
+    },
+    {
+      "bytes": 3968,
+      "path": "run_manifest.json",
+      "sha256": "sha256:0a56a6adc58fd0a3bb28f315a8507af0a85ce05ae8b85951ab8c1f3319bc82ec"
+    }
+  ],
+  "run_id": "run-4b8304d99d10acc6",
+  "schema_version": "gridrescue-evidence-1.0"
+}

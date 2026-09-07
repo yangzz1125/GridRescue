@@ -1,0 +1,15 @@
+flowchart LR
+    A[灾害场景与case33bw网络] --> B[Scenario / Faults]
+    B --> C[Restoration策略]
+    C --> D[Dispatch<br/>PV·BESS·Diesel·Grid]
+    D --> E[P/Q径向潮流]
+    E --> F{Physics Gate}
+    C --> G[CareTask服务合同]
+    G --> H{Care Gate}
+    D --> I[动作级MRV]
+    I --> J{MRV Gate}
+    F --> K[Claim Gate]
+    H --> K
+    J --> K
+    K --> L[Streamlit评委工作台]
+    L --> M[ZIP / CSV / 报告证据]

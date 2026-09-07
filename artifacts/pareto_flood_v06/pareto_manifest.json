@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "scenario": {
+    "name": "暴雨内涝",
+    "description": "低洼区域电缆与开关站受淹，多点故障且光伏出力降低。",
+    "failed_branch_ids": [
+      6,
+      13,
+      27
+    ],
+    "repair_hours": [
+      7,
+      10,
+      6
+    ],
+    "pv_derating": 0.38,
+    "grid_carbon_multiplier": 1.08,
+    "crew_distance_km": 46.0,
+    "ambient_temperature_c": 25.0
+  },
+  "network_source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D",
+  "care_definition_sha256": "28a15c75f262e4726d06fdf5cc75381d3a859996e292cdb49093b00bf49aea0d",
+  "spec": {
+    "strategies": [
+      "最小失供恢复"
+    ],
+    "normal_allowance_fractions": [
+      0.0,
+      0.04,
+      0.05,
+      0.06
+    ],
+    "max_feedback_iterations": 8,
+    "feedback_tolerance_kw": 0.1,
+    "contract_tolerance_kwh": 0.001,
+    "care_tasks": [
+      {
+        "task_id": "ICU_CONTINUITY",
+        "name": "ICU与急诊生命支持",
+        "node_id": 2,
+        "tier": 1,
+        "min_kw": 28.0,
+        "start_hour": 0,
+        "end_hour": 23,
+        "deadline_hour": 0,
+        "min_duration_h": 24,
+        "voltage_min_pu": 0.97,
+        "voltage_max_pu": 1.05,
+        "dependencies": [],
+        "data_class": "E_synthetic_task_template"
+      },
+      {
+        "task_id": "EMERGENCY_SURGERY",
+        "name": "应急手术窗口",
+        "node_id": 17,
+        "tier": 1,
+        "min_kw": 25.0,
+        "start_hour": 0,
+        "end_hour": 5,
+        "deadline_hour": 0,
+        "min_duration_h": 6,
+        "voltage_min_pu": 0.97,
+        "voltage_max_pu": 1.05,
+        "dependencies": [],
+        "data_class": "E_synthetic_task_template"
+      },
+      {
+        "task_id": "MEDICINE_COLD_CHAIN",
+        "name": "药品与血液冷链",
+        "node_id": 17,
+        "tier": 2,
+        "min_kw": 12.0,
+        "start_hour": 0,
+        "end_hour": 23,
+        "deadline_hour": 0,
+        "min_duration_h": 24,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "dependencies": [],
+        "data_class": "E_synthetic_task_template"
+      },
+      {
+        "task_id": "EMERGENCY_COMMUNICATION",
+        "name": "应急通信与调度",
+        "node_id": 5,
+        "tier": 2,
+        "min_kw": 20.0,
+        "start_hour": 0,
+        "end_hour": 23,
+        "deadline_hour": 0,
+        "min_duration_h": 24,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "dependencies": [],
+        "data_class": "E_synthetic_task_template"
+      }
+    ],
+    "output_dir": "artifacts\\pareto_flood_v06"
+  },
+  "counts": {
+    "anchors": 3,
+    "points": 4,
+    "frontier": 4,
+    "failures": 0,
+    "care_evaluations": 16
+  },
+  "data_boundary": "CareTask values are E-class synthetic scenario templates, not real hospital measurements or clinical standards."
+}

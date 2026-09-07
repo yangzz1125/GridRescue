@@ -1,0 +1,64 @@
+{
+  "schema_version": "gridrescue-wave11-risk-report-1.0",
+  "input": "artifacts\\wave10\\batch36\\experiment_runs.csv",
+  "rows": 108,
+  "metric": "eens_kwh",
+  "alpha": 0.95,
+  "cvar_weight": 0.5,
+  "failure_budget": 0.0,
+  "claim_boundary": "risk-adjusted ranking over replayed synthetic scenarios; not a field forecast",
+  "chosen_strategy": {
+    "strategy": "最小失供恢复",
+    "metric": "eens_kwh",
+    "total": 36,
+    "successes": 36,
+    "failures": 0,
+    "failure_rate": 0.0,
+    "mean": 8698.338333055557,
+    "p95": 26745.4013275,
+    "cvar95": 28161.047055000003,
+    "risk_score": 18429.692694027777,
+    "eligible": true
+  },
+  "summaries": [
+    {
+      "strategy": "传统顺序恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 36,
+      "failures": 0,
+      "failure_rate": 0.0,
+      "mean": 12408.763845277777,
+      "p95": 27713.4454175,
+      "cvar95": 29351.603615,
+      "risk_score": 20880.183730138888,
+      "eligible": true
+    },
+    {
+      "strategy": "最小失供恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 36,
+      "failures": 0,
+      "failure_rate": 0.0,
+      "mean": 8698.338333055557,
+      "p95": 26745.4013275,
+      "cvar95": 28161.047055000003,
+      "risk_score": 18429.692694027777,
+      "eligible": true
+    },
+    {
+      "strategy": "碳韧协同恢复",
+      "metric": "eens_kwh",
+      "total": 36,
+      "successes": 36,
+      "failures": 0,
+      "failure_rate": 0.0,
+      "mean": 11891.189875277778,
+      "p95": 30121.07906,
+      "cvar95": 31542.579765000002,
+      "risk_score": 21716.88482013889,
+      "eligible": true
+    }
+  ]
+}

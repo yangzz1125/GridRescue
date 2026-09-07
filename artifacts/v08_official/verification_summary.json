@@ -1,0 +1,43 @@
+{
+  "all_verified": true,
+  "bundles": [
+    {
+      "bundle_path": "flood/mrv/run-7e495c4e6e73c188",
+      "checked_files": 17,
+      "claim_status": "controlled_service_budget_inventory_difference",
+      "created_at": "2026-08-22T18:00:00+08:00",
+      "errors": [],
+      "run_id": "run-7e495c4e6e73c188",
+      "same_service_pass": false,
+      "scenario": "暴雨内涝",
+      "seal_sha256": "sha256:0c741f9ece9598c286d69a4fb2d5b5ed725ee1d2703e5b6c34fb2fefc9a46e93",
+      "verified": true
+    },
+    {
+      "bundle_path": "typhoon/mrv/run-4b8304d99d10acc6",
+      "checked_files": 17,
+      "claim_status": "controlled_service_budget_inventory_difference",
+      "created_at": "2026-08-22T18:10:00+08:00",
+      "errors": [],
+      "run_id": "run-4b8304d99d10acc6",
+      "same_service_pass": false,
+      "scenario": "台风",
+      "seal_sha256": "sha256:e949d0ce92f5622c50615f1daf3ed9eab808820edbb92e1524967d4dcbcb4887",
+      "verified": true
+    },
+    {
+      "bundle_path": "heat/mrv/run-1e9a1d2c4cd2e0c3",
+      "checked_files": 17,
+      "claim_status": "controlled_service_budget_inventory_difference",
+      "created_at": "2026-08-22T18:20:00+08:00",
+      "errors": [],
+      "run_id": "run-1e9a1d2c4cd2e0c3",
+      "same_service_pass": false,
+      "scenario": "极端高温",
+      "seal_sha256": "sha256:fa23d4724bd673633581772d5bb120e811bf5c97296d0f9934c1270fe7567b32",
+      "verified": true
+    }
+  ],
+  "freeze_date": "2026-08-22",
+  "schema_version": "gridrescue-v08-verification-summary-1.0"
+}

@@ -1,0 +1,47 @@
+{
+  "boundary_note": "Synthetic competition run. Sealed means file integrity only, not field measurement or third-party verification.",
+  "comparison": {
+    "candidate_inventory_kgCO2": 48546.675598364,
+    "candidate_strategy": "carbon_resilient",
+    "claim_status": "controlled_service_budget_inventory_difference",
+    "controlled_tradeoff_pass": true,
+    "critical_service_pass": true,
+    "inventory_difference_kgCO2": -2921.9891149644973,
+    "normal_budget_pass": true,
+    "normal_service_budget_fraction": 0.08,
+    "reference_inventory_kgCO2": 51468.6647133285,
+    "reference_strategy": "eens",
+    "same_service_pass": false,
+    "same_service_reduction_claim_allowed": false
+  },
+  "schema_version": "gridrescue-claim-gates-1.0",
+  "strategies": {
+    "carbon_resilient": {
+      "care_task_pass": true,
+      "data_class": "E_synthetic_demo",
+      "data_quality": "conditional",
+      "feedback_converged": true,
+      "grid_physical_pass": true,
+      "inventory_eligible": true,
+      "solver_pass": true
+    },
+    "eens": {
+      "care_task_pass": true,
+      "data_class": "E_synthetic_demo",
+      "data_quality": "conditional",
+      "feedback_converged": true,
+      "grid_physical_pass": true,
+      "inventory_eligible": true,
+      "solver_pass": true
+    },
+    "traditional": {
+      "care_task_pass": true,
+      "data_class": "E_synthetic_demo",
+      "data_quality": "conditional",
+      "feedback_converged": true,
+      "grid_physical_pass": true,
+      "inventory_eligible": true,
+      "solver_pass": true
+    }
+  }
+}

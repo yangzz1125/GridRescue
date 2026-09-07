@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "definition_sha256": "28a15c75f262e4726d06fdf5cc75381d3a859996e292cdb49093b00bf49aea0d",
+  "slug": "eens",
+  "task_count": 4,
+  "completed_count": 4,
+  "tier1_completed": 2,
+  "failed_task_ids": [],
+  "data_boundary": "CareTask values are an E-class synthetic scenario template; they are not real hospital measurements or clinical standards."
+}

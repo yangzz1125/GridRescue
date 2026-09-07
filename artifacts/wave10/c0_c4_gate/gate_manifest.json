@@ -1,0 +1,16 @@
+{
+  "schema_version": "gridrescue-wave10-c0-c4-gate-1.0",
+  "generated_at": "2026-08-23",
+  "freeze_date": "2026-08-22",
+  "catalog": "artifacts/wave10/batch36",
+  "arms": {
+    "C0": "最小失供恢复 / reference_service_anchor",
+    "C4": "碳韧协同恢复 / controlled_budget_candidate"
+  },
+  "pairs": 36,
+  "strict_eligible": 0,
+  "controlled_eligible": 36,
+  "same_service_pass": false,
+  "claim_status": "controlled_service_budget_inventory_difference",
+  "interpretation": "C0/C4 are separated for audit; strict same-service claim remains blocked until a same-service contract comparison passes."
+}

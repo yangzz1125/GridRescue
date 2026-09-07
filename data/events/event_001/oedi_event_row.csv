@@ -1,0 +1,2 @@
+event_id,state_event,Datetime Event Began,Datetime Restoration,Event Type,fips,state,county,start_time,duration,end_time,min_customers,max_customers,mean_customers
+Texas-1,Texas,2021-02-10 15:00:00,2021-02-23 15:00:00,Severe Weather,48201,Texas,Harris,2021-02-16 06:15:00,39.25,2021-02-17 21:30:00,2908.0,455986.0,299223.1592356688

@@ -1,0 +1,20 @@
+{
+  "ambient_temperature_c": 27.0,
+  "crew_distance_km": 72.0,
+  "description": "架空线路风偏、倒杆造成分散故障，抢修通行距离增加。",
+  "failed_branch_ids": [
+    2,
+    18,
+    24,
+    30
+  ],
+  "grid_carbon_multiplier": 1.12,
+  "name": "台风",
+  "pv_derating": 0.22,
+  "repair_hours": [
+    5,
+    9,
+    8,
+    11
+  ]
+}

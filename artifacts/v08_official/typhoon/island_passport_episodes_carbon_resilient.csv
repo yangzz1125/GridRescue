@@ -1,0 +1,5 @@
+scenario,strategy,island_episode_id,start_hour,end_hour,duration_h,component_keys,worst_status,minimum_margin_pct,minimum_voltage_pu,maximum_loading_pct,blocked_reason_codes
+台风,碳韧协同恢复,isl-37491837-e01-h00,0,23,24,"[""30-31-32""]",BLOCKED,-100.0,0.0,0.0,"[""NO_GFM""]"
+台风,碳韧协同恢复,isl-c2227b02-e01-h00,0,4,5,"[""2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-22-23-25-26-27-28-29""]",DEGRADED,-0.0,0.991449,20.357144,[]
+台风,碳韧协同恢复,isl-c2356069-e01-h00,0,12,13,"[""24""]",BLOCKED,-100.0,0.0,0.0,"[""NO_GFM""]"
+台风,碳韧协同恢复,isl-f3e18e37-e01-h00,0,21,22,"[""18-19-20-21""]",BLOCKED,-100.0,0.0,0.0,"[""NO_GFM""]"

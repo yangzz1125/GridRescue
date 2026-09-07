@@ -1,0 +1,1505 @@
+{
+  "schema_version": "gridrescue-wave11-submission-manifest-1.0",
+  "project": "GridRescue 碳韧智网",
+  "release": "Wave11-P1-Submission",
+  "generated_at": "2026-08-23",
+  "v08_freeze_date": "2026-08-22",
+  "tests": {
+    "command": "python -m pytest -q",
+    "passed": 61,
+    "v08_baseline_passed": 46
+  },
+  "claim_boundary": {
+    "gas_basis": "CO2",
+    "unit": "kgCO2",
+    "factor_data_class": "E",
+    "time_step_h": 1.0,
+    "same_service_pass": false,
+    "claim_status": "controlled_service_budget_inventory_difference",
+    "seal_meaning": "File integrity and internal recomputation only; not field measurement or third-party assurance."
+  },
+  "deliverables": [
+    "评委决策工作台",
+    "三门证据与NO_GFM反例预设",
+    "36条可重放场景catalog",
+    "paired统计基础函数",
+    "V08正式MRV证据包"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "235fd74f7a0d3efcf228c69b480319c42672d672ad242b80826bcfac30cc5b41",
+      "bytes": 7694
+    },
+    {
+      "path": "app.py",
+      "sha256": "cfaabda820456134ff34d36e4d25ffc80662c4061883f4d1069f7f26e2285bfc",
+      "bytes": 36012
+    },
+    {
+      "path": "artifacts/v08_official/flood/actions_carbon_resilient.csv",
+      "sha256": "81872bf3bf23d9d7c0acccb5645c4ca91902ebc41fff827de1acdf80e049e466",
+      "bytes": 152
+    },
+    {
+      "path": "artifacts/v08_official/flood/actions_eens.csv",
+      "sha256": "81872bf3bf23d9d7c0acccb5645c4ca91902ebc41fff827de1acdf80e049e466",
+      "bytes": 152
+    },
+    {
+      "path": "artifacts/v08_official/flood/actions_traditional.csv",
+      "sha256": "c00b90d64f1c7d91b456efe52e00e8a8b88d2c66a426b039bd4500f0a428015f",
+      "bytes": 74
+    },
+    {
+      "path": "artifacts/v08_official/flood/base_powerflow_branches.csv",
+      "sha256": "dc9238b3b75b0e77958b2dcb74a4028b97b53ad4f6557a1492fc7c492bfecbfa",
+      "bytes": 2340
+    },
+    {
+      "path": "artifacts/v08_official/flood/base_powerflow_nodes.csv",
+      "sha256": "58655f1e1897a714ad3a707a918b90b9afe60a26d534335ddec68c3b842d72cf",
+      "bytes": 755
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_definitions.json",
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8",
+      "bytes": 1731
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_evaluation_carbon_resilient.csv",
+      "sha256": "3c88687aef418587582975679e80ad3a09ee160cc124c97307cfef6834f465e4",
+      "bytes": 1478
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_evaluation_eens.csv",
+      "sha256": "c9634a822e66efc10a8fc2df84334336f0f511b980d142d1bc4cfab10cfe04ff",
+      "bytes": 1478
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_evaluation_traditional.csv",
+      "sha256": "4ef4f6e411fe28005fd8887298a892ec55b0ef78decd2852575af6102ca895a7",
+      "bytes": 1472
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_summary_carbon_resilient.json",
+      "sha256": "f4888ba0cbd8eb084c76d6ef5fc11f7fb2fa8212a4237d87ed0e14587b65df4c",
+      "bytes": 392
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_summary_eens.json",
+      "sha256": "cee9e885e4d77778ffe8266bb6a6637e017df4c3c24388a84287475064435d8a",
+      "bytes": 380
+    },
+    {
+      "path": "artifacts/v08_official/flood/care_task_summary_traditional.json",
+      "sha256": "00caf454226b86f1e8a50afd9c272fbdecaa1050a680afc7b168b4a081c3fc00",
+      "bytes": 387
+    },
+    {
+      "path": "artifacts/v08_official/flood/dispatch_carbon_resilient.csv",
+      "sha256": "e452e3d681059ee57ae1f2553d14149de1ae0bb57b2abcc506d6d3801febfd6d",
+      "bytes": 4085
+    },
+    {
+      "path": "artifacts/v08_official/flood/dispatch_eens.csv",
+      "sha256": "4f8cd09e390bf63a9e4a0f216158de44cea123e70f03ddde69d85e2f51ddaef2",
+      "bytes": 3855
+    },
+    {
+      "path": "artifacts/v08_official/flood/dispatch_traditional.csv",
+      "sha256": "f70f7de27a69eb5a6719a7da4bfdcd46f5ca1731acb70fd735b74d9acdf48938",
+      "bytes": 4270
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_episodes_carbon_resilient.csv",
+      "sha256": "e676fb61fc711488e36e9c95d9e1d1575693b29a3d30ea6ae8aa73fa88128d03",
+      "bytes": 175
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_episodes_eens.csv",
+      "sha256": "e676fb61fc711488e36e9c95d9e1d1575693b29a3d30ea6ae8aa73fa88128d03",
+      "bytes": 175
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_episodes_traditional.csv",
+      "sha256": "e01917613f0571cbda7d60ff0c446553b9a97b0eb12a2d78a0bf5b0c892c5dcb",
+      "bytes": 542
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_hourly_carbon_resilient.csv",
+      "sha256": "3ad9427c52b74f1d1c0b178a8be7c6a82e0d377d254d29b87d7dda86e993a01c",
+      "bytes": 938
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_hourly_eens.csv",
+      "sha256": "3ad9427c52b74f1d1c0b178a8be7c6a82e0d377d254d29b87d7dda86e993a01c",
+      "bytes": 938
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_hourly_traditional.csv",
+      "sha256": "2979cec67a034d6d61357fa3357a219320c287bcf903cbd7afab0d1d3392ce42",
+      "bytes": 22025
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_summary_carbon_resilient.json",
+      "sha256": "0722e0cb606c4e0eb5b37f9939a0855d7463b624d1e0165094291bd2ffc4acf8",
+      "bytes": 269
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_summary_eens.json",
+      "sha256": "0722e0cb606c4e0eb5b37f9939a0855d7463b624d1e0165094291bd2ffc4acf8",
+      "bytes": 269
+    },
+    {
+      "path": "artifacts/v08_official/flood/island_passport_summary_traditional.json",
+      "sha256": "65ed9c90850aae1acc276de03b37b95c30919447126898a985c2b810968fce6f",
+      "bytes": 313
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/evidence/evidence_index.json",
+      "sha256": "9bac9e3ba55f97d259017184e4977c501f3b6b52f53f2e27fcaad1e720b34435",
+      "bytes": 3096
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/evidence/seal.json",
+      "sha256": "0c741f9ece9598c286d69a4fb2d5b5ed725ee1d2703e5b6c34fb2fefc9a46e93",
+      "bytes": 680
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/evidence/verification.json",
+      "sha256": "926d19f8f73a66baf381b597f912fafae3d7d52589de1d1a47464af76b94c439",
+      "bytes": 242
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/inputs/config.json",
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e",
+      "bytes": 260
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/inputs/factor_registry.csv",
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267",
+      "bytes": 1138
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/inputs/factor_snapshot.csv",
+      "sha256": "2aa2f2c2c11f38ceb058c719949ae8d665bf42163128aacdc9a5ad6224ee1b58",
+      "bytes": 20831
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/inputs/network_snapshot.json",
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7",
+      "bytes": 26710
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/inputs/scenario.json",
+      "sha256": "8d9357450f2b9b3e31d239f0a798459591ad96793f44b78e84052180e17e9672",
+      "bytes": 357
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/actions.csv",
+      "sha256": "52765570f3e1a965448e53a1c9028c8b581d53888c2cfdd97fe5cf5fa45a4fb9",
+      "bytes": 9711
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/activity_energy_hourly.csv",
+      "sha256": "2eeeac6896e39278dda19bda72ec707e38ba306a5c09143b69980259e6f7353f",
+      "bytes": 129574
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/carbon_reconciliation.csv",
+      "sha256": "da193b1c7fdcde72a579a564d6a604b116fdef43f1eb1163c1c1321fa91f80ae",
+      "bytes": 258
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/claim_gates.json",
+      "sha256": "4a2bc0f73f56e25d100fc6d8d89d333d196c13d60680bcc3e5993b0000ce9db0",
+      "bytes": 1602
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/dispatch_carbon_resilient.csv",
+      "sha256": "e452e3d681059ee57ae1f2553d14149de1ae0bb57b2abcc506d6d3801febfd6d",
+      "bytes": 4085
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/dispatch_eens.csv",
+      "sha256": "4f8cd09e390bf63a9e4a0f216158de44cea123e70f03ddde69d85e2f51ddaef2",
+      "bytes": 3855
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/dispatch_traditional.csv",
+      "sha256": "f70f7de27a69eb5a6719a7da4bfdcd46f5ca1731acb70fd735b74d9acdf48938",
+      "bytes": 4270
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/emission_inventory_hourly.csv",
+      "sha256": "2871001db3dc19ba16991c4aaac3c79289e6bb5be88969c663541ee204c7baef",
+      "bytes": 59997
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/topology_state_carbon_resilient.csv",
+      "sha256": "14ee57f25f5741959a29926744c7d0384112e355496149fb15196933491619e6",
+      "bytes": 1621
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/topology_state_eens.csv",
+      "sha256": "c06559c8c481484c5deb63c0e7ad2b521c2f5b058c6bc2abeb0b986015282152",
+      "bytes": 1333
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/outputs/topology_state_traditional.csv",
+      "sha256": "79eb041843de47b16754c4eeac28bf6ee4452213373a78dd15ed89132e578fca",
+      "bytes": 1389
+    },
+    {
+      "path": "artifacts/v08_official/flood/mrv/run-7e495c4e6e73c188/run_manifest.json",
+      "sha256": "968bb4a32963f30d8bf58403bd51754e704ea553bc468e711074826c1f5fa092",
+      "bytes": 3971
+    },
+    {
+      "path": "artifacts/v08_official/flood/network_branches.csv",
+      "sha256": "e90e7587ceec455fa38a04f829a58397a807fad73e4b31e95b7273a79daebf16",
+      "bytes": 3922
+    },
+    {
+      "path": "artifacts/v08_official/flood/network_manifest.json",
+      "sha256": "8951890c3773551a2e5dda7d1b780b30ec3a76fad63460d85af1efc4952bea54",
+      "bytes": 656
+    },
+    {
+      "path": "artifacts/v08_official/flood/network_nodes.csv",
+      "sha256": "2919226af1b6ffa0886ec2f55c138d8d77e2f3db946ba21d36f75ba5cc7d94b9",
+      "bytes": 1796
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_branches_carbon_resilient.csv",
+      "sha256": "b0ef572ead71963fa9ee01ce536e563486c592f60a58743995c3584f53433b49",
+      "bytes": 56332
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_branches_eens.csv",
+      "sha256": "6cee43881ce48b976a0bb0a47eacc055685ab2cfdd5d941cebbb07a18e35cdd8",
+      "bytes": 56412
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_branches_traditional.csv",
+      "sha256": "9347bda487da460c0d3c612625e63e3ddf4b17f26ebf76d4aaae475741e40ceb",
+      "bytes": 49257
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_carbon_resilient.csv",
+      "sha256": "6637177a9cd847a7335d6be4d8e04169d5a3d56acd0e59e0b45137727e46eb10",
+      "bytes": 2578
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_components_carbon_resilient.csv",
+      "sha256": "476b3a47d156065cb95492915d563e21a304e28e122f7939fb3218ef1c4fdea5",
+      "bytes": 5592
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_components_eens.csv",
+      "sha256": "f18592532fa782e7c0ce35ad061404f3a726f250dbda32833159899a7b6a0443",
+      "bytes": 5591
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_components_traditional.csv",
+      "sha256": "716a8a4d9ae1d61c13c10a2a3f5521048914c53eb28873982d0230e632d28a79",
+      "bytes": 10946
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_eens.csv",
+      "sha256": "3527a2854073cdd45cebb6040dd761a561321a8a53b0b704675e748e564a39f7",
+      "bytes": 2561
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_nodes_carbon_resilient.csv",
+      "sha256": "3545db7e7d39f710c7098a9316636a61d91f7810f7ec001f6eeae2651b6eb13c",
+      "bytes": 44612
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_nodes_eens.csv",
+      "sha256": "39f2b525418cb1617e8cf4391dc8110b118878c1d59f87d9737ec8147c50312c",
+      "bytes": 43762
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_nodes_traditional.csv",
+      "sha256": "3a9df3c39b4b587a609627bd6a26e33df140c80120930cf1289dee314807ff2d",
+      "bytes": 42142
+    },
+    {
+      "path": "artifacts/v08_official/flood/powerflow_traditional.csv",
+      "sha256": "9f14f9d8d007f7aa87f119a16ee6e0cc9640f01caf47ad0d1fc1a0e3a027b525",
+      "bytes": 2693
+    },
+    {
+      "path": "artifacts/v08_official/flood/report_carbon_resilient.md",
+      "sha256": "6948925fb83f90828b0d3267904f2bb48166b2b733e70283b5ea84fbf90959c5",
+      "bytes": 2005
+    },
+    {
+      "path": "artifacts/v08_official/flood/report_eens.md",
+      "sha256": "3e15105178560b2d67fd852d33d0b6058f71a5d308a7243f7312ace9ace82b05",
+      "bytes": 2003
+    },
+    {
+      "path": "artifacts/v08_official/flood/report_traditional.md",
+      "sha256": "ac23dbb6099b63591c5be174dcca125f880339741b7b96cf8cfc7d27bb95e9e4",
+      "bytes": 1915
+    },
+    {
+      "path": "artifacts/v08_official/flood/strategy_comparison.csv",
+      "sha256": "0a7ba7cd1ae716c9cfaad88a017b2d5c22406d021d3796ce4e810ec1b01679da",
+      "bytes": 467
+    },
+    {
+      "path": "artifacts/v08_official/heat/actions_carbon_resilient.csv",
+      "sha256": "8a7e979bb3479f7f86ee42a14a6e80e83f7a7d963b32218392346e5b17322520",
+      "bytes": 105
+    },
+    {
+      "path": "artifacts/v08_official/heat/actions_eens.csv",
+      "sha256": "8a7e979bb3479f7f86ee42a14a6e80e83f7a7d963b32218392346e5b17322520",
+      "bytes": 105
+    },
+    {
+      "path": "artifacts/v08_official/heat/actions_traditional.csv",
+      "sha256": "d5d4589c1ed3d3edbddb0a1119488d17b9b916f654feaab7761f116c06fa7485",
+      "bytes": 53
+    },
+    {
+      "path": "artifacts/v08_official/heat/base_powerflow_branches.csv",
+      "sha256": "dc9238b3b75b0e77958b2dcb74a4028b97b53ad4f6557a1492fc7c492bfecbfa",
+      "bytes": 2340
+    },
+    {
+      "path": "artifacts/v08_official/heat/base_powerflow_nodes.csv",
+      "sha256": "58655f1e1897a714ad3a707a918b90b9afe60a26d534335ddec68c3b842d72cf",
+      "bytes": 755
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_definitions.json",
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8",
+      "bytes": 1731
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_evaluation_carbon_resilient.csv",
+      "sha256": "3bafb1f47dc2a6c545b1297a96ea1e8cea7e44be7a5c911b38eb18c11c32d74f",
+      "bytes": 1478
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_evaluation_eens.csv",
+      "sha256": "ce6b8d66892e76471d6ac7568a018573149dc7a5021127158214513ca999ec2d",
+      "bytes": 1476
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_evaluation_traditional.csv",
+      "sha256": "2afd0e4686b83d4cc99cae490afb9722a6eab998eded056618d86f99222c6aaf",
+      "bytes": 1478
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_summary_carbon_resilient.json",
+      "sha256": "f4888ba0cbd8eb084c76d6ef5fc11f7fb2fa8212a4237d87ed0e14587b65df4c",
+      "bytes": 392
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_summary_eens.json",
+      "sha256": "cee9e885e4d77778ffe8266bb6a6637e017df4c3c24388a84287475064435d8a",
+      "bytes": 380
+    },
+    {
+      "path": "artifacts/v08_official/heat/care_task_summary_traditional.json",
+      "sha256": "00caf454226b86f1e8a50afd9c272fbdecaa1050a680afc7b168b4a081c3fc00",
+      "bytes": 387
+    },
+    {
+      "path": "artifacts/v08_official/heat/dispatch_carbon_resilient.csv",
+      "sha256": "901d286f7546dc5b3887307ba111071f8cdf04cb99fa57669a329cff7a4108fb",
+      "bytes": 4094
+    },
+    {
+      "path": "artifacts/v08_official/heat/dispatch_eens.csv",
+      "sha256": "9a2adedf3fdaca6671f896f321f618874e62b92af1231943e21800871262d844",
+      "bytes": 4006
+    },
+    {
+      "path": "artifacts/v08_official/heat/dispatch_traditional.csv",
+      "sha256": "c40b38ed8f57c3f903f17f6a759278126026a0864181d099d176930de961d2f0",
+      "bytes": 4111
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_episodes_carbon_resilient.csv",
+      "sha256": "e676fb61fc711488e36e9c95d9e1d1575693b29a3d30ea6ae8aa73fa88128d03",
+      "bytes": 175
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_episodes_eens.csv",
+      "sha256": "e676fb61fc711488e36e9c95d9e1d1575693b29a3d30ea6ae8aa73fa88128d03",
+      "bytes": 175
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_episodes_traditional.csv",
+      "sha256": "9307b0ac8b46cba109b2d1186ad85f6a1baa3cd2fce61982c7c1929e0af3eb88",
+      "bytes": 419
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_hourly_carbon_resilient.csv",
+      "sha256": "3ad9427c52b74f1d1c0b178a8be7c6a82e0d377d254d29b87d7dda86e993a01c",
+      "bytes": 938
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_hourly_eens.csv",
+      "sha256": "3ad9427c52b74f1d1c0b178a8be7c6a82e0d377d254d29b87d7dda86e993a01c",
+      "bytes": 938
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_hourly_traditional.csv",
+      "sha256": "9772295cee2d80db8a988dfea8e3e97d7fbb3c3435255a6dc86f9f4e93ea7a45",
+      "bytes": 6145
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_summary_carbon_resilient.json",
+      "sha256": "0722e0cb606c4e0eb5b37f9939a0855d7463b624d1e0165094291bd2ffc4acf8",
+      "bytes": 269
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_summary_eens.json",
+      "sha256": "0722e0cb606c4e0eb5b37f9939a0855d7463b624d1e0165094291bd2ffc4acf8",
+      "bytes": 269
+    },
+    {
+      "path": "artifacts/v08_official/heat/island_passport_summary_traditional.json",
+      "sha256": "7b6a5dfcff179ccfdd1f6e11d19576a6d2e45db7be2ac601dc2ec87aa1d20db1",
+      "bytes": 313
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/evidence/evidence_index.json",
+      "sha256": "c6e8708b2f4b347cf336aa272384feae1365301b9b81b08c225db4de36e860ca",
+      "bytes": 3096
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/evidence/seal.json",
+      "sha256": "fa23d4724bd673633581772d5bb120e811bf5c97296d0f9934c1270fe7567b32",
+      "bytes": 680
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/evidence/verification.json",
+      "sha256": "132421d4290e8132d2f05f2f595b966f1b98308228271045699ecb870a04ffe7",
+      "bytes": 242
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/inputs/config.json",
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e",
+      "bytes": 260
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/inputs/factor_registry.csv",
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267",
+      "bytes": 1138
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/inputs/factor_snapshot.csv",
+      "sha256": "b0e8ff7288ab052f4de51ba272507d1946a2239e5f956c19a49b7147f685fa28",
+      "bytes": 20831
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/inputs/network_snapshot.json",
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7",
+      "bytes": 26710
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/inputs/scenario.json",
+      "sha256": "ef4e4d3f5e52df6e143200a517afb6f06ffef0c30bfb175e944486a3e5351b8e",
+      "bytes": 339
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/actions.csv",
+      "sha256": "89100d38798e2c46d7b663444c4595901f3a3ab5c10d5c40d5058c54299290bc",
+      "bytes": 6517
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/activity_energy_hourly.csv",
+      "sha256": "e44b7459d9afc240edf9537733ddc5179edc85924469ba83a5400cccb559b905",
+      "bytes": 129696
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/carbon_reconciliation.csv",
+      "sha256": "86750d6de1a3e6b36e0c44e04393f80972c47a9580290ffc53ffa1d15b16c800",
+      "bytes": 256
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/claim_gates.json",
+      "sha256": "7754e06a8e6a5cd9a8dd836e8b2823aff765fc8b7219bd68f9c3483110e4a624",
+      "bytes": 1601
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/dispatch_carbon_resilient.csv",
+      "sha256": "901d286f7546dc5b3887307ba111071f8cdf04cb99fa57669a329cff7a4108fb",
+      "bytes": 4094
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/dispatch_eens.csv",
+      "sha256": "9a2adedf3fdaca6671f896f321f618874e62b92af1231943e21800871262d844",
+      "bytes": 4006
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/dispatch_traditional.csv",
+      "sha256": "c40b38ed8f57c3f903f17f6a759278126026a0864181d099d176930de961d2f0",
+      "bytes": 4111
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/emission_inventory_hourly.csv",
+      "sha256": "c7b59bfab6b98fb0f0b6f1549918b36d70cd4ad3d8278cd9ff853e9ae8895c59",
+      "bytes": 60470
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/topology_state_carbon_resilient.csv",
+      "sha256": "c7b9ebc11871c7db622ced4f9653c6dbed247d0c974459e0f24b3ee443fa99be",
+      "bytes": 1444
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/topology_state_eens.csv",
+      "sha256": "6c43656176a059309cad81ee49cede3f9451f23cbb2b30bc5deb9fa2219ea502",
+      "bytes": 1156
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/outputs/topology_state_traditional.csv",
+      "sha256": "156edaaade672662fb91464acf3b10f1ea44c3466a08c5c87151eb05a9cb61b8",
+      "bytes": 1282
+    },
+    {
+      "path": "artifacts/v08_official/heat/mrv/run-1e9a1d2c4cd2e0c3/run_manifest.json",
+      "sha256": "1db4924aaf40ebe4d8ba30955cab8290676a2f8834d783b63f1d0dee3595b2f1",
+      "bytes": 3970
+    },
+    {
+      "path": "artifacts/v08_official/heat/network_branches.csv",
+      "sha256": "e90e7587ceec455fa38a04f829a58397a807fad73e4b31e95b7273a79daebf16",
+      "bytes": 3922
+    },
+    {
+      "path": "artifacts/v08_official/heat/network_manifest.json",
+      "sha256": "8951890c3773551a2e5dda7d1b780b30ec3a76fad63460d85af1efc4952bea54",
+      "bytes": 656
+    },
+    {
+      "path": "artifacts/v08_official/heat/network_nodes.csv",
+      "sha256": "2919226af1b6ffa0886ec2f55c138d8d77e2f3db946ba21d36f75ba5cc7d94b9",
+      "bytes": 1796
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_branches_carbon_resilient.csv",
+      "sha256": "71fe67a1b4fa64352f4436881dfc6a60ec591a8a649b03566ed89c679d6de998",
+      "bytes": 57059
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_branches_eens.csv",
+      "sha256": "57dbbb23c844827f3fd3df20047439d64d1ba3c92764a5066e53115e92490948",
+      "bytes": 57101
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_branches_traditional.csv",
+      "sha256": "10aea22a071ddfb0cfbee406ece2a6e30c747396543659baafbd9173ee934870",
+      "bytes": 55919
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_carbon_resilient.csv",
+      "sha256": "7438e0366dfe505e023891ea1dde5aee8494629a8048347a9bbf9cc8deb01ee5",
+      "bytes": 2691
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_components_carbon_resilient.csv",
+      "sha256": "961af7e372d7439b6388569b479e5ca0024e913a83b7a017c2bc93d989bff7a7",
+      "bytes": 5625
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_components_eens.csv",
+      "sha256": "74b007069e9a1e502c34f8c42c80b9d9cbdb8c7db1f287f5ed08bd910f60f814",
+      "bytes": 5610
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_components_traditional.csv",
+      "sha256": "dae14a6e53e702f1f38460ca3dfe9efa414508952bba6c10a97b3e88d182bbac",
+      "bytes": 6970
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_eens.csv",
+      "sha256": "1c9eda1bd0a0afbb304187bc04ae9c61e50db6f21b09f90f2b17d3a2027d7d6e",
+      "bytes": 2654
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_nodes_carbon_resilient.csv",
+      "sha256": "a46bbf5e47ad778ad192bc97c5d0a90b58a25d2d377256d392425a0c33ee3c96",
+      "bytes": 44638
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_nodes_eens.csv",
+      "sha256": "88c02d17cccd484e5c71b6e31d6150896231ca67f2b9bb8719af6ad7b5b84f66",
+      "bytes": 43577
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_nodes_traditional.csv",
+      "sha256": "a3875536f34ab965d5f5a6ca0e1d1375c87ab1856dbb447a6d63fa7ef73f8bd0",
+      "bytes": 43251
+    },
+    {
+      "path": "artifacts/v08_official/heat/powerflow_traditional.csv",
+      "sha256": "3ee28c5d1adf509e9b0693a57ef5e9d0d8c62239a1613e440d4015255c3fb369",
+      "bytes": 2699
+    },
+    {
+      "path": "artifacts/v08_official/heat/report_carbon_resilient.md",
+      "sha256": "5b3a73b416aa69786e166e54dd5bfa5882c474367eb3968694ea2ddff5bc9036",
+      "bytes": 1939
+    },
+    {
+      "path": "artifacts/v08_official/heat/report_eens.md",
+      "sha256": "eb8e4f21562c25ca049c2dc6f507f08a021fe4d4a31546b7af6ed767b98cfb0e",
+      "bytes": 1936
+    },
+    {
+      "path": "artifacts/v08_official/heat/report_traditional.md",
+      "sha256": "b6ed4781c3e9a052e88dfdac2f8ac1a6b9c0c838f2f9eb9cb3aaca6201e5b255",
+      "bytes": 1879
+    },
+    {
+      "path": "artifacts/v08_official/heat/strategy_comparison.csv",
+      "sha256": "bb4722f01ee0b20f2d47c6ab848b85cdb4e7b76b9df1ee131f0846faf6749533",
+      "bytes": 464
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/actions_carbon_resilient.csv",
+      "sha256": "e4e4a465c24d33f4439e3ea68439327b3285ff801b7f39e29c5a93e23e261f28",
+      "bytes": 95
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/actions_eens.csv",
+      "sha256": "e4e4a465c24d33f4439e3ea68439327b3285ff801b7f39e29c5a93e23e261f28",
+      "bytes": 95
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/actions_traditional.csv",
+      "sha256": "c8cc23946cad1b63d0ea3ee165e4aca45b58c9737f3e72a4a8985a5372fef4f2",
+      "bytes": 95
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/base_powerflow_branches.csv",
+      "sha256": "dc9238b3b75b0e77958b2dcb74a4028b97b53ad4f6557a1492fc7c492bfecbfa",
+      "bytes": 2340
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/base_powerflow_nodes.csv",
+      "sha256": "58655f1e1897a714ad3a707a918b90b9afe60a26d534335ddec68c3b842d72cf",
+      "bytes": 755
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_definitions.json",
+      "sha256": "d38db5a2374b8d1d399e2e1308497163876eca8a7bd3176d077183a4cc7711f8",
+      "bytes": 1731
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_evaluation_carbon_resilient.csv",
+      "sha256": "0a474db6c805139797d4d5b2198295b3d989d1b9b70e002c4a042c1e040e4a41",
+      "bytes": 1477
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_evaluation_eens.csv",
+      "sha256": "a3e852f11ce6641672ddb97ea83bfcf8e821221027c82fc7be74b15cf6f5d7b6",
+      "bytes": 1474
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_evaluation_traditional.csv",
+      "sha256": "cd4a459cc06c8ff4b025714edae59becfe36027da8e3f08c96546a1309e29135",
+      "bytes": 1477
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_summary_carbon_resilient.json",
+      "sha256": "f4888ba0cbd8eb084c76d6ef5fc11f7fb2fa8212a4237d87ed0e14587b65df4c",
+      "bytes": 392
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_summary_eens.json",
+      "sha256": "cee9e885e4d77778ffe8266bb6a6637e017df4c3c24388a84287475064435d8a",
+      "bytes": 380
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/care_task_summary_traditional.json",
+      "sha256": "00caf454226b86f1e8a50afd9c272fbdecaa1050a680afc7b168b4a081c3fc00",
+      "bytes": 387
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/dispatch_carbon_resilient.csv",
+      "sha256": "f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b",
+      "bytes": 4042
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/dispatch_eens.csv",
+      "sha256": "14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da",
+      "bytes": 4241
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/dispatch_traditional.csv",
+      "sha256": "d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f",
+      "bytes": 4225
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_episodes_carbon_resilient.csv",
+      "sha256": "2112e1453a446ec37b3f8c2191a1ed801de0d06078686df73c738ead57ec511c",
+      "bytes": 664
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_episodes_eens.csv",
+      "sha256": "e6d1e3bd28519f2a3732e40ec4b0636f4dba731627dde8b7145ec45095471961",
+      "bytes": 666
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_episodes_traditional.csv",
+      "sha256": "6e61f42d9a8811d0a88d8759ebf52bfbbb242150dc6b47f4abffaa07ec031fa9",
+      "bytes": 663
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_hourly_carbon_resilient.csv",
+      "sha256": "7b40dd213bb01d38eb2fd7459af98f5cdacb3a3118e8745dfa103718dc2ea9d0",
+      "bytes": 22490
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_hourly_eens.csv",
+      "sha256": "524ee7eeff9ebb17272dde5556f536e88b3f07ad11739a8144eeb97bf5b25e75",
+      "bytes": 22560
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_hourly_traditional.csv",
+      "sha256": "a558aac55cd31ae7c261e2e1cded4818d16b9f317161fc5d0d95651e803a8898",
+      "bytes": 22790
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_summary_carbon_resilient.json",
+      "sha256": "e06d82aeb0f229cefde00419e009de477ef384264489783707e3c43ac0083c1b",
+      "bytes": 313
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_summary_eens.json",
+      "sha256": "e06d82aeb0f229cefde00419e009de477ef384264489783707e3c43ac0083c1b",
+      "bytes": 313
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/island_passport_summary_traditional.json",
+      "sha256": "18e09cf22a0167879ee3442fb857d39bac1a3aaefba39cee04e42866c46bfa5a",
+      "bytes": 313
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/evidence/evidence_index.json",
+      "sha256": "a295d5bd1fd880fa48178ee43762604a9d4cf79e6608f9ca1544e9d83786f14b",
+      "bytes": 3096
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/evidence/seal.json",
+      "sha256": "e949d0ce92f5622c50615f1daf3ed9eab808820edbb92e1524967d4dcbcb4887",
+      "bytes": 680
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/evidence/verification.json",
+      "sha256": "14df1c9dc033140cef81c7a77537250acae2a0c0177202f0af23f8d6c05d9d66",
+      "bytes": 242
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/inputs/config.json",
+      "sha256": "eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e",
+      "bytes": 260
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/inputs/factor_registry.csv",
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267",
+      "bytes": 1138
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/inputs/factor_snapshot.csv",
+      "sha256": "7ca3b05f5991d57d790c7ab25a2e590113f48140253c2d530ec20702ef7d3b75",
+      "bytes": 20829
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/inputs/network_snapshot.json",
+      "sha256": "4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7",
+      "bytes": 26710
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/inputs/scenario.json",
+      "sha256": "70781ce1c82b9450c97bdcd5c5e5f3adfeed61635043f10109970d0301de8567",
+      "bytes": 368
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/actions.csv",
+      "sha256": "4e0267560cf31ff8c69a491cf0f6048d0971eaf628c06c22670db3cc6d1580df",
+      "bytes": 4339
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/activity_energy_hourly.csv",
+      "sha256": "a88403ff954e45f7beaf17dd1e0df7f3065afee146610abb1b8c8efa091c49fd",
+      "bytes": 130450
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/carbon_reconciliation.csv",
+      "sha256": "1744fb239a7131fa3a4dd5e4912993ea8e329402d5a2d7545bd95b4518a213ce",
+      "bytes": 320
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/claim_gates.json",
+      "sha256": "400e71edfeafd911aa736c6aaab66f5e1cd310e8ebe99eca4351f2585c43f3ff",
+      "bytes": 1605
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/dispatch_carbon_resilient.csv",
+      "sha256": "f431df87a876f508da3a5ee4b1956d6aea142d6f76d790c7947d123a7501a93b",
+      "bytes": 4042
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/dispatch_eens.csv",
+      "sha256": "14105f86df697b2f00dd5e857378f96af9836b27a1fddae8255ec1afedc196da",
+      "bytes": 4241
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/dispatch_traditional.csv",
+      "sha256": "d269eb1dbcda701a3459ef40d7aa356efc013dfb598e79a13bfcf67201c9b32f",
+      "bytes": 4225
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/emission_inventory_hourly.csv",
+      "sha256": "fc046cfbea7ef61908e8942d3e59986aeb696b1f96c99de461924cd1ac8d080f",
+      "bytes": 59858
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/topology_state_carbon_resilient.csv",
+      "sha256": "b0df9ab4fed0924b426c9c33de94452fd8ec139a5f5b6b08958fe36cb8d16078",
+      "bytes": 1566
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/topology_state_eens.csv",
+      "sha256": "8e636e71e0860f8535a58d9b3182d37c88c058c04d6e4ea553e594d9529d9127",
+      "bytes": 1278
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/outputs/topology_state_traditional.csv",
+      "sha256": "a6631af748c0045c94cc1464708b938532e40b924e23268149ddd4dc8250f336",
+      "bytes": 1449
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/mrv/run-4b8304d99d10acc6/run_manifest.json",
+      "sha256": "0a56a6adc58fd0a3bb28f315a8507af0a85ce05ae8b85951ab8c1f3319bc82ec",
+      "bytes": 3968
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/network_branches.csv",
+      "sha256": "e90e7587ceec455fa38a04f829a58397a807fad73e4b31e95b7273a79daebf16",
+      "bytes": 3922
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/network_manifest.json",
+      "sha256": "8951890c3773551a2e5dda7d1b780b30ec3a76fad63460d85af1efc4952bea54",
+      "bytes": 656
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/network_nodes.csv",
+      "sha256": "2919226af1b6ffa0886ec2f55c138d8d77e2f3db946ba21d36f75ba5cc7d94b9",
+      "bytes": 1796
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_branches_carbon_resilient.csv",
+      "sha256": "7956912b3525c2605e6b0caeda78adae09474941d16cc49827b3d0f572d5f188",
+      "bytes": 43224
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_branches_eens.csv",
+      "sha256": "da24aa5e9087cc1861a095b18a4338ea6e9ad52138c5fa525c615f76e6bb0f76",
+      "bytes": 43328
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_branches_traditional.csv",
+      "sha256": "2c20ef9384079fdd8a8e0987c8f54ffdd9a930c8e7d1a5b094d8859a5cfebc1c",
+      "bytes": 44969
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_carbon_resilient.csv",
+      "sha256": "9dbce867fe7fdd4ed0e9b94cdbb0e172a424d5cf3b55152aa6ba92f68e7dcddc",
+      "bytes": 2554
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_components_carbon_resilient.csv",
+      "sha256": "fe4519e4fb205c5daadcaf5f9b7cc2ad160e9734eadafa482eb89c02dc90fb1c",
+      "bytes": 10662
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_components_eens.csv",
+      "sha256": "da068eb8c81f5ff1238e9da57fb55505bfd1f3b84c6be352768976033a328bc2",
+      "bytes": 10737
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_components_traditional.csv",
+      "sha256": "3eb0bff9e7ae88199554c480865c81e18038563cac13a94ab700c017bd29bd1b",
+      "bytes": 10814
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_eens.csv",
+      "sha256": "e933969c8c5ba7a661454fd1ff3090bf156597fba93d5b3659dc5dbc8d0a7f7a",
+      "bytes": 2666
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_nodes_carbon_resilient.csv",
+      "sha256": "d16bc425c826329c51f2eb8cc53344d0a4b44f3fdec637110cf4a31391c499d2",
+      "bytes": 39407
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_nodes_eens.csv",
+      "sha256": "758bc5087900cb1d0bdf1e960b9652d9b3f343ec6746dbe93e9aba5145fcb16c",
+      "bytes": 39134
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_nodes_traditional.csv",
+      "sha256": "b13225a760a8a3aaedf446cc2d812d1c5f895f88ef948243792571031461cc2d",
+      "bytes": 39534
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/powerflow_traditional.csv",
+      "sha256": "6b293c8458944d3b1ee55b0f47ec90d3ece0b73f1da1dc6f60d757625392e539",
+      "bytes": 2700
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/report_carbon_resilient.md",
+      "sha256": "edd1d4f40492968ceda494cdc2870e75baa22209a248498b683ec00871df0697",
+      "bytes": 1945
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/report_eens.md",
+      "sha256": "726b50fd699b140bb19fde6a2e32ece50390eedcec569a4a40b54103a646fade",
+      "bytes": 1945
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/report_traditional.md",
+      "sha256": "4e7572ec55bc6c309c90adf066196b758b1f67adb7ad545b946692412987eb7d",
+      "bytes": 1945
+    },
+    {
+      "path": "artifacts/v08_official/typhoon/strategy_comparison.csv",
+      "sha256": "9ec0f85d981e3c433d38e760b6c65a08280ee42a6cf33ffb8f82a492118df1ce",
+      "bytes": 507
+    },
+    {
+      "path": "artifacts/v08_official/verification_summary.json",
+      "sha256": "12b28b4b91433b1d00f4db146471d38b5cba1920cc28fa17a63dbb29c4d9567f",
+      "bytes": 1565
+    },
+    {
+      "path": "artifacts/wave10/batch36/catalog_manifest.json",
+      "sha256": "f981b3d705eaa64ae0ac84bd007a18749fcf76350c1ce2681ccd6ee7c52a2ba7",
+      "bytes": 460
+    },
+    {
+      "path": "artifacts/wave10/batch36/experiment_runs.csv",
+      "sha256": "10dce9ded0b617da0fad32006e689d3d215639cdae085c18f52c080d7691aa71",
+      "bytes": 63692
+    },
+    {
+      "path": "artifacts/wave10/batch36/failure_manifest.json",
+      "sha256": "fd4207a93c5a9b7dd0836fd5a15fe8b461452396dc01e7ec0105361ad9343d4e",
+      "bytes": 54
+    },
+    {
+      "path": "artifacts/wave10/batch36/paired_deltas.csv",
+      "sha256": "c01394ba9962ee83426db2e4c69c80049add8b43c8d8624a4e22b6b3c00e29bd",
+      "bytes": 1020
+    },
+    {
+      "path": "artifacts/wave10/batch36/paired_report.json",
+      "sha256": "95d187ca812635b873a17d29407f2fa099c1a3a11a72e2e1b6ce0fc750b473ff",
+      "bytes": 2232
+    },
+    {
+      "path": "artifacts/wave10/batch36/validation_summary.csv",
+      "sha256": "5d82981bfc7fd4e985bbc9be329fe2da34773f9af891d2777988c08775c0ffd6",
+      "bytes": 3776
+    },
+    {
+      "path": "artifacts/wave10/c0_c4_gate/c0_strict_reference.csv",
+      "sha256": "dd0badc3b5af1493bb07868daa4751d45944f67a4e90e30377165c4a502b944b",
+      "bytes": 22878
+    },
+    {
+      "path": "artifacts/wave10/c0_c4_gate/c4_controlled_candidate.csv",
+      "sha256": "4b7cd407f7bf4f2a4a58c3b3cc2466c29a7af12b87396c69478ce3af1974b8f5",
+      "bytes": 23083
+    },
+    {
+      "path": "artifacts/wave10/c0_c4_gate/comparison_gate.csv",
+      "sha256": "2ac08391e8c94b7d17b3d4c73e3a927825be4eafbc6bed46c509ae46545390ea",
+      "bytes": 4573
+    },
+    {
+      "path": "artifacts/wave10/c0_c4_gate/gate_manifest.json",
+      "sha256": "0d7966dfcebd319d0e0340c757dccbdd03e40369b3da6a5338a6a4e72e170b92",
+      "bytes": 625
+    },
+    {
+      "path": "artifacts/wave10/catalog/catalog_manifest.json",
+      "sha256": "f981b3d705eaa64ae0ac84bd007a18749fcf76350c1ce2681ccd6ee7c52a2ba7",
+      "bytes": 460
+    },
+    {
+      "path": "artifacts/wave10/catalog/scenario_catalog.csv",
+      "sha256": "5cadcd4718e29d871602a418c01ef07c71f92956b398ec2fc2f1c95ef00eb501",
+      "bytes": 5668
+    },
+    {
+      "path": "artifacts/wave10/catalog/scenario_catalog.jsonl",
+      "sha256": "5dfb65558fdda36d00ea2df462b2ce0b965b6ce14cb69885ec711ac96dcb2833",
+      "bytes": 21169
+    },
+    {
+      "path": "artifacts/wave10/figures/figure_source_index.csv",
+      "sha256": "aef159411733921f6cdea2d32b5f1e307b85be1a53b6520d825717617ee5eded",
+      "bytes": 1505
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_01_strategy_comparison.png",
+      "sha256": "4217e43ac416810efcef16ac8e3ed27aa99a6975c170e625ac5e2d9d3e6647fe",
+      "bytes": 57740
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_02_inventory_breakdown.png",
+      "sha256": "212dee60e44a92ddf3daeb10e5ab58287700b12f86c9028fb7a85467f35f586d",
+      "bytes": 58736
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_03_physics_voltage_gate.png",
+      "sha256": "547fb2d6386b5d941e5d5cad26f1d8ff65811852e9dbdfc8646c0e1addec3489",
+      "bytes": 73325
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_04_action_timeline.png",
+      "sha256": "2d75c582aec4e2c4780720c6b901b0bc3b04af1be9f5246afb7621763d2be260",
+      "bytes": 39120
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_05_pareto_controlled_service.png",
+      "sha256": "d1c0aa1fd58885acbf648da98dd4dcaf0066a85af685ece67301c51d66cb7287",
+      "bytes": 109279
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_06_mrv_reconciliation.png",
+      "sha256": "e6f061c660ab6c3fada1138a1fded0051c0d8e381403e7f6f1a84df54434c51b",
+      "bytes": 47345
+    },
+    {
+      "path": "artifacts/wave10/figures/wave10_07_caretask_contracts.png",
+      "sha256": "895edda5850b2ee33c1227a2ac4bd3da5cb96faf9a864ad741688ba87a629d52",
+      "bytes": 54218
+    },
+    {
+      "path": "artifacts/wave10/pipeline_cache/flood.pkl",
+      "sha256": "375d536ef63af59adc39fc59dcea5cf19b37bc1bb6ce002b6309821c8202ca67",
+      "bytes": 881334
+    },
+    {
+      "path": "artifacts/wave10/pipeline_cache/heat.pkl",
+      "sha256": "f9a77420ec89ba18044feb5508f842b1a7ef8eaa91d3cd011b200a62259d30d4",
+      "bytes": 882950
+    },
+    {
+      "path": "artifacts/wave10/pipeline_cache/typhoon.pkl",
+      "sha256": "8437c20f1eaad38043b4b416ec3b23353e40771abcdeb524288efb863650203e",
+      "bytes": 863433
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_9/strict_contract_anchors.csv",
+      "sha256": "858a1c9fbcb7a0a013203286939bfcefc4978295c8fd079772b58604dc6532cc",
+      "bytes": 5515
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_9/strict_contract_manifest.json",
+      "sha256": "ad2e6a472e76a8d904221bcf7f57467c41c4f1bf7344544af6b8520d195eac58",
+      "bytes": 2369
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_9/strict_contract_points.csv",
+      "sha256": "03d09077387ec8b54234c69065d41a1affee076a313de1c59cdf87d51ddb6dcc",
+      "bytes": 10202
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_demo/strict_contract_anchors.csv",
+      "sha256": "208fb5269ec70b29457570456b80bfe44cfefd7562abf2b8d9b90526d85a150c",
+      "bytes": 1908
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_demo/strict_contract_manifest.json",
+      "sha256": "3e5c9da21ecf859365c9927870250dcfacec5f56e124f21a21f9b1d9948a2692",
+      "bytes": 1061
+    },
+    {
+      "path": "artifacts/wave10/strict_contract_demo/strict_contract_points.csv",
+      "sha256": "97c10df7dcc87e708a645a49168da1c0e8bc11eec82a487e656fee0231b0cf76",
+      "bytes": 4164
+    },
+    {
+      "path": "artifacts/wave11/mrv_sensitivity/factor_draws.csv",
+      "sha256": "3b426b8d3bda52bbceff91568d5c3d8ccdb02c9df123e7ea11d1f318d59111eb",
+      "bytes": 51657
+    },
+    {
+      "path": "artifacts/wave11/mrv_sensitivity/sensitivity_report.json",
+      "sha256": "df6b4fd707beaaa8a2264112ca33abe62e859eb8189d4aa3a21e5dba1f113381",
+      "bytes": 1162
+    },
+    {
+      "path": "artifacts/wave11/risk_report/risk_report.csv",
+      "sha256": "22b378c5e5b8fb46b94fd76b0331e5066894758f757ca6689669e5f6052f9df3",
+      "bytes": 435
+    },
+    {
+      "path": "artifacts/wave11/risk_report/risk_report.json",
+      "sha256": "a83fb6e0f44197fef8d1b3d5ba11bbd1daa72cf28293e5fca8e0c8f750a45c41",
+      "bytes": 1719
+    },
+    {
+      "path": "data/case33bw.m",
+      "sha256": "b40831eeb444669ae876e2996f0dda9f05cd83e81b314b8dfca51e4890cca95d",
+      "bytes": 4866
+    },
+    {
+      "path": "data/factor_registry.csv",
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267",
+      "bytes": 1138
+    },
+    {
+      "path": "docs/10_day_execution_plan.md",
+      "sha256": "147964e6c490590632cc425f988be1e30361b242de207f394e6bcc1e794ae530",
+      "bytes": 2460
+    },
+    {
+      "path": "docs/claim_dictionary.md",
+      "sha256": "906a328deedbd025c87be2368d2b3a318b3d72ada5c65ca8636e0a2c1b169737",
+      "bytes": 1488
+    },
+    {
+      "path": "docs/competition_factsheet.yaml",
+      "sha256": "784efa4b121dfa9bb00f138298e173273968b3e431182b2d072ab848cc1bd130",
+      "bytes": 1315
+    },
+    {
+      "path": "docs/competition_narrative.md",
+      "sha256": "cec90b7c38239ddb1739ce05951a5216d64adbcdea5a509af47c5f9d052144c9",
+      "bytes": 4913
+    },
+    {
+      "path": "docs/contest_fit_2026.md",
+      "sha256": "8ccdcf57d3cfe56e902d5c98a7f9164bed464ec0542da523bdf4040d71e0b87b",
+      "bytes": 2505
+    },
+    {
+      "path": "docs/evidence_index.csv",
+      "sha256": "ff9d39eaadfd923252a342c9d516f31e138429a5a57bb78b32d05f6661ab1d29",
+      "bytes": 622
+    },
+    {
+      "path": "docs/final_submission_checklist.md",
+      "sha256": "ed8c9cc82d8615ffe81ea2da500903313e34fd67d90a15e91dd9a6f7fdcc51fc",
+      "bytes": 961
+    },
+    {
+      "path": "docs/idea_portfolio_wave11.md",
+      "sha256": "1e0af299356e46fbe0674837f11c432ec11907c0afa22cacc5f61ee819c8b145",
+      "bytes": 4961
+    },
+    {
+      "path": "docs/judge_strategy.md",
+      "sha256": "18b6825cc3016a438122233c0edb28ace23dca9167453507f70cc9ee0e4801ff",
+      "bytes": 3212
+    },
+    {
+      "path": "docs/official_competition_facts_2026.md",
+      "sha256": "6c4e6c1323a752cccb5803f1821c1491695a6d31b1d9cb476c96d1fb8f63f6f4",
+      "bytes": 1631
+    },
+    {
+      "path": "docs/scope_log.md",
+      "sha256": "83b6a53504b38d62a356984c0d3324405169fd7688d754457c33c407aaf4eb30",
+      "bytes": 593
+    },
+    {
+      "path": "docs/strict_contract_9_report.md",
+      "sha256": "9c599655e5836708f49af42ad5c48f2d9b014a844d698aa771af5b0a9b0d1b05",
+      "bytes": 1480
+    },
+    {
+      "path": "docs/strict_contract_demo.md",
+      "sha256": "ed5d36e08ed4aa9dce1b3332c29fd42d1247dc46e6e28abbd51ef0681e58cf8b",
+      "bytes": 1796
+    },
+    {
+      "path": "docs/submission_application_v10.md",
+      "sha256": "dad4edcdaafe4f5d949b7b67436bd4599a587733873b38c72df5d5a8e97cfa37",
+      "bytes": 4918
+    },
+    {
+      "path": "docs/team_recruitment_brief.md",
+      "sha256": "57e9eb3493b6dc4e4a4979a249797fcc3f2f1dd7978d41d506dad85dfb196b62",
+      "bytes": 1733
+    },
+    {
+      "path": "docs/video_script_v10.md",
+      "sha256": "24ca4c5f288fd10b969493f521cfd884f766b84dcb6d3c5d1be3caf042b906e5",
+      "bytes": 3353
+    },
+    {
+      "path": "docs/wave10_batch36_report.md",
+      "sha256": "81e77e6ea1d70df970e250bd2ba8e087c6ec7a15da90ea9cd6ad56185d539b66",
+      "bytes": 2048
+    },
+    {
+      "path": "docs/wave10_defense_update.md",
+      "sha256": "afa1d5874100c7004d69822cd509b2e7eb3603a1a09b4a0d7ebc6068979d008f",
+      "bytes": 2640
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "485728645d9b0eaf9ef7b7a1ab127522776afd4467585876164224640489f7c0",
+      "bytes": 541
+    },
+    {
+      "path": "release_manifest_v08.json",
+      "sha256": "006e7c5eadd22a88b5d8bdf36e9341781f9f44c1ce0c173b223c522535bfe261",
+      "bytes": 3328
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "f0b74587b40a104c277445d40a2a14ab228c395eb7e73f1cdfa73c869aa06734",
+      "bytes": 89
+    },
+    {
+      "path": "scripts/audit_claims.py",
+      "sha256": "5265d03973dde5f8646c09c4f338fa4edb63f896f026a35804fc5083956a91f2",
+      "bytes": 1274
+    },
+    {
+      "path": "scripts/build_c0_c4_gate.py",
+      "sha256": "698668414afc25a14f571a1eb3ec1dec64fc0a040a4ff360480fe64de989bf53",
+      "bytes": 3000
+    },
+    {
+      "path": "scripts/build_figures.py",
+      "sha256": "aa39e330e150d90affced650a67c2018a67d17fe429ac900b64b7f148c1fd802",
+      "bytes": 5844
+    },
+    {
+      "path": "scripts/build_mrv_sensitivity.py",
+      "sha256": "5fccc063cab406cc60724d6ea568d662748dbb479ab0276576fcaac74abe3963",
+      "bytes": 1694
+    },
+    {
+      "path": "scripts/build_paired_report.py",
+      "sha256": "76428815e27d7da77894523d6a4129ab63d4bddbbe55f4cd36a989a4c459331f",
+      "bytes": 2319
+    },
+    {
+      "path": "scripts/build_risk_report.py",
+      "sha256": "de40f507cfc3846f8483336712f72065dd5f8e85f5814cdf9be4da08b8fda3c5",
+      "bytes": 2451
+    },
+    {
+      "path": "scripts/build_submission.py",
+      "sha256": "6d652b961196f443acdfddf7510073a87b773d001cd1eea7c8d0f481246ee801",
+      "bytes": 4412
+    },
+    {
+      "path": "scripts/run_strict_contract_demo.py",
+      "sha256": "646f5bbc4c4f042853583fa17dee7cbf72541ffb3fc9333c4377718e01a431d6",
+      "bytes": 3050
+    },
+    {
+      "path": "scripts/run_wave10_batch.py",
+      "sha256": "4b97a8ab9f4512d6257778531c17cd1d078e258c45fc5f3325724a0a9c1e6e82",
+      "bytes": 1867
+    },
+    {
+      "path": "scripts/smoke_demo.py",
+      "sha256": "c68ce76c05bd4a1a4faab0372afb67e4611ecc07d7a4d0f7b148d2be0fa53f3a",
+      "bytes": 1918
+    },
+    {
+      "path": "src/gridrescue/__init__.py",
+      "sha256": "4e6c23be08f892842c5adc520b55785f8c6daeb04dd41f61a66e3aed70778e43",
+      "bytes": 64
+    },
+    {
+      "path": "src/gridrescue/carbon.py",
+      "sha256": "fcab035091b3512b49bd580df6bdd3c36cfc624f986de96abf2489fd69ba1756",
+      "bytes": 1681
+    },
+    {
+      "path": "src/gridrescue/care.py",
+      "sha256": "2edb248d9237b58acee19fc4c41dd70d30db70f268d5e3c59680e6cf4b2922fb",
+      "bytes": 13173
+    },
+    {
+      "path": "src/gridrescue/case33_data.py",
+      "sha256": "79a3ce44860060b0834ff6a3598058424eb6fa6995c53bc9bbed19aef987ff1e",
+      "bytes": 2687
+    },
+    {
+      "path": "src/gridrescue/cli.py",
+      "sha256": "d8d21ba3f8d15daa8a3d15e87b081fc8a9989890cba449eae00edcd947726ce1",
+      "bytes": 5658
+    },
+    {
+      "path": "src/gridrescue/dispatch.py",
+      "sha256": "7e16fe9714ca32c0d33a31ffe639d3ee784774a55d00602c6d8c9009b9e7fe9c",
+      "bytes": 22595
+    },
+    {
+      "path": "src/gridrescue/experiments.py",
+      "sha256": "62813881ee6d12e2e5d71740a452bc5590a441672146dd269dd2c805dcbfe993",
+      "bytes": 16946
+    },
+    {
+      "path": "src/gridrescue/facts.py",
+      "sha256": "7e5c2e5a8f29d92aff10536e500e3b3f48dd5c75c781f4d59a49fc82373d376a",
+      "bytes": 1759
+    },
+    {
+      "path": "src/gridrescue/faults.py",
+      "sha256": "f718bc10ed5370a0e3ce4c7631749f9bc07c0239a78f37091f5bf06d4f69b4d4",
+      "bytes": 3228
+    },
+    {
+      "path": "src/gridrescue/islands.py",
+      "sha256": "7c84fad065fd01ca2b558563eafbfe5575a90e2d8bb41b29a8ba7075144ad5ff",
+      "bytes": 17182
+    },
+    {
+      "path": "src/gridrescue/metrics.py",
+      "sha256": "cefb0342a4baf5753c72217a454957a3ce31bcd4d4afaa79ef60e2a33cd0e0e9",
+      "bytes": 2002
+    },
+    {
+      "path": "src/gridrescue/mrv.py",
+      "sha256": "e1a0ba4face9b6e7c67cb1583bdd382d82ee598b18d1563ebecee06c92f9ac01",
+      "bytes": 40148
+    },
+    {
+      "path": "src/gridrescue/mrv_sensitivity.py",
+      "sha256": "ec380c50175fc30596f73db926fd64b3518aff09c3a74e2ce364f386709508ad",
+      "bytes": 3842
+    },
+    {
+      "path": "src/gridrescue/network.py",
+      "sha256": "ddf4a3eb417447d58d640c7724491aafc9fdfc6958f5c3954ea40670f3edbc2a",
+      "bytes": 5590
+    },
+    {
+      "path": "src/gridrescue/paired_stats.py",
+      "sha256": "235ee7e2b8d5c5489989bb24f0ad7bacb1e78cf3994455d9b59a0166c010e5f3",
+      "bytes": 3776
+    },
+    {
+      "path": "src/gridrescue/pareto.py",
+      "sha256": "55bdf275b267f0f9fade812b64b29c6af2273c45f657a832684a8ea9b494d706",
+      "bytes": 28853
+    },
+    {
+      "path": "src/gridrescue/pipeline.py",
+      "sha256": "05b160f3a7437254a3cdf49651b459f9530ab8905dce42640f3b9c43a1cf40d7",
+      "bytes": 8547
+    },
+    {
+      "path": "src/gridrescue/powerflow.py",
+      "sha256": "36c8ce76433139b393b91bdfd8af152596ec0d7a81cdbb6dace2c9bbf285355c",
+      "bytes": 22371
+    },
+    {
+      "path": "src/gridrescue/report.py",
+      "sha256": "8fa6e88b564abc69a8438ae92c784eac850e4e5c7dc8cffc0f7d18dde33c8da8",
+      "bytes": 1917
+    },
+    {
+      "path": "src/gridrescue/restoration.py",
+      "sha256": "b41fddde28dd9392ef101ff13bfeef04cf491a8d3b4c21899dc59aea1cd47aee",
+      "bytes": 12748
+    },
+    {
+      "path": "src/gridrescue/risk.py",
+      "sha256": "59cc77aa7855a8e0d9e1a06a423e6308657dce045a10f5648220b429facad806",
+      "bytes": 3991
+    },
+    {
+      "path": "src/gridrescue/scenario_catalog.py",
+      "sha256": "0e6a7c3cc5ccdb68f8122e44c07818d3fe5c27cccfd72c8e39b67b54800dfd96",
+      "bytes": 6627
+    },
+    {
+      "path": "src/gridrescue/scenarios.py",
+      "sha256": "3b1218f1b244bca333ed7b3924004feca83a2200379feec14d2a1b36640a82ca",
+      "bytes": 4350
+    },
+    {
+      "path": "tests/test_app_mrv.py",
+      "sha256": "44bfb19226cef83eac45ebb0a4bdef4a03e7eb6f837d5c13e9115b700efe3034",
+      "bytes": 2533
+    },
+    {
+      "path": "tests/test_app_workbench.py",
+      "sha256": "476b8c033093f7a7009d9708cbf2a4cb0bef512754f58adab8543268eda92aae",
+      "bytes": 1210
+    },
+    {
+      "path": "tests/test_care.py",
+      "sha256": "5e1cba763ed524fe6df48373ba62bd32ea8e34524fcc0d8f3aa387a7c67298dd",
+      "bytes": 4321
+    },
+    {
+      "path": "tests/test_core.py",
+      "sha256": "4c4627f4fcdaea0ca3fbfb8e024939fd461114ec859888d79b0fcfdc8c397861",
+      "bytes": 6276
+    },
+    {
+      "path": "tests/test_experiments.py",
+      "sha256": "0d7aa42602632bf696a396e97b68a3a8cacc0220211d3e2b467bd803030f4bc4",
+      "bytes": 4246
+    },
+    {
+      "path": "tests/test_facts.py",
+      "sha256": "13ceac651bec3006d66a1f96cee5e6a6e91b896b8b8675baef85dcdd7b6a9135",
+      "bytes": 569
+    },
+    {
+      "path": "tests/test_islands.py",
+      "sha256": "1734c773e5460ee38bee6455ddd28bebd5f30ea30c01a6a03af1862ee471aa85",
+      "bytes": 2876
+    },
+    {
+      "path": "tests/test_mrv.py",
+      "sha256": "816d540e9e40240822c29543e91500accff3d490ce33f8a1ba2ae8bd66f3c0d8",
+      "bytes": 9717
+    },
+    {
+      "path": "tests/test_mrv_sensitivity.py",
+      "sha256": "b418590b11ab2d0864da889f33ad95fc4275e9cdcd25ee865b8e244753b4389f",
+      "bytes": 795
+    },
+    {
+      "path": "tests/test_paired_stats.py",
+      "sha256": "a5bf836392bd2bb35c5e4b59e98095db759e454efe083e2f1911a7eed933c30c",
+      "bytes": 962
+    },
+    {
+      "path": "tests/test_pareto.py",
+      "sha256": "c11d1c3f4d4c2317d1a9afda8e69ebd1132dc8e7b914a239a4ba6b6f1097a331",
+      "bytes": 4815
+    },
+    {
+      "path": "tests/test_risk.py",
+      "sha256": "48f45fcec9f97262c4469e35745a57b0f21b8c564d42cfd887a901a55c1b4627",
+      "bytes": 871
+    },
+    {
+      "path": "tests/test_scenario_catalog.py",
+      "sha256": "d31403d3ecc177b6b4b36387f4940aa2840ccaef1ec4cedcc335c1de6ef02e49",
+      "bytes": 1148
+    }
+  ]
+}

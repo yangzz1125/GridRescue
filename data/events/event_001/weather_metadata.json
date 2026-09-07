@@ -1,0 +1,17 @@
+{
+  "source": "Open-Meteo historical archive",
+  "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=29.76&longitude=-95.37&start_date=2021-02-15&end_date=2021-02-17&hourly=temperature_2m,precipitation,wind_speed_10m,wind_gusts_10m,shortwave_radiation&timezone=UTC",
+  "location": "Houston, Texas (29.76,-95.37)",
+  "timezone": "UTC",
+  "rows": 72,
+  "variables": [
+    "temperature_2m_c",
+    "precipitation_mm",
+    "wind_speed_10m_kmh",
+    "wind_gusts_10m_kmh",
+    "shortwave_radiation_wm2"
+  ],
+  "retrieved_utc": "2026-08-27T00:00:00Z",
+  "claim_boundary": "historical weather grid point; not an on-site feeder sensor",
+  "attribution": "Open-Meteo Historical Weather API; retain attribution under provider terms"
+}

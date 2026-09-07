@@ -1,0 +1,5 @@
+run_id,scenario,strategy,normal_allowance_fraction,solve_success,contract_pass,physical_pass,frontier_eligible,failure_phase,failure_reason,nondominated
+,暴雨内涝,最小失供恢复,0.0,False,False,False,False,essential_anchor,"RuntimeError: other_essential physical feedback failed: converged=False, feasible_hours=24/24, residual_kw=0.744948",False
+,暴雨内涝,最小失供恢复,0.01,False,False,False,False,essential_anchor,"RuntimeError: other_essential physical feedback failed: converged=False, feasible_hours=24/24, residual_kw=0.744948",False
+,暴雨内涝,最小失供恢复,0.04,False,False,False,False,essential_anchor,"RuntimeError: other_essential physical feedback failed: converged=False, feasible_hours=24/24, residual_kw=0.744948",False
+,暴雨内涝,最小失供恢复,0.08,False,False,False,False,essential_anchor,"RuntimeError: other_essential physical feedback failed: converged=False, feasible_hours=24/24, residual_kw=0.744948",False

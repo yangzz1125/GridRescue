@@ -1,0 +1,78 @@
+{
+  "schema_version": "gridrescue-wave10-strict-contract-demo-1.0",
+  "generated_at": "2026-08-23",
+  "freeze_date": "2026-08-22",
+  "scenario_count": 9,
+  "allowance_fractions": [
+    0.0,
+    0.04
+  ],
+  "strategy": "碳韧协同恢复",
+  "strict_contract": true,
+  "scenarios": [
+    {
+      "scenario_id": "W10-01-01-01",
+      "payload_sha256": "f5f8eac1889aee925b8be4b171d897e62b81d271a73ab51a5457792814295c6b",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-01-02-01",
+      "payload_sha256": "ccd18ad65648ea033682a9fb846b942f68459acf480544fd8a3e058c795e93a3",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-01-03-01",
+      "payload_sha256": "fe64bf0beacb1b2a4d4ca34d46ed28a953c329d0e665609211ba5d3badbd76e9",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-02-01-01",
+      "payload_sha256": "660545c6832202ad87b9aad9cb7b80a5727bfa7d7636c4ee5ede01fb4fd6935a",
+      "points": 2,
+      "frontier_eligible": 0,
+      "failures": 2
+    },
+    {
+      "scenario_id": "W10-02-02-01",
+      "payload_sha256": "1f4f3e1cc2ac74bb1a8b272f651622a12fdd6f3032655d31e91a0a6a82c4d6d6",
+      "points": 2,
+      "frontier_eligible": 0,
+      "failures": 2
+    },
+    {
+      "scenario_id": "W10-02-03-01",
+      "payload_sha256": "e1193b977d6cbd73a93823e490355574811e5c23dde3d18373ce45026834b4ec",
+      "points": 2,
+      "frontier_eligible": 0,
+      "failures": 2
+    },
+    {
+      "scenario_id": "W10-03-01-01",
+      "payload_sha256": "588242ee27174659f1384b5c21694e084592e112a0e9813afaa07511b629e8a5",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-03-02-01",
+      "payload_sha256": "90441d82e0fe8076ec6ab18137ce434f7e4293696215a8484639792337250a7e",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    },
+    {
+      "scenario_id": "W10-03-03-01",
+      "payload_sha256": "edcfc1b7b5fdc8ca4b4ca14f8a7ddc0548b860864b86d892925f1516e945d7a2",
+      "points": 2,
+      "frontier_eligible": 2,
+      "failures": 0
+    }
+  ],
+  "claim_boundary": "representative strict-contract feasibility demo; not a 36-scenario generalization"
+}

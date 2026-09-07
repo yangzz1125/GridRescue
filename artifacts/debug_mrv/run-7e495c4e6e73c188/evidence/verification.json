@@ -1,0 +1,18 @@
+{
+  "checked_files": 17,
+  "errors": [
+    "emission inventory: record_hash mismatch at actv-traditional-09-grid_import",
+    "emission inventory: record_hash mismatch at actv-traditional-18-grid_import",
+    "emission inventory: record_hash mismatch at actv-traditional-20-diesel_generation",
+    "emission inventory: record_hash mismatch at actv-traditional-22-diesel_generation",
+    "emission inventory: record_hash mismatch at actv-eens-22-grid_import",
+    "emission inventory: record_hash mismatch at actv-carbon_resilient-00-grid_import",
+    "emission inventory: record_hash mismatch at actv-carbon_resilient-03-grid_import",
+    "emission inventory: record_hash mismatch at actv-carbon_resilient-05-grid_import",
+    "emission inventory: record_hash mismatch at actv-carbon_resilient-13-grid_import"
+  ],
+  "meaning": "Verification checks reproducibility equations and file integrity only.",
+  "run_id": "run-7e495c4e6e73c188",
+  "schema_version": "gridrescue-verification-1.0",
+  "verified": false
+}

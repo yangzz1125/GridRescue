@@ -1,0 +1,104 @@
+{
+  "boundary": {
+    "gas_basis": "CO2",
+    "horizon_h": 24,
+    "normal_service_budget_fraction": 0.08,
+    "strategies": {
+      "传统顺序恢复": "traditional",
+      "最小失供恢复": "eens",
+      "碳韧协同恢复": "carbon_resilient"
+    },
+    "time_step_h": 1.0
+  },
+  "code": {
+    "code_bundle_sha256": "sha256:fb62ebac4f16970061bb95f62937bbeb354b99f9d5fc37b03f06ae0d5f74b0b7",
+    "git_commit": null
+  },
+  "command": "python -m gridrescue.cli --scenario <SCENARIO> --output <DIR>",
+  "config_sha256": "sha256:eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e",
+  "created_at": "2026-08-22T18:20:00+08:00",
+  "factor_registry_sha256": "sha256:88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267",
+  "factor_snapshot_sha256": "sha256:b0e8ff7288ab052f4de51ba272507d1946a2239e5f956c19a49b7147f685fa28",
+  "gates": {
+    "boundary_note": "Synthetic competition run. Sealed means file integrity only, not field measurement or third-party verification.",
+    "comparison": {
+      "candidate_inventory_kgCO2": 48546.675598364,
+      "candidate_strategy": "carbon_resilient",
+      "claim_status": "controlled_service_budget_inventory_difference",
+      "controlled_tradeoff_pass": true,
+      "critical_service_pass": true,
+      "inventory_difference_kgCO2": -2921.9891149644973,
+      "normal_budget_pass": true,
+      "normal_service_budget_fraction": 0.08,
+      "reference_inventory_kgCO2": 51468.6647133285,
+      "reference_strategy": "eens",
+      "same_service_pass": false,
+      "same_service_reduction_claim_allowed": false
+    },
+    "schema_version": "gridrescue-claim-gates-1.0",
+    "strategies": {
+      "carbon_resilient": {
+        "care_task_pass": true,
+        "data_class": "E_synthetic_demo",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      },
+      "eens": {
+        "care_task_pass": true,
+        "data_class": "E_synthetic_demo",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      },
+      "traditional": {
+        "care_task_pass": true,
+        "data_class": "E_synthetic_demo",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      }
+    }
+  },
+  "network": {
+    "snapshot_sha256": "sha256:4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7",
+    "source_id": "MATPOWER case33bw (Baran & Wu 33-bus distribution system)",
+    "source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D"
+  },
+  "run_id": "run-1e9a1d2c4cd2e0c3",
+  "runtime": {
+    "dependency_lock_sha256": "sha256:f0b74587b40a104c277445d40a2a14ab228c395eb7e73f1cdfa73c869aa06734",
+    "os": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.6",
+    "solver": "cvxpy:1.5.3/CLARABEL"
+  },
+  "scenario": {
+    "name": "极端高温",
+    "sha256": "sha256:ef4e4d3f5e52df6e143200a517afb6f06ffef0c30bfb175e944486a3e5351b8e"
+  },
+  "schema_version": "gridrescue-mrv-1.0",
+  "status": "sealed",
+  "strategies": [
+    {
+      "action_ledger_terminal_hash": "sha256:8aeb49fbfc1efdf6d0bd4216ae9e38d66718ad8a1996e18c52e1c2731dd2d1ce",
+      "plan_id": "plan-traditional",
+      "strategy_id": "traditional"
+    },
+    {
+      "action_ledger_terminal_hash": "sha256:f55e4d5552cf07d4ff87551c9ee3f47fcad74e6a46baa27c21cd2edd5961cb51",
+      "plan_id": "plan-eens",
+      "strategy_id": "eens"
+    },
+    {
+      "action_ledger_terminal_hash": "sha256:cf64da0465df07d6c8841e337902cbc8175faac73a6e5f798a49e3705c6e97fe",
+      "plan_id": "plan-carbon_resilient",
+      "strategy_id": "carbon_resilient"
+    }
+  ]
+}

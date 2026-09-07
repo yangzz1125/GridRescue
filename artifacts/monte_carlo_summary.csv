@@ -1,0 +1,6 @@
+,eens_kwh,eens_kwh,eens_kwh,eens_kwh,critical_eens_kwh,critical_eens_kwh,critical_eens_kwh,critical_eens_kwh,critical_recovery_pct,critical_recovery_pct,critical_recovery_pct,critical_recovery_pct,diesel_energy_kwh,diesel_energy_kwh,diesel_energy_kwh,diesel_energy_kwh,renewable_consumed_kwh,renewable_consumed_kwh,renewable_consumed_kwh,renewable_consumed_kwh,total_carbon_kg,total_carbon_kg,total_carbon_kg,total_carbon_kg
+,mean,median,std,max,mean,median,std,max,mean,median,std,max,mean,median,std,max,mean,median,std,max,mean,median,std,max
+strategy,,,,,,,,,,,,,,,,,,,,,,,,
+传统顺序恢复,7630.872,6544.532,6979.529,25736.297,176.26,0.0,476.398,1820.48,99.288,100.0,1.924,100.0,7881.926,7586.915,3786.911,12480.0,4967.136,4463.237,1823.943,8419.508,35505.117,36261.259,4072.254,41265.259
+最小失供恢复,2283.02,0.0,6186.756,25736.297,176.26,0.0,476.398,1820.48,99.288,100.0,1.924,100.0,1901.597,0.001,3598.143,12480.0,4967.137,4463.237,1823.944,8419.515,38061.481,38824.993,4035.401,43497.155
+碳韧协同恢复,4861.529,3510.312,6724.192,29246.262,176.26,0.0,476.398,1820.48,99.288,100.0,1.924,100.0,1086.102,0.0,2450.163,8970.037,4967.137,4463.237,1823.944,8419.516,36237.542,37214.536,4062.428,40890.974

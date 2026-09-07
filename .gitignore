@@ -1,0 +1,29 @@
+# Local Python/runtime files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Generated archives and large original downloads
+release/*.zip
+release/*_SHA256.txt
+data/outage/raw/*.zip
+
+# Runtime logs; retain recorded verification evidence
+*.log
+!artifacts/competition2026/validation/*pytest.log
+artifacts/**/server.json
+
+# Keep data, evidence, images and release-owned pipeline pickle caches tracked.

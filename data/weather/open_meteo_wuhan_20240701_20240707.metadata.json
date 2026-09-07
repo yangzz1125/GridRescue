@@ -1,0 +1,23 @@
+{
+  "dataset_id": "OPEN-METEO-WUHAN-20240701-07",
+  "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=30.59&longitude=114.30&start_date=2024-07-01&end_date=2024-07-07&hourly=temperature_2m,precipitation,wind_speed_10m,shortwave_radiation&timezone=Asia%2FShanghai",
+  "provider": "Open-Meteo Archive API",
+  "latitude": 30.615112,
+  "longitude": 114.27562,
+  "timezone": "Asia/Shanghai",
+  "start_date": "2024-07-01",
+  "end_date": "2024-07-07",
+  "variables": {
+    "time": "iso8601",
+    "temperature_2m": "°C",
+    "precipitation": "mm",
+    "wind_speed_10m": "km/h",
+    "shortwave_radiation": "W/m²"
+  },
+  "rows": 168,
+  "role": "weather_calibration_sample",
+  "not_an_outage_replay": true,
+  "claim_boundary": "Observed weather sample only; no feeder outage or hospital telemetry attached.",
+  "retrieved_utc": "2026-08-27T02:40:34.940Z",
+  "csv_sha256": "ce840ad0435fa3189a171620cd644943c3d7f0aae4f2b55353a1f9839d41d6e2"
+}

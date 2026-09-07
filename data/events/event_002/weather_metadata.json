@@ -1,0 +1,17 @@
+{
+  "source": "Open-Meteo historical archive",
+  "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=38.58&longitude=-121.49&start_date=2023-01-07&end_date=2023-01-09&hourly=temperature_2m,precipitation,wind_speed_10m,wind_gusts_10m,shortwave_radiation&timezone=UTC",
+  "location": "Sacramento, California (38.58,-121.49)",
+  "timezone": "UTC",
+  "rows": 72,
+  "variables": [
+    "temperature_2m_c",
+    "precipitation_mm",
+    "wind_speed_10m_kmh",
+    "wind_gusts_10m_kmh",
+    "shortwave_radiation_wm2"
+  ],
+  "retrieved_utc": "2026-08-27T00:00:00Z",
+  "attribution": "Open-Meteo Historical Weather API; retain attribution under provider terms",
+  "claim_boundary": "historical weather grid point; not an on-site feeder sensor"
+}

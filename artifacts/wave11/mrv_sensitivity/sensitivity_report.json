@@ -1,0 +1,38 @@
+{
+  "schema_version": "gridrescue-wave11-mrv-sensitivity-1.0",
+  "bundle": "artifacts\\v08_official\\flood\\mrv\\run-7e495c4e6e73c188",
+  "draws": 500,
+  "claim_boundary": "factor uncertainty propagation over frozen activity inventory; Care/Physics gates unchanged",
+  "summaries": [
+    {
+      "strategy_id": "carbon_resilient",
+      "draws": 500,
+      "baseline_kgco2": 36655.387312789986,
+      "mean_kgco2": 36654.792699327096,
+      "q05_kgco2": 30060.170667424587,
+      "q95_kgco2": 43242.567832862194,
+      "winner_count": 0,
+      "winner_rate": 0.0
+    },
+    {
+      "strategy_id": "eens",
+      "draws": 500,
+      "baseline_kgco2": 38104.460036038,
+      "mean_kgco2": 38103.84190588618,
+      "q05_kgco2": 31248.518901618005,
+      "q95_kgco2": 44952.04706138735,
+      "winner_count": 0,
+      "winner_rate": 0.0
+    },
+    {
+      "strategy_id": "traditional",
+      "draws": 500,
+      "baseline_kgco2": 34767.931404279996,
+      "mean_kgco2": 34767.69608326887,
+      "q05_kgco2": 28513.043634971396,
+      "q95_kgco2": 41013.683194146935,
+      "winner_count": 500,
+      "winner_rate": 1.0
+    }
+  ]
+}
