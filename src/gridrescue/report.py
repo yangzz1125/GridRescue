@@ -20,6 +20,8 @@ def markdown_report(
         f"- T+{int(row.hour)}h：{row.action}" for row in actions.itertuples()
     ) or "- 无额外开关操作"
     values = asdict(metrics)
+    recovery = f"T+{metrics.restoration_time_h} h起持续达标至窗口结束" if metrics.restoration_completed else "24小时窗口内未完成"
+    first_supply = f"T+{metrics.first_full_supply_time_h} h" if metrics.first_full_supply_time_h < 24 else "24小时窗口内未出现"
     return f"""# GridRescue 恢复与MRV报告
 
 ## 场景
@@ -43,7 +45,8 @@ def markdown_report(
 - EENS：{values['eens_kwh']:.2f} kWh
 - 关键负荷EENS：{values['critical_eens_kwh']:.2f} kWh
 - 关键负荷恢复率：{values['critical_recovery_pct']:.2f}%
-- 恢复时间：{values['restoration_time_h']} h
+- 持续恢复完成：{recovery}
+- 首次全负荷供电：{first_supply}（不保证后续持续供电）
 - 峰值失供功率：{values['peak_unserved_kw']:.2f} kW
 - 开关操作：{values['switch_operations']} 次
 

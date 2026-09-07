@@ -290,6 +290,7 @@ def validate_dispatch(
         total_unserved_balance = 0.0
         total_reactive_shortfall = 0.0
         infeasible_islands = 0
+        all_sources_feasible = True
         nonconverged_components = 0
 
         for component_id, component_nodes in enumerate(nx.connected_components(graph), start=1):
@@ -370,6 +371,7 @@ def validate_dispatch(
                         "max_loading_pct": 0.0,
                     }
                 )
+                all_sources_feasible = all_sources_feasible and source_feasible
                 total_unserved_balance += unserved_balance
                 total_reactive_shortfall += reactive_shortfall
                 continue
@@ -421,7 +423,10 @@ def validate_dispatch(
             reactive_shortfall = 0.0
             if is_root:
                 source_adjustment = required_source_kw - expected_source
-                source_feasible = abs(source_adjustment) <= balance_tolerance_kw
+                source_feasible = (
+                    abs(source_adjustment) <= balance_tolerance_kw
+                    and -balance_tolerance_kw <= expected_source <= source_capacity + balance_tolerance_kw
+                )
                 if not source_feasible:
                     unserved_balance = max(source_adjustment, 0.0)
                     total_unserved_balance += unserved_balance
@@ -438,6 +443,7 @@ def validate_dispatch(
                     unserved_balance = max(p_violation, 0.0)
                     total_unserved_balance += unserved_balance
                     total_reactive_shortfall += reactive_shortfall
+            all_sources_feasible = all_sources_feasible and source_feasible
             total_source_adjustment += abs(source_adjustment)
 
             for row in component_branches:
@@ -486,7 +492,8 @@ def validate_dispatch(
         thermal_violation = max_loading > 100.0
         voltage_violation = min_voltage < voltage_min_pu or max_voltage > voltage_max_pu
         balance_violation = (
-            total_unserved_balance > balance_tolerance_kw
+            not all_sources_feasible
+            or total_unserved_balance > balance_tolerance_kw
             or total_reactive_shortfall > balance_tolerance_kw
             or infeasible_islands > 0
         )
@@ -507,6 +514,7 @@ def validate_dispatch(
                 "nonconverged_component_count": nonconverged_components,
                 "thermal_violation": thermal_violation,
                 "voltage_violation": voltage_violation,
+                "source_feasible": all_sources_feasible,
                 "balance_violation": balance_violation,
                 "is_feasible": is_feasible,
             }
