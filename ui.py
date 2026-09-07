@@ -12,24 +12,25 @@ def setup_ui():
     css = (Path(__file__).resolve().parent / "ui/styles.css").read_text(encoding="utf-8")
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
     pio.templates["gridrescue"] = go.layout.Template(layout=dict(
-        font=dict(family="Microsoft YaHei, Arial, sans-serif", size=12, color="#33434a"),
+        font=dict(family="Microsoft YaHei, Arial, sans-serif", size=12, color="#373b40"),
         paper_bgcolor="#ffffff", plot_bgcolor="#ffffff",
-        colorway=["#087e72", "#5986a0", "#bd6c4c", "#b19b55", "#8d78a4"],
-        margin=dict(l=15, r=15, t=45, b=25),
-        xaxis=dict(gridcolor="#edf1f1", zerolinecolor="#dfe6e7"),
-        yaxis=dict(gridcolor="#edf1f1", zerolinecolor="#dfe6e7"),
-        legend=dict(orientation="h", y=-.15, x=0, font=dict(size=11)),
+        colorway=["#787f88", "#2967a3", "#34816b", "#ae7048", "#82719a"],
+        margin=dict(l=40, r=16, t=16, b=60),
+        xaxis=dict(gridcolor="#eff0f2", zerolinecolor="#dfe1e5"),
+        yaxis=dict(gridcolor="#eff0f2", zerolinecolor="#dfe1e5"),
+        legend=dict(orientation="h", y=-.28, x=0, font=dict(size=11)),
     ))
     pio.templates.default = "gridrescue"
 
 
 def render_brand():
-    st.markdown('<div class="brand"><div class="brand-mark">GR</div><div><div class="brand-name">GridRescue</div><div class="brand-sub">碳韧智网 · 配电恢复决策</div></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="brand"><strong>GridRescue</strong><span>碳韧智网</span></div>', unsafe_allow_html=True)
 
 
 def render_heading(scenario, strategy):
-    st.markdown('<div class="page-heading"><div><h1>配电网恢复工作台</h1><p>GridRescue 碳韧智网 / 应急保供与碳清单</p></div><div class="version-label">COMPETITION 2026<br>离线预案 · 24 h</div></div>'
-                f'<div class="context-line"><span class="context-dot"></span><strong>{escape(scenario)}</strong><span>/</span><span>{escape(strategy)}</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-heading"><h1>碳韧智网 <span>GridRescue</span></h1>'
+                '<p class="project-subtitle">极端天气下的配电网恢复与低碳保供</p>'
+                f'<p class="scenario-context">{escape(scenario)}<span class="context-separator">/</span>{escape(strategy)}</p></div>', unsafe_allow_html=True)
 
 
 def render_metrics(metrics):

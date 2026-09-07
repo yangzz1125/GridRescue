@@ -11,9 +11,10 @@ def test_decision_workbench_is_visible_and_has_three_gates(monkeypatch):
     monkeypatch.setenv("GRIDRESCUE_MRV_BUNDLE", str(BUNDLE))
     at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
     assert not at.exception
-    assert any("评委决策工作台" in item.value for item in at.header)
+    assert any("方案评估" in item.value for item in at.header)
+    assert any('碳韧智网 <span>GridRescue</span>' in item.value for item in at.markdown)
     metric_labels = {item.label for item in at.metric}
-    assert {"推荐候选", "普通服务预算", "Care / 服务合同", "Physics / 物理校验", "MRV / 证据复算"}.issubset(metric_labels)
+    assert {"推荐候选", "普通服务预算", "服务合同", "物理校验", "证据复算"}.issubset(metric_labels)
     assert any(item.label == "证据预设" for item in at.radio)
 
 
@@ -23,7 +24,7 @@ def test_workbench_presets_update_qualification_and_restore_evidence(monkeypatch
     at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
     assert not at.exception
     assert next(x.value for x in at.metric if x.label == "推荐资格") == "PASS"
-    gate_labels = {"Care / 服务合同", "Physics / 物理校验", "MRV / 证据复算"}
+    gate_labels = {"服务合同", "物理校验", "证据复算"}
     evidence = {x.label: x.value for x in at.metric if x.label in gate_labels}
     for mode, expected in (
         ("NO_GFM反例 · BLOCKED", "BLOCKED"),

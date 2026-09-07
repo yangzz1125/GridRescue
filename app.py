@@ -43,11 +43,9 @@ setup_ui()
 
 with st.sidebar:
     render_brand()
-    st.markdown('<div class="sidebar-section">01 / 推演参数</div>', unsafe_allow_html=True)
     scenario_name = st.selectbox("灾害场景", list(SCENARIOS) + list(PUBLIC_CASES))
     strategy = st.radio("恢复策略", STRATEGIES, index=2)
     st.divider()
-    st.markdown('<div class="sidebar-section">02 / 恢复进程</div>', unsafe_allow_html=True)
     hour = st.slider("恢复进程 / 小时", 0, 23, 4)
     st.caption(f"T+{hour:02d}:00 / 24小时恢复窗口")
     st.markdown('<div class="sidebar-footer">MATPOWER case33bw<br>33 节点 · 32 支路 · 5 联络线<br>12.66 kV / 10 MVA</div>', unsafe_allow_html=True)
@@ -337,8 +335,8 @@ def _gate_label(value: object) -> str:
 def render_decision_workbench() -> None:
     """Render the evaluator-first decision surface before the legacy tabs."""
 
-    st.header("评委决策工作台")
-    st.caption("候选与最小失供参考的资格比较")
+    st.header("方案评估")
+    st.caption("碳韧协同恢复 / 对照：最小失供恢复")
     if mrv_state is None:
         st.warning("当前灾种没有匹配冻结MRV证据；推荐卡仅展示现场推演，不进入正式主张。")
         comparison: dict[str, Any] = {}
@@ -367,7 +365,8 @@ def render_decision_workbench() -> None:
     h1.metric("推荐候选", candidate_name)
     h2, h3 = st.columns(2)
     h2.metric("普通服务预算", f"{normal_budget:.0f}%")
-    h3.metric("候选-参考清单差", f"{inventory_difference:+,.0f} kgCO2")
+    with h3, st.container(key="inventory-difference"):
+        st.metric("候选-参考清单差", f"{inventory_difference:+,.0f} kgCO2")
     recommendation_pass = bool(display_verified and gate.get("inventory_eligible") is True
                                and gate.get("care_task_pass") is True
                                and gate.get("grid_physical_pass") is True
@@ -383,14 +382,11 @@ def render_decision_workbench() -> None:
     st.markdown("#### 当前推演证据")
     g1, g2, g3 = st.columns(3)
     with g1:
-        st.metric("Care / 服务合同", _gate_label(gate.get("care_task_pass")))
-        st.caption("功率 / 时窗")
+        st.metric("服务合同", _gate_label(gate.get("care_task_pass")))
     with g2:
-        st.metric("Physics / 物理校验", _gate_label(gate.get("grid_physical_pass")))
-        st.caption("潮流 / 热限")
+        st.metric("物理校验", _gate_label(gate.get("grid_physical_pass")))
     with g3:
-        st.metric("MRV / 证据复算", "PASS" if display_verified else "BLOCKED")
-        st.caption("清单 / 校验")
+        st.metric("证据复算", "PASS" if display_verified else "BLOCKED")
 
     with st.expander("证据预设", icon=":material/tune:"):
         mode = st.radio(
@@ -433,8 +429,8 @@ def render_decision_workbench() -> None:
 
 
 def render_statistics():
-    st.subheader("风险与不确定性")
-    st.caption("36场景合成压力集 / 与当前单场景推荐分别评估")
+    st.subheader("尾部风险")
+    st.caption("36 场景压力测试，与单场景结果分别评估")
     risk_report = load_wave11_risk_report()
     if risk_report:
         chosen = risk_report.get("chosen_strategy") or {}
@@ -545,7 +541,9 @@ def network_figure(selected_hour: int) -> go.Figure:
         labels.append(
             f"N{node + 1:02d}<br>{result.model.nodes.loc[node, 'node_type']}<br>"
             f"负荷 {result.model.nodes.loc[node, 'base_load_kw']:.0f} kW / "
-            f"{result.model.nodes.loc[node, 'reactive_load_kvar']:.0f} kvar"
+            f"{result.model.nodes.loc[node, 'reactive_load_kvar']:.0f} kvar<br>"
+            f"供电状态：{'已供电' if energized else '未供电'} · "
+            f"服务功率 {served_nodes.loc[node, 'served_load_kw']:.1f} kW"
         )
     node_trace = go.Scatter(
         x=node_x,
@@ -574,7 +572,7 @@ def network_figure(selected_hour: int) -> go.Figure:
         xaxis=dict(visible=False, range=[-.6, 17.7], fixedrange=True),
         yaxis=dict(visible=False, range=[-3.0, 3.0], fixedrange=True),
         legend=dict(orientation="h", y=-.04, x=0, font=dict(size=10)),
-        plot_bgcolor="#f5f8f7",
+        plot_bgcolor="#ffffff",
         height=370,
         dragmode=False,
     )
@@ -593,7 +591,7 @@ with overview:
         m1.metric("活跃故障", len(current_state.failed_branch_ids))
         m2.metric("联络开关闭合", len(current_state.closed_tie_ids))
         m3.metric("非根孤岛", len(current_state.islands))
-        st.caption("节点颜色：绿色已供电，红色关键失供，琥珀色普通失供。菱形为一级关键节点。")
+        st.caption("33节点 · 32常闭支路 · 5联络线")
     with decision_column, st.container(key="overview-decision"):
         render_decision_workbench()
     st.divider()
@@ -604,7 +602,8 @@ with overview:
         trend = pd.DataFrame({name: item.dispatch.frame["unserved_critical_kw"] + item.dispatch.frame["unserved_normal_kw"] for name, item in result.strategies.items()})
         fig = px.line(trend, labels={"index": "恢复小时", "value": "失供功率 / kW", "variable": "策略"})
         fig.update_traces(line_width=2)
-        fig.update_layout(height=260, margin=dict(l=0, r=10, t=10, b=25))
+        fig.update_layout(height=290, margin=dict(l=45, r=10, t=10, b=70),
+                          legend=dict(title_text="", y=-.32, x=0), xaxis_title=None)
         st.plotly_chart(fig, width="stretch", theme=None, key="overview-trend", config={"displayModeBar": False})
     with risk_column:
         render_statistics()
