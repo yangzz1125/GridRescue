@@ -12,7 +12,9 @@ def test_release_selection_is_portable_and_curated():
     assert len(names)==len(set(names))
     assert all(p.is_file() for p in files)
     assert 'app.py' in names and 'data/public/source_manifest.json' in names
-    assert {'ui.py', 'ui/styles.css', '.streamlit/config.toml'}.issubset(names)
+    assert {'ui.py', 'ui_network.py', 'ui/styles.css', '.streamlit/config.toml',
+            'ui/icons/LICENSE', 'ui/icons/sources.json', 'ui/icons/hospital.svg',
+            'ui/icons/radio-tower.svg', 'ui/icons/battery-charging.svg', 'ui/icons/utility-pole.svg'}.issubset(names)
     assert 'release/submission_application_2026.pdf' in names
     assert not any('__pycache__' in n or 'research_wave/' in n or n.endswith('.zip') for n in names)
 

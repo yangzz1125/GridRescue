@@ -41,8 +41,25 @@ def main():
             '''), (label, 'strategy card overflow')
             points = page.locator('.st-key-overview-map .scatterlayer .point').count()
             assert points == 33, points
-            labels = page.locator('.st-key-overview-map .textpoint text')
-            assert labels.count() == 33
+            network = page.locator('.st-key-overview-map')
+            assert network.locator('.imagelayer image').count() == 7
+            images_loaded = network.locator('.imagelayer image').evaluate_all('''elements => Promise.all(elements.map(e =>
+                new Promise(resolve => { const img = new Image(); img.onload = () => resolve(img.naturalWidth > 0);
+                    img.onerror = () => resolve(false); img.src = e.href.baseVal; })
+            ))''')
+            assert all(images_loaded), (label, 'facility icon failed to load')
+            canvas = network.locator('.st-key-network-canvas-overview-network')
+            dimensions = canvas.evaluate('e => ({width:e.clientWidth, content:e.scrollWidth})')
+            if label == 'desktop':
+                assert dimensions['content'] <= dimensions['width'] + 1, dimensions
+            else:
+                canvas.evaluate('e => {e.scrollLeft = e.scrollWidth;}')
+                assert canvas.evaluate('e => e.scrollLeft > 0'), (label, 'schematic cannot scroll')
+                canvas.evaluate('e => {e.scrollLeft = 0;}')
+            assert network.locator('.textpoint text').count() == 0
+            network.get_by_text('全部节点编号', exact=True).click()
+            expect(network.locator('.textpoint text')).to_have_count(26)
+            labels = network.locator('.textpoint text')
             overlaps = labels.evaluate_all('''elements => {
                 const boxes = elements.map(e => ({label: e.textContent, rect: e.getBoundingClientRect()}));
                 return boxes.flatMap((a, i) => boxes.slice(i + 1).filter(b =>
@@ -51,6 +68,22 @@ def main():
                 ).map(b => [a.label, b.label]));
             }''')
             assert not overlaps, (label, overlaps)
+            point = network.locator('.scatterlayer .point').nth(3)
+            point.evaluate("element => element.scrollIntoView({block: 'center', inline: 'center'})")
+            box = point.bounding_box()
+            page.mouse.click(box['x'] + box['width'] / 2, box['y'] + box['height'] / 2)
+            expect(network.locator('[data-testid="stMarkdownContainer"] strong')).to_have_text('N04 · 普通负荷', timeout=180000)
+            network.get_by_text('全部节点编号', exact=True).click()
+            expect(network.locator('.textpoint text')).to_have_count(0)
+            expect(network.locator('[data-testid="stMarkdownContainer"] strong')).to_have_text('N04 · 普通负荷')
+            network.get_by_role('button', name='展开电网图').click()
+            dialog = page.get_by_role('dialog')
+            expect(dialog).to_be_visible()
+            expect(dialog.locator('.scatterlayer .point')).to_have_count(33)
+            expect(dialog.locator('[data-testid="stMarkdownContainer"] strong')).to_have_text('N04 · 普通负荷', timeout=180000)
+            dialog.screenshot(path=str(output / f'{label}_expanded.png'))
+            page.keyboard.press('Escape')
+            expect(dialog).not_to_be_visible()
             risk = page.get_by_test_id('stMetric').filter(has=page.get_by_text('风险优选策略', exact=True))
             expect(risk.get_by_test_id('stMetricValue')).to_have_text('最小失供恢复')
             clipped = risk.get_by_test_id('stMetricValue').evaluate('''element =>
@@ -60,7 +93,8 @@ def main():
             assert not clipped, (label, 'risk strategy clipped')
             assert page.locator('[data-testid="stException"]').count() == 0
             checks.append({'viewport': label, 'width': width, 'network_points': points, 'overflow': False,
-                           'node_label_overlaps': overlaps, 'risk_strategy_clipped': clipped})
+                           'node_label_overlaps': overlaps, 'risk_strategy_clipped': clipped,
+                           'facility_icons': 7, 'node_click_details': True, 'number_toggle': True, 'expanded_view': True})
             risk.evaluate("element => {element.scrollIntoView({block: 'center'});}")
             page.screenshot(path=str(output / f'{label}_risk.png'), full_page=True)
             page.get_by_test_id('stMain').evaluate('element => {element.scrollTop = 0;}')

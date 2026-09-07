@@ -10,10 +10,8 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-import networkx as nx
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
 from ui import setup_ui, render_brand, render_heading, render_metrics, render_strategy_comparison, STRATEGY_COLORS
@@ -26,7 +24,6 @@ from gridrescue.care import default_care_tasks, evaluate_care_tasks  # noqa: E40
 from gridrescue.facts import FACTS  # noqa: E402
 from gridrescue.islands import build_island_passports  # noqa: E402
 from gridrescue.mrv import STRATEGY_SLUGS, verify_mrv_bundle, _code_bundle_hash  # noqa: E402
-from gridrescue.network import graph_from_state  # noqa: E402
 from gridrescue.pareto import ParetoScanSpec, scan_pareto  # noqa: E402
 from gridrescue.pipeline import run_pipeline, run_scenario  # noqa: E402
 from gridrescue.public_data import load_public_scenario, PUBLIC  # noqa: E402
@@ -34,6 +31,7 @@ from gridrescue.powerflow import validate_dispatch  # noqa: E402
 from gridrescue.restoration import STRATEGIES, state_at_hour  # noqa: E402
 from gridrescue.risk import choose_strategy, summarize_risk  # noqa: E402
 from gridrescue.scenarios import SCENARIOS  # noqa: E402
+from ui_network import render_network  # noqa: E402
 
 
 PUBLIC_CASES = {"武汉高温 · 2022-08-15": "wuhan_heat", "武汉降雨 · 2020-07-06": "wuhan_rain", "厦门大风 · 2016-09-15": "xiamen_wind"}
@@ -500,99 +498,13 @@ overview, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
 )
 
 
-def network_figure(selected_hour: int) -> go.Figure:
-    state = state_at_hour(result.model, result.scenario, selected.plan, selected_hour)
-    graph = graph_from_state(result.model, set(state.failed_branch_ids), set(state.closed_tie_ids))
-    # Fixed bus positions preserve feeder structure across hours and strategies.
-    position = {node: (node, 0) for node in range(18)}
-    position.update({node: (node - 16, 2) for node in range(18, 22)})
-    position.update({node: (node - 19, -2) for node in range(22, 25)})
-    position.update({node: (node - 19, 2) for node in range(25, 33)})
-
-    def edge_trace(branch_ids: set[int], color: str, dash: str, name: str, width: float = 2.0):
-        edge_x: list[float | None] = []
-        edge_y: list[float | None] = []
-        for branch_id in branch_ids:
-            row = result.model.branches.loc[branch_id]
-            left, right = int(row["from_node"]), int(row["to_node"])
-            edge_x.extend([position[left][0], position[right][0], None])
-            edge_y.extend([position[left][1], position[right][1], None])
-        return go.Scatter(
-            x=edge_x,
-            y=edge_y,
-            mode="lines",
-            line=dict(width=width, color=color, dash=dash),
-            hoverinfo="name",
-            name=name,
-        )
-
-    active_ids = {int(data["branch_id"]) for _, _, data in graph.edges(data=True)}
-    failed_ids = set(state.failed_branch_ids)
-    closed_ties = set(state.closed_tie_ids)
-    normal_active = active_ids - closed_ties
-    open_ties = set(result.model.tie_branch_ids) - closed_ties
-
-    node_x, node_y, colors, labels, sizes, symbols = [], [], [], [], [], []
-    served_nodes = selected.dispatch.node_frame
-    served_nodes = served_nodes[served_nodes["hour"] == selected_hour].set_index("node_id")
-    for node in graph.nodes():
-        node_x.append(position[node][0])
-        node_y.append(position[node][1])
-        energized = node == result.model.root_node or float(served_nodes.loc[node, "served_load_kw"]) > 1e-3
-        level = int(result.model.nodes.loc[node, "critical_level"])
-        colors.append("#63d7ae" if energized else ("#ff776f" if level >= 2 else "#ebc36b"))
-        sizes.append(11 + level * 2)
-        symbols.append("square" if node == result.model.root_node else "diamond" if level >= 3 else "circle")
-        labels.append(
-            f"N{node + 1:02d}<br>{result.model.nodes.loc[node, 'node_type']}<br>"
-            f"负荷 {result.model.nodes.loc[node, 'base_load_kw']:.0f} kW / "
-            f"{result.model.nodes.loc[node, 'reactive_load_kvar']:.0f} kvar<br>"
-            f"供电状态：{'已供电' if energized else '未供电'} · "
-            f"服务功率 {served_nodes.loc[node, 'served_load_kw']:.1f} kW"
-        )
-    node_trace = go.Scatter(
-        x=node_x,
-        y=node_y,
-        mode="markers+text",
-        text=[f"N{x + 1}" for x in graph.nodes()],
-        textposition=["top center" if position[node][0] % 2 else "bottom center" for node in graph.nodes()],
-        textfont=dict(size=10, color="#d2e4db"),
-        hovertext=labels,
-        hoverinfo="text",
-        marker=dict(color=colors, size=sizes, symbol=symbols, line=dict(width=2, color="#202927")),
-        name="节点", showlegend=False,
-    )
-    fig = go.Figure(
-        [
-            edge_trace(open_ties, "#677e72", "dot", "待用联络", 1.3),
-            edge_trace(normal_active, "#80ad99", "solid", "运行支路", 2.0),
-            edge_trace(closed_ties, "#63d7ae", "solid", "闭合联络", 3.0),
-            edge_trace(failed_ids, "#ff776f", "dash", "故障支路", 3.0),
-            node_trace,
-        ]
-    )
-    fig.update_layout(
-        showlegend=True,
-        margin=dict(l=12, r=12, t=16, b=40),
-        xaxis=dict(visible=False, range=[-.6, 17.7], fixedrange=True),
-        yaxis=dict(visible=False, range=[-3.0, 3.0], fixedrange=True),
-        legend=dict(orientation="h", y=-.04, x=0, font=dict(size=10, color="#d2e4db")),
-        paper_bgcolor="#202927", plot_bgcolor="#202927",
-        hoverlabel=dict(bgcolor="#ffffff", font_color="#22282c"),
-        height=360,
-        dragmode=False,
-    )
-    return fig
-
-
 with overview:
     map_column, decision_column = st.columns([1.8, 1], gap="large")
     with map_column, st.container(key="overview-map"):
         st.subheader("配电网恢复现场")
-        with st.container(key="network-surface"):
+        with st.container(key="network-workbench"):
             st.caption(f"{strategy} · T+{hour:02d}:00 · 33节点 / 5联络线")
-            st.plotly_chart(network_figure(hour), width="stretch", key="overview-network", theme=None,
-                            config={"displayModeBar": False, "scrollZoom": False, "responsive": True})
+            render_network(result, strategy, hour, key="overview-network")
         current_state = state_at_hour(result.model, result.scenario, selected.plan, hour)
         m1, m2, m3 = st.columns(3)
         m1.metric("活跃故障", len(current_state.failed_branch_ids))
@@ -621,7 +533,7 @@ with overview:
 with tab1:
     left, right = st.columns([1.45, 1])
     with left:
-        st.plotly_chart(network_figure(hour), width="stretch", theme=None)
+        render_network(result, strategy, hour, key="detail-network")
     with right:
         st.subheader("恢复动作时间线")
         actions = selected.plan.actions.copy()

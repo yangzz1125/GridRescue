@@ -98,6 +98,25 @@ def test_public_heat_shows_sources_and_care_block(monkeypatch):
     assert next(x.value for x in at.metric if x.label == "Verification") == "PASS"
 
 
+def test_node_details_follow_selected_node_and_hour():
+    import pickle
+
+    with (ROOT / "artifacts/competition2026/baseline_current/flood/pipeline.pkl").open("rb") as handle:
+        result = pickle.load(handle)
+    at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
+    next(x for x in at.selectbox if x.key == "overview-network-node").set_value(29).run()
+    next(x for x in at.slider if x.label == "恢复进程 / 小时").set_value(7).run()
+    assert not at.exception
+    frame = result.strategies["碳韧协同恢复"].dispatch.node_frame
+    row = frame[(frame.hour == 7) & (frame.node_id == 29)].iloc[0]
+    voltage = result.validations["碳韧协同恢复"].nodes
+    voltage = voltage[(voltage.hour == 7) & (voltage.node_id == 29)].iloc[0]
+    assert next(x.value for x in at.metric if x.label == "节点需求") == f"{row.critical_load_kw + row.normal_load_kw:.1f} kW"
+    assert next(x.value for x in at.metric if x.label == "实际供电") == f"{row.served_load_kw:.1f} kW"
+    assert next(x.value for x in at.metric if x.label == "节点电压") == f"{voltage.voltage_pu:.3f} pu"
+    assert any("光伏 310 kW" in x.value and "储能 160 kW / 510 kWh" in x.value and "柴油 300 kW" in x.value for x in at.caption)
+
+
 def test_redesigned_overview_keeps_controls_and_updates_time():
     at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
     assert not at.exception

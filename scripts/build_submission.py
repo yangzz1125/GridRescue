@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 RELEASE=ROOT/'release'
 ARCHIVE=RELEASE/'GridRescue_Competition2026_Submission.zip'
 MANIFEST=ROOT/'release_manifest_competition2026.json'
-TOP_FILES=('app.py','ui.py','ui/styles.css','.streamlit/config.toml','README.md','requirements.txt','pyproject.toml')
+TOP_FILES=('app.py','ui.py','ui_network.py','ui/styles.css','.streamlit/config.toml','README.md','requirements.txt','pyproject.toml')
 DOCS=('submission_application_2026.md','submission_application_2026.html','technical_report_2026.md','competition2026_experiments.md','data_sources_2026.md','innovation_evidence_2026.md','presentation_materials_2026.md','submission_checklist_2026.md','claim_dictionary.md','contest_fit_2026.md')
 
 
@@ -32,6 +32,7 @@ def _verified_artifact(path):
 
 def selected_files():
     files=[ROOT/x for x in TOP_FILES]
+    files.extend(p for p in (ROOT/'ui/icons').iterdir() if p.is_file())
     for directory,patterns in ((ROOT/'src',('*.py',)),(ROOT/'scripts',('*.py',)),(ROOT/'tests',('*.py',))):
         for pattern in patterns: files.extend(directory.rglob(pattern))
     files.extend(ROOT/'docs'/x for x in DOCS)

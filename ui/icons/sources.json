@@ -1,0 +1,22 @@
+[
+  {
+    "file": "hospital.svg",
+    "url": "https://unpkg.com/lucide-static@0.468.0/icons/hospital.svg",
+    "sha256": "43766c2280fed85fd8dd91f1ae2af9b9a42b25496cef8b2af881fa4cb57c6316"
+  },
+  {
+    "file": "radio-tower.svg",
+    "url": "https://unpkg.com/lucide-static@0.468.0/icons/radio-tower.svg",
+    "sha256": "62aabafdbbdc97684ffdd0c268bb013e3b8f01c2f4c814fba82e6bf69653b095"
+  },
+  {
+    "file": "battery-charging.svg",
+    "url": "https://unpkg.com/lucide-static@0.468.0/icons/battery-charging.svg",
+    "sha256": "018e480bf76533c72a9e9a0d24bb8b7e0315575f9ee44bc0604a0858740adeb3"
+  },
+  {
+    "file": "utility-pole.svg",
+    "url": "https://unpkg.com/lucide-static@0.468.0/icons/utility-pole.svg",
+    "sha256": "58f8a9cad260cf75e5cce7168a4df0855fa84f55ef03f027857f2748bd59641b"
+  }
+]
