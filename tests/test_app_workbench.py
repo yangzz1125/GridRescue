@@ -19,7 +19,7 @@ def test_decision_workbench_is_visible_and_has_three_gates(monkeypatch):
 
 
 def test_workbench_presets_update_qualification_and_restore_evidence(monkeypatch):
-    bundle = ROOT / "artifacts/competition2026/baseline_current/flood/mrv/run-3d4fa009bfe41047"
+    bundle = ROOT / "artifacts/competition2026_audit_20260907/baseline_current/flood/mrv/run-5bf039769ad91a3d"
     monkeypatch.setenv("GRIDRESCUE_MRV_BUNDLE", str(bundle))
     at = AppTest.from_file(ROOT / "app.py", default_timeout=180).run()
     assert not at.exception

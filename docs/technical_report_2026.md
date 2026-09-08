@@ -77,9 +77,21 @@ Verifier检查文件hash、路径边界、记录hash、24小时覆盖、活动�
 - `app.py`：Streamlit工作台；
 - `scripts/`：数据下载、实验、制图、打包与验证；
 - `data/public/`：冻结公开数据和source manifest；
-- `artifacts/competition2026/`：本轮机器证据；
+- `artifacts/competition2026_audit_20260907/`：本轮合成实验与源码快照；
+- `artifacts/public_replay_audit_20260907/`：本轮公开天气回放；
+- `artifacts/independent_powerflow_20260907/`：独立求解器比较；
 - `tests/`：正向、边界和篡改回归。
 
-## 10. 部署边界
+## 10. 审计与独立验证
+
+逐分量检查电源容量、所需电源功率与调度偏差，任一分量不可行都使对应小时平衡门失败。多购电、少购电和容量超限均有反例测试，不能用有符号偏差求和抵消。
+
+`restoration_time_h`表示持续全供电直到窗口结束的最早小时；`first_full_supply_time_h`只表示首次。必须同时读取`restoration_completed`，为false时24是删失哨兵，报告显示窗口内未完成。
+
+`scripts/check_independent_powerflow.py`以冻结的节点P/Q、支路R/X、相同基值和slack电压构造PYPOWER模型，使用5.1.19版独立Newton-Raphson法求解。六场景三策略全部24小时的942个分量时段中，550个可求解分量通过电压2e-5 pu、线损0.05 kW、支路视在功率0.1 kVA误差阈值。392个停电或单节点分量列为不适用。最大误差分别为5.00122e-7 pu、5.22953e-6 kW、5.44532e-6 kVA。
+
+此检查对同一建模注入做独立静态潮流复核，不证明调度最优、输入映射正确、保护配合或现场真实性。可选依赖不进入主应用运行环境。
+
+## 11. 部署边界
 
 产品适用于园区、医院、数据中心和单馈线的离线预案、演练与复盘。生产化需要真实GIS/拓扑、设备参数、保护定值、OMS工单、气象、负荷、DER遥测、排放合同和权限审计。任何现场控制必须经过调度规程与人工批准，不由本原型直接执行。

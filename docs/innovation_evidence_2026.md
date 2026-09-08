@@ -9,12 +9,13 @@
 | 服务代价显式化 | 最小失供与碳韧协同 | batch36/paired_report.json | 35组合格配对中碳清单下降伴随普通失供增加 | 严格同服务减排 |
 | 合同拒绝不隐藏 | 三灾种严格Pareto | pareto/*/strict | 暴雨、高温各4点合格；台风4点拒绝 | 所有灾害均可满足医院任务 |
 | 物理反馈作为资格 | 求解状态与反馈资格分别统计 | batch36/experiment_runs.csv | 碳韧策略36次求解中1次未通过反馈收敛资格 | 求解成功等于可执行 |
-| 证据可复核 | 原文件、活动、因子、清单和引用检查 | baseline/*/mrv | 文件完整性及内部对账 | 第三方核证或现场实测 |
-| 不确定性透明 | 固定活动、保持逐时因子的扰动 | baseline/*/sensitivity_report.json | 给定因子范围假设下的清单敏感性 | 真实排放概率分布 |
+| 证据可复核 | 原文件、活动、因子、清单和引用检查 | baseline_current/*/mrv | 文件完整性及内部对账 | 第三方核证或现场实测 |
+| 不确定性透明 | 固定活动、保持逐时因子的扰动 | baseline_current/*/sensitivity_report.json | 给定因子范围假设下的清单敏感性 | 真实排放概率分布 |
+| 独立静态潮流复核 | PYPOWER 5.1.19 Newton-Raphson | independent_powerflow_20260907/verification.json | 六案例550个可求解分量时段数值一致，392个不适用 | 现场真实性、优化最优性、保护或动态安全 |
 
 ## 当前统计结果
 
-新输出根目录：`artifacts/competition2026/`。
+新输出根目录：`artifacts/competition2026_audit_20260907/`，独立检查位于`artifacts/independent_powerflow_20260907/`。
 
 36个场景、108条策略记录；三策略均36次求解成功，物理和默认CareTask均通过。碳韧策略仅35次反馈收敛、推荐资格通过，因此合格配对为35而不是36。
 
@@ -30,7 +31,7 @@
 
 已执行同样灾种、拓扑和预算下的去CareTask扫描，结果位于 `pareto/*/without_care/`。该目录的 `care_contract_pass` 只表示没有施加任务约束，并不证明原生命线任务完成。
 
-已完成按原任务定义的后验重评分，记录位于 `artifacts/competition2026/ablation_audited/`。暴雨和高温各4个去合同候选均完成原4项任务；台风4个尝试均在普通服务锚点失败，任务评分不可用。因此本组消融没有证明CareTask约束改善了任务成功率，不能虚构增益；它说明这些可行案例中默认资源配置已能满足任务。正式推荐仍只使用 strict 轨道。
+已完成按原任务定义的后验重评分，记录位于 `artifacts/competition2026_audit_20260907/pareto/*/without_care/pareto_points.csv` 的 `audit_original_care_*` 字段。暴雨和高温各4个去合同候选均完成原4项任务；台风4个尝试均在普通服务锚点失败，任务评分不可用。因此本组消融没有证明CareTask约束改善了任务成功率，不能虚构增益；它说明这些可行案例中默认资源配置已能满足任务。正式推荐仍只使用 strict 轨道。
 
 ## 应用与局限
 

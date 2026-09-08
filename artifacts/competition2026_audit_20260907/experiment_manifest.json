@@ -1,0 +1,194 @@
+{
+  "schema_version": "gridrescue-reproducible-experiment-2.0",
+  "kind": "synthetic",
+  "status": "completed",
+  "started_at": "2026-09-07T12:26:28.158795+00:00",
+  "code_sha256": "a119bab273fec91b9bd10188134cf246f115f558dde542481e4954330a38f06e",
+  "git_commit": "60a65bfd12f5d646b34cf54ed36a66d2bf4abfa3",
+  "source_tree_dirty": false,
+  "python": "3.11.6",
+  "dependencies": {
+    "numpy": "1.26.4",
+    "pandas": "2.1.4",
+    "networkx": "3.2.1",
+    "cvxpy": "1.5.3",
+    "clarabel": "0.9.0",
+    "streamlit": "1.51.0",
+    "plotly": "5.18.0"
+  },
+  "settings": {
+    "stages": [
+      "baseline",
+      "batch",
+      "pareto"
+    ],
+    "normal_allowance_fractions": [
+      0,
+      0.04,
+      0.05,
+      0.06
+    ]
+  },
+  "completed_stages": [
+    "baseline",
+    "batch",
+    "pareto"
+  ],
+  "files": [
+    {
+      "path": "src/gridrescue/__init__.py",
+      "sha256": "4e6c23be08f892842c5adc520b55785f8c6daeb04dd41f61a66e3aed70778e43"
+    },
+    {
+      "path": "src/gridrescue/carbon.py",
+      "sha256": "fcab035091b3512b49bd580df6bdd3c36cfc624f986de96abf2489fd69ba1756"
+    },
+    {
+      "path": "src/gridrescue/care.py",
+      "sha256": "2edb248d9237b58acee19fc4c41dd70d30db70f268d5e3c59680e6cf4b2922fb"
+    },
+    {
+      "path": "src/gridrescue/case33_data.py",
+      "sha256": "79a3ce44860060b0834ff6a3598058424eb6fa6995c53bc9bbed19aef987ff1e"
+    },
+    {
+      "path": "src/gridrescue/cli.py",
+      "sha256": "d8d21ba3f8d15daa8a3d15e87b081fc8a9989890cba449eae00edcd947726ce1"
+    },
+    {
+      "path": "src/gridrescue/dispatch.py",
+      "sha256": "7e16fe9714ca32c0d33a31ffe639d3ee784774a55d00602c6d8c9009b9e7fe9c"
+    },
+    {
+      "path": "src/gridrescue/experiments.py",
+      "sha256": "460e80ae3b1b4e699a85ea0c45f92bbbe2c5fa130dacb9957e69ba129a8f3db1"
+    },
+    {
+      "path": "src/gridrescue/facts.py",
+      "sha256": "7e5c2e5a8f29d92aff10536e500e3b3f48dd5c75c781f4d59a49fc82373d376a"
+    },
+    {
+      "path": "src/gridrescue/faults.py",
+      "sha256": "f718bc10ed5370a0e3ce4c7631749f9bc07c0239a78f37091f5bf06d4f69b4d4"
+    },
+    {
+      "path": "src/gridrescue/islands.py",
+      "sha256": "7c84fad065fd01ca2b558563eafbfe5575a90e2d8bb41b29a8ba7075144ad5ff"
+    },
+    {
+      "path": "src/gridrescue/metrics.py",
+      "sha256": "163e7e9a73e5f0fe8b209d486245da45cfc2ce9ff1a4402f1d67af90c064eb35"
+    },
+    {
+      "path": "src/gridrescue/mrv.py",
+      "sha256": "d72c7e5472a293228c16762c68b7aa942e21773e9261cb2b84858fb3e97bc255"
+    },
+    {
+      "path": "src/gridrescue/mrv_sensitivity.py",
+      "sha256": "95228caf030a7aeae255d0433e43fc26307110568b9960d2ee222c15ab41dbd5"
+    },
+    {
+      "path": "src/gridrescue/network.py",
+      "sha256": "ddf4a3eb417447d58d640c7724491aafc9fdfc6958f5c3954ea40670f3edbc2a"
+    },
+    {
+      "path": "src/gridrescue/paired_stats.py",
+      "sha256": "ae3fd42ff8651a7baf91b592c1cc4da01b0eb62eb9baecb4aea88f8951ddf4ee"
+    },
+    {
+      "path": "src/gridrescue/pareto.py",
+      "sha256": "ac9d48e90dcb75128c7dcc3857a10661c79c43b84f00edc27079723d5ae83882"
+    },
+    {
+      "path": "src/gridrescue/pipeline.py",
+      "sha256": "05b160f3a7437254a3cdf49651b459f9530ab8905dce42640f3b9c43a1cf40d7"
+    },
+    {
+      "path": "src/gridrescue/powerflow.py",
+      "sha256": "4b6192a5475f91e13c5ce00bf99788a7557871e0a612a2dca162205a5ae34a29"
+    },
+    {
+      "path": "src/gridrescue/public_data.py",
+      "sha256": "b8498702ae4b211afb13a7a97d336a9fbdd156cc55fed7ecbaefa247608a533f"
+    },
+    {
+      "path": "src/gridrescue/report.py",
+      "sha256": "8c72bd8d95a48db39cfe1a270043bb81ddfa5aa03266c86fe507c23073094e65"
+    },
+    {
+      "path": "src/gridrescue/restoration.py",
+      "sha256": "b41fddde28dd9392ef101ff13bfeef04cf491a8d3b4c21899dc59aea1cd47aee"
+    },
+    {
+      "path": "src/gridrescue/risk.py",
+      "sha256": "4bd71f84aea147242005da9fed2ddd7182f862d94bd5ac7a9ce8183f7190e450"
+    },
+    {
+      "path": "src/gridrescue/scenario_catalog.py",
+      "sha256": "80579e13fec201025e32eb89f348a20cdb716dee766cfc425d0d30910d11e752"
+    },
+    {
+      "path": "src/gridrescue/scenarios.py",
+      "sha256": "9048fbd131c0ebaf4b3bc136612ca24c1d28fd7c8c98841af44c2e9b3d1d64de"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "485728645d9b0eaf9ef7b7a1ab127522776afd4467585876164224640489f7c0"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "f0b74587b40a104c277445d40a2a14ab228c395eb7e73f1cdfa73c869aa06734"
+    },
+    {
+      "path": "scripts/run_competition_validation.py",
+      "sha256": "ac13d88e446709ee7e98903749028d86f665b9a3d1fd8c2aeec19ba7f31bb074"
+    },
+    {
+      "path": "scripts/run_public_replay.py",
+      "sha256": "2fa247085deac68e382a2040e32612c2f04c527297b737dae689f02eb541d497"
+    },
+    {
+      "path": "data/case33bw.m",
+      "sha256": "b40831eeb444669ae876e2996f0dda9f05cd83e81b314b8dfca51e4890cca95d"
+    },
+    {
+      "path": "data/factor_registry.csv",
+      "sha256": "88e94e4d3f7dc5c1697025247a758ce74382bacdb2ac0a744e3c3339fdafe267"
+    },
+    {
+      "path": "data/public/raw/electricity_factor_2023.html",
+      "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497"
+    },
+    {
+      "path": "data/public/raw/noaa_tianhe_2022.csv",
+      "sha256": "9a456fdf452f33b206192aae31d335d38250ec0cf4a09d008cd23bb19a3942c2"
+    },
+    {
+      "path": "data/public/raw/wuhan_heat.json",
+      "sha256": "c7acb1d6edb8b287376b918000ae7df7b79a51f1bddd788f0916e76bce9051e8"
+    },
+    {
+      "path": "data/public/raw/wuhan_rain.json",
+      "sha256": "25b27cff9d5cf3b0d565c4d9a146fcb87b196e9b78a2e15d28f1b1f8fbe3ed42"
+    },
+    {
+      "path": "data/public/raw/xiamen_wind.json",
+      "sha256": "794e533d8e6d4d5413964da704992de508c571a68da754315eb9c08a1eb940f0"
+    },
+    {
+      "path": "data/public/source_manifest.json",
+      "sha256": "6414205520e667725ae386ad32ebe815b4d47f113499610c9260ff424ceab180"
+    },
+    {
+      "path": "data/public/station_context.json",
+      "sha256": "96bb8db7f243d48d08acbd3a435b4825607308cab2120def157853c729834b17"
+    }
+  ],
+  "metric_semantics": {
+    "restoration_time_h": "earliest hour with full service through the remaining window",
+    "first_full_supply_time_h": "first full-service hour, may be followed by interruptions",
+    "restoration_completed": "false means restoration_time_h=24 is a censoring sentinel, not completed recovery"
+  },
+  "boundary": "public benchmark and engineering assumptions; not field outage reconstruction",
+  "finished_at": "2026-09-07T12:37:30.622591+00:00"
+}

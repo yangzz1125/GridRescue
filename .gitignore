@@ -24,6 +24,8 @@ data/outage/raw/*.zip
 # Runtime logs; retain recorded verification evidence
 *.log
 !artifacts/competition2026/validation/*pytest.log
+!artifacts/submission_audit_20260907/final_pytest.log
+!artifacts/submission_audit_20260907/final_smoke.log
 artifacts/**/server.json
 
 # Keep data, evidence, images and release-owned pipeline pickle caches tracked.

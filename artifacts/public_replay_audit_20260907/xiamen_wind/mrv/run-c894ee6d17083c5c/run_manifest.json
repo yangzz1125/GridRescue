@@ -1,0 +1,104 @@
+{
+  "boundary": {
+    "gas_basis": "CO2",
+    "horizon_h": 24,
+    "normal_service_budget_fraction": 0.08,
+    "strategies": {
+      "传统顺序恢复": "traditional",
+      "最小失供恢复": "eens",
+      "碳韧协同恢复": "carbon_resilient"
+    },
+    "time_step_h": 1.0
+  },
+  "code": {
+    "code_bundle_sha256": "sha256:3b4d68106542f24e9c4e615afb5b28216a621150cf0d10342178a4593852eb73",
+    "git_commit": null
+  },
+  "command": "python -m gridrescue.cli --scenario <SCENARIO> --output <DIR>",
+  "config_sha256": "sha256:eb7f24385ae556daf73ce43c977a38487265cc8884b5b933e69aa89422d4952e",
+  "created_at": "2026-09-07T20:28:06+08:00",
+  "factor_registry_sha256": "sha256:fc9d220fbd7ce2c180aa86c7ea9c8027f5cf886c09d45d00c3c48111037a8c16",
+  "factor_snapshot_sha256": "sha256:2ddc9a9f7491ee0d0d577d4f6b2442ddac98764eeafcb961cf9ef10c618b4a16",
+  "gates": {
+    "boundary_note": "Synthetic competition run. Sealed means file integrity only, not field measurement or third-party verification.",
+    "comparison": {
+      "candidate_inventory_kgCO2": 27786.533058408,
+      "candidate_strategy": "carbon_resilient",
+      "claim_status": "controlled_service_budget_inventory_difference",
+      "controlled_tradeoff_pass": true,
+      "critical_service_pass": true,
+      "inventory_difference_kgCO2": -320.3002401379963,
+      "normal_budget_pass": true,
+      "normal_service_budget_fraction": 0.08,
+      "reference_inventory_kgCO2": 28106.833298545997,
+      "reference_strategy": "eens",
+      "same_service_pass": false,
+      "same_service_reduction_claim_allowed": false
+    },
+    "schema_version": "gridrescue-claim-gates-1.0",
+    "strategies": {
+      "carbon_resilient": {
+        "care_task_pass": true,
+        "data_class": "mixed_public_and_synthetic",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      },
+      "eens": {
+        "care_task_pass": true,
+        "data_class": "mixed_public_and_synthetic",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      },
+      "traditional": {
+        "care_task_pass": true,
+        "data_class": "mixed_public_and_synthetic",
+        "data_quality": "conditional",
+        "feedback_converged": true,
+        "grid_physical_pass": true,
+        "inventory_eligible": true,
+        "solver_pass": true
+      }
+    }
+  },
+  "network": {
+    "snapshot_sha256": "sha256:4d1bae1f2b44664d6d37989e7c61301a601a11caebafa56160909be75ef1c2b7",
+    "source_id": "MATPOWER case33bw (Baran & Wu 33-bus distribution system)",
+    "source_sha256": "B40831EEB444669AE876E2996F0DDA9F05CD83E81B314B8DFCA51E4890CCA95D"
+  },
+  "run_id": "run-c894ee6d17083c5c",
+  "runtime": {
+    "dependency_lock_sha256": "sha256:f0b74587b40a104c277445d40a2a14ab228c395eb7e73f1cdfa73c869aa06734",
+    "os": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.6",
+    "solver": "cvxpy:1.5.3/CLARABEL"
+  },
+  "scenario": {
+    "name": "xiamen_wind",
+    "sha256": "sha256:ae72b0641684472f0010ceb79e15ecf7b6d49e16e8a661142894e25d560dcd96"
+  },
+  "schema_version": "gridrescue-mrv-1.0",
+  "status": "sealed",
+  "strategies": [
+    {
+      "action_ledger_terminal_hash": "sha256:7f37811730d254048743f49ea02f67162ddd9e180f54cc19c5da2d8106bfc083",
+      "plan_id": "plan-traditional",
+      "strategy_id": "traditional"
+    },
+    {
+      "action_ledger_terminal_hash": "sha256:16ae7241e5100519d1e176858ec93b33e25f9885b726d99c785bf2f852af8e8f",
+      "plan_id": "plan-eens",
+      "strategy_id": "eens"
+    },
+    {
+      "action_ledger_terminal_hash": "sha256:d669f88e20bda3d502cbe0f320dd87ec7acbf055b4b71edd8d36c96df2c14839",
+      "plan_id": "plan-carbon_resilient",
+      "strategy_id": "carbon_resilient"
+    }
+  ]
+}

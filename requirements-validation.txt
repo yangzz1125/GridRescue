@@ -1,0 +1,5 @@
+# Optional tools for independent validation, figures and submission PDF.
+PYPOWER==5.1.19
+matplotlib==3.8.2
+Markdown==3.5.2
+playwright==1.60.0

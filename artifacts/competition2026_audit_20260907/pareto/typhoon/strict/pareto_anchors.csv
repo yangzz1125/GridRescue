@@ -1,0 +1,4 @@
+scenario,strategy,anchor_phase,solve_success,feedback_converged,feedback_iterations,feedback_residual_kw,failure_reason,hospital_demand_kwh,hospital_eens_kwh,other_essential_demand_kwh,other_essential_eens_kwh,normal_demand_kwh,normal_eens_kwh,served_kwh
+台风,最小失供恢复,hospital,True,True,3,0.049512000000007106,,3633.21,0.0009920000000036566,28661.989999999998,10132.340000999999,42690.2175,14213.433051,50639.643456
+台风,最小失供恢复,other_essential,True,True,4,0.07399299999999442,,3633.21,0.00562600000000657,28661.989999999998,10132.339827,42690.2175,14213.412396,50639.659650999994
+台风,最小失供恢复,normal,False,False,,,RuntimeError: spatial resource dispatch failed: infeasible,,,,,,,

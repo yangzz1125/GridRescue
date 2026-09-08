@@ -1,0 +1,5 @@
+run_id,scenario,strategy,normal_allowance_fraction,solve_success,contract_pass,physical_pass,frontier_eligible,failure_phase,failure_reason,nondominated
+,台风,最小失供恢复,0.0,False,False,False,False,normal_anchor,RuntimeError: spatial resource dispatch failed: infeasible,False
+,台风,最小失供恢复,0.04,False,False,False,False,normal_anchor,RuntimeError: spatial resource dispatch failed: infeasible,False
+,台风,最小失供恢复,0.05,False,False,False,False,normal_anchor,RuntimeError: spatial resource dispatch failed: infeasible,False
+,台风,最小失供恢复,0.06,False,False,False,False,normal_anchor,RuntimeError: spatial resource dispatch failed: infeasible,False

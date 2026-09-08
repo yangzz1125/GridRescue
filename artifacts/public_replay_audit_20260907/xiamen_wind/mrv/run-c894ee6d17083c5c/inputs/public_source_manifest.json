@@ -1,0 +1,43 @@
+{
+  "data_boundary": "ERA5 reanalysis + official annual statistics + benchmark feeder + synthetic faults/repairs/resources",
+  "factor_uncertainty": "20 percent scenario range assumed for sensitivity; not official uncertainty",
+  "grid_factor": {
+    "geography": "China national",
+    "id": "china-electricity-2023",
+    "meaning": "Annual location-based average, not hourly or marginal emissions; reference-year scenario, not historical event emission reconstruction",
+    "path": "raw/electricity_factor_2023.html",
+    "sha256": "c25f5265f8fd7e018d9163e934a9c3394f85785b55abe46237a4ab213c0dd497",
+    "source_type": "official_statistics",
+    "uncertainty_pct": null,
+    "unit": "kgCO2/kWh",
+    "url": "https://www.nea.gov.cn/20260116/b3867495909b4bf28f01c642d10e6345/c.html",
+    "value": 0.5306,
+    "year": 2023
+  },
+  "load_temperature_coefficient_per_c": 0.012,
+  "load_temperature_threshold_c": 26,
+  "model_version": "weather-transfer-v1",
+  "pv_performance_ratio": 0.85,
+  "pv_reference_w_m2": 1000,
+  "weather": {
+    "actual_coordinates": [
+      24.5,
+      118.0
+    ],
+    "date": "2016-09-15",
+    "disaster_type": "台风",
+    "id": "xiamen_wind",
+    "license": "Open-Meteo API data CC BY 4.0; credit Open-Meteo and Copernicus/ECMWF; verify API use conditions before commercial deployment",
+    "meaning": "Historical weather window; feeder, faults and repairs remain synthetic assumptions",
+    "model": "ERA5",
+    "path": "raw/xiamen_wind.json",
+    "requested_coordinates": [
+      24.48,
+      118.08
+    ],
+    "sha256": "794e533d8e6d4d5413964da704992de508c571a68da754315eb9c08a1eb940f0",
+    "source_type": "reanalysis",
+    "timezone": "Asia/Shanghai",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=24.48&longitude=118.08&start_date=2016-09-15&end_date=2016-09-15&hourly=temperature_2m%2Cprecipitation%2Cwind_speed_10m%2Cshortwave_radiation&models=era5&timezone=Asia%2FShanghai&wind_speed_unit=ms"
+  }
+}

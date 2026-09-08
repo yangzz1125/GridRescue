@@ -1,0 +1,21 @@
+{
+  "ambient_temperature_c": 43.0,
+  "crew_distance_km": 28.0,
+  "description": "空调负荷上升叠加线路热稳定降额，引发局部过载故障。",
+  "disaster_type": "",
+  "failed_branch_ids": [
+    8,
+    21
+  ],
+  "grid_carbon_multiplier": 1.18,
+  "grid_factor": null,
+  "load_profile": [],
+  "name": "极端高温",
+  "provenance_json": "",
+  "pv_derating": 0.82,
+  "pv_profile": [],
+  "repair_hours": [
+    4,
+    7
+  ]
+}

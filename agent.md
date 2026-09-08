@@ -9,7 +9,7 @@
 
 ## Git 与恢复
 
-仓库使用 `main` 分支，无远端，尚未推送。使用本机已有 Git 身份；仅设置仓库级 `core.autocrlf=false`，保持数据和证据字节不被自动换行转换。
+仓库使用 `main` 分支，已按用户授权设置 `origin=https://github.com/yangzz1125/GridRescue.git` 并跟踪 `origin/main`。使用本机已有 Git 身份；仓库级 `core.autocrlf=false` 保持数据和证据字节不被自动换行转换。
 
 ```powershell
 Set-Location "D:\桌面\GridRescue\_Wave11\_P1"
@@ -91,7 +91,7 @@ python -m gridrescue.mrv verify artifacts/competition2026/baseline_current/flood
 
 ## 缓存与公开数据
 
-- 新结果主目录为 `artifacts/competition2026/`。`baseline_current/` 为合成场景当前演示缓存和证据；`public_replay/` 为公开天气案例；另有批实验、风险、敏感性、图表与验证记录。
+- 新合成主目录为 `artifacts/competition2026_audit_20260907/`，其中 `baseline_current/` 是演示缓存；新公开天气主目录为 `artifacts/public_replay_audit_20260907/`。旧 `competition2026/` 和 V08/Wave10 为历史证据及回归样本，不是最新算法结果。
 - `cached_pipeline()` 校验源代码指纹与 pickle SHA；UI 还核对公开输入、归档 dispatch 和代码 hash。不能任意改文件后继续使用原封存主张。
 - `$env:GRIDRESCUE_FORCE_LIVE="1"` 可强制求解，设置后应重启应用/清缓存；不自动生成新 MRV。
 - `GRIDRESCUE_MRV_BUNDLE` 可指定证据；`GRIDRESCUE_RISK_REPORT` 可指定风险报告。来源/版本不匹配必须阻断推荐。
@@ -182,8 +182,28 @@ python -m gridrescue.mrv verify artifacts/competition2026/baseline_current/flood
 ## 已知后续事项
 
 1. 手机各分析图的完整视觉体验仍可继续打磨；本轮四宽度浏览器几何检查以默认暴雨总览为主，其余页面有桌面截图及六场景AppTest，但不等于每个场景/页面/尺寸组合均验收。
-2. `release/GridRescue_Competition2026_Submission.zip` 是 B 原有旧包，未包含最新 UI 文件。`build_submission.py` 白名单已经更新，但重新发布前必须重跑验收并重建包。
+2. 最新提交包为 `release/GridRescue_Competition2026_Audit_Submission.zip`，本轮已生成并解压复测。旧 `GridRescue_Competition2026_Submission.zip` 原样保留，禁止误交。新包及SHA被Git忽略，可依README重建；验收后任何选集字节变动必须重新验证。
 3. 当前绘图模块 `ui_network.py` 的布局/走线针对固定case33。若更换网络，先设计新坐标与走线并更新拓扑保持测试，不直接套用旧坐标。
 4. A 独有 API、医院来源字段与 OEDI 功能没有自动合并；仅在用户明确需要时逐项移植和回归。
 
 后续任务先 `git status`、读取相关代码和调用方，按最小范围修改并验证；不要把源码迁移任务扩展成算法重写或覆盖历史证据。
+
+## 技术审计修复与提交验收（2026-09-07）
+
+用户表示两天内上传、队员主要负责讲解，要求继续完成技术与交付。求解修复已在 `60a65bfd12f5d646b34cf54ed36a66d2bf4abfa3` 提交，新实验以此干净源码运行。
+
+- `powerflow.validate_dispatch()`：逐分量电源资格纳入逐时物理门，双向购电偏差均判定，不用正负相消；补根电源容量检查。
+- `metrics.calculate_metrics()`：持续恢复时刻和首次全供电分离，新增 `restoration_completed`。未完成时24是窗口删失哨兵；报告不再显示24小时已完成。默认暴雨最小失供首次0小时，持续恢复13小时。
+- `scripts/run_competition_validation.py`、`run_public_replay.py` 必須显式 `--output`，拒绝非空目录；保存输入/源码快照、SHA、Git、依赖和阶段状态。不得手工改hash绕过版本保护。
+- 三基准、36场景、严格/去Care扫描、三个公开天气全部完成。源码hash：`a119bab273fec91b9bd10188134cf246f115f558dde542481e4954330a38f06e`。
+- 批统计仍为35/36合格配对：候选减参考总EENS +3290.27 kWh，关键EENS -15.48 kWh，清单 -2409.39 kgCO2。1条反馈失败保留；风险推荐最小失供。Care消融没有成功率增益；台风扫描全部普通锚点失败；武汉高温优化策略Care阻断。
+- 可选独立工具 `scripts/check_independent_powerflow.py`，PYPOWER==5.1.19（本机装在临时独立target，不是应用运行依赖）。六案例三策略全部24小时，550可求解分量时段通过、392不适用；最大电压差5.00122e-7 pu，线损差5.22953e-6 kW，视在功率差5.44532e-6 kVA。证据在 `artifacts/independent_powerflow_20260907/`。
+- 独立检查只检相同建模节点注入下两求解器的一致性；不证明映射/数据真实、全局最优、保护或动态安全。
+- 界面缓存、默认MRV与风险路径已改为本轮证据。浏览器1440/1024/390/320px全部通过，截图和17条检查在 `artifacts/submission_audit_20260907/browser/`。
+- 最新服务 `http://127.0.0.1:8502`，启动PID39436，系统临时日志 `gridrescue_audit_8502.log`；后续先核对存活/归属。旧8501可能仍提供旧缓存界面，不作为本轮验收地址。
+- 新PDF、图表、README、实验/技术/创新报告、提交清单和队员讲解稿已更新。讲解稿 `docs/team_defense_20260907.md` 不是正式PPT或视频，也不是官方模板/资格批准。
+- `finalize_verification.py` 85项测试、6新MRV、公开来源、实验版本、独立验证、浏览器、文件及本地路径扫描均PASS。最终验证hash绑定打包选集，`build_submission.py` 拒绝验收后变化。
+- 新ZIP 1,141文件、11,432,677字节，SHA256 `e8dd9ea3bd23fb5d28748785f854be460242b852272f0c51f85c4af404c970b7`。ZIP完整性、逐文件hash、解压启动通过；新临时解压目录移除继承PYTHONPATH后 **85 passed in 179.47s**。仍使用本机既有依赖，不冒充第二台机器或全新环境验收。
+- 解压验收记录：`artifacts/release_audit_20260907/verification.json`。旧ZIP、旧实验和B源目录未覆盖。最终材料不得因为通过软件验收就声称通过官方匿名审核或已上传赛事系统。
+- `.gitattributes` 使用 `* -text`，避免协作者的Windows自动换行改变源码指纹或封存证据；不禁用文本diff。签名快照/公开HTML的历史尾空白和CRLF保持原字节，不能为通过全仓格式检查而修改hash。当前源码/文档修改的差异检查通过，完整新快照范围仍有原始空白告警。
+- 队伍真人是否达到3至6人、学校资格/推荐、正式模板签章、AI辅助披露仍待用户确认。未新增虚构成员、专家意见、现场试点、临床数据或获奖承诺。

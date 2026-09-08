@@ -1,0 +1,3 @@
+scenario,strategy,island_episode_id,start_hour,end_hour,duration_h,component_keys,worst_status,minimum_margin_pct,minimum_voltage_pu,maximum_loading_pct,blocked_reason_codes
+极端高温,传统顺序恢复,isl-5f988438-e01-h00,0,3,4,"[""8-9-10-11-12-13-14-15-16-17""]",DEGRADED,-4e-06,0.992736,9.092341,[]
+极端高温,传统顺序恢复,isl-6f4b6612-e01-h00,0,10,11,"[""21""]",BLOCKED,-100.0,0.0,0.0,"[""NO_GFM""]"

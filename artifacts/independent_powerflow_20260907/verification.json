@@ -1,0 +1,46 @@
+{
+  "validator": "PYPOWER Newton-Raphson AC power flow",
+  "version": "5.1.19",
+  "script_sha256": "4db7dc97636bf8c4a8f260307c3e75fc5148b9afe0bdf8fa67d307321b913862",
+  "code_sha256": "a119bab273fec91b9bd10188134cf246f115f558dde542481e4954330a38f06e",
+  "cases": 6,
+  "component_hours": 942,
+  "checked": 550,
+  "not_applicable": 392,
+  "passed": true,
+  "max_voltage_error_pu": 5.001218184030876e-07,
+  "max_loss_error_kw": 5.229529193684357e-06,
+  "max_branch_apparent_error_kva": 5.4453203119919635e-06,
+  "tolerances": {
+    "voltage_pu": 2e-05,
+    "loss_kw": 0.05,
+    "apparent_kva": 0.1
+  },
+  "inputs": [
+    {
+      "path": "artifacts/competition2026_audit_20260907/baseline_current/flood/pipeline.pkl",
+      "sha256": "259242ab06885667719c2fdc5bc8a72212b40c4d52c13d6e3f0aa5a9fe4264a4"
+    },
+    {
+      "path": "artifacts/competition2026_audit_20260907/baseline_current/heat/pipeline.pkl",
+      "sha256": "18d8523d46b3b86a605ce58892bb3c8710a181477f69abc6bd0a3f0f13cf37c7"
+    },
+    {
+      "path": "artifacts/competition2026_audit_20260907/baseline_current/typhoon/pipeline.pkl",
+      "sha256": "784d37fa155bdcc0784052f05d5efd54cb0fd0e78e5364bf73f683d6f160a582"
+    },
+    {
+      "path": "artifacts/public_replay_audit_20260907/wuhan_heat/pipeline.pkl",
+      "sha256": "9d9a6e9d5fd9996efc25d3f9528458b5a334d82e2667bc204f3c6aa630df3439"
+    },
+    {
+      "path": "artifacts/public_replay_audit_20260907/wuhan_rain/pipeline.pkl",
+      "sha256": "4270c8d9d1ca6ac87cd1801e2d77ade17e1f50039e104d3bae543a9b9a1d03d6"
+    },
+    {
+      "path": "artifacts/public_replay_audit_20260907/xiamen_wind/pipeline.pkl",
+      "sha256": "91d5434d9aa110869f8bd0f675061ce387345d09c456f8431fb27f3e3bec2127"
+    }
+  ],
+  "boundary": "Independent solver on the same frozen modeled injections; not field validation, stability or independent data calibration."
+}

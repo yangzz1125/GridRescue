@@ -1,0 +1,8 @@
+{
+  "checked_files": 20,
+  "errors": [],
+  "meaning": "Verification checks reproducibility equations and file integrity only.",
+  "run_id": "run-3c25a0153498f410",
+  "schema_version": "gridrescue-verification-1.0",
+  "verified": true
+}

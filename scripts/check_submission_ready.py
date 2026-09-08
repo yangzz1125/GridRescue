@@ -9,7 +9,8 @@ import tempfile
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-DEFAULT=ROOT/'release/GridRescue_Competition2026_Submission.zip'
+DEFAULT=ROOT/'release/GridRescue_Competition2026_Audit_Submission.zip'
+MANIFEST='release_manifest_competition2026_audit.json'
 
 
 def digest(data): return hashlib.sha256(data).hexdigest()
@@ -31,12 +32,12 @@ def main():
             checks['zip_integrity']=z.testzip() is None
             checks['paths_safe']=all(not PurePosixPath(n).is_absolute() and '..' not in PurePosixPath(n).parts for n in names)
             checks['curated']=not any('__pycache__' in n or n.startswith('research_wave/') or n.endswith('.zip') for n in names)
-            checks['single_manifest']=names.count('release_manifest_competition2026.json')==1
-            manifest=json.loads(z.read('release_manifest_competition2026.json'))
+            checks['single_manifest']=names.count(MANIFEST)==1
+            manifest=json.loads(z.read(MANIFEST))
             listed={x['path']:x for x in manifest['files']}
-            checks['manifest_complete']=set(listed)==set(names)-{'release_manifest_competition2026.json'}
+            checks['manifest_complete']=set(listed)==set(names)-{MANIFEST}
             checks['manifest_hashes']=all(len(z.read(name))==item['bytes'] and digest(z.read(name))==item['sha256'] for name,item in listed.items())
-            checks['required']=all(x in names for x in ('app.py','docs/submission_application_2026.md','data/public/source_manifest.json','artifacts/competition2026/public_replay/summary.csv'))
+            checks['required']=all(x in names for x in ('app.py','docs/submission_application_2026.md','data/public/source_manifest.json','artifacts/public_replay_audit_20260907/summary.csv', 'artifacts/independent_powerflow_20260907/verification.json', 'docs/team_defense_20260907.md'))
             checks['recorded_verification']=manifest.get('verification',{}).get('passed') is True
             if args.run_extracted_smoke:
                 with tempfile.TemporaryDirectory() as tmp:

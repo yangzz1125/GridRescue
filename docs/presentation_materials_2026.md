@@ -18,6 +18,8 @@
 - 暴雨/高温严格扫描各4点通过；台风4点阻断。
 - 武汉降雨公开回放：EENS +400.80 kWh，清单 -220.65 kgCO2。
 - 厦门大风公开回放：EENS +440.06 kWh，清单 -320.30 kgCO2。
+- 六案例550个可求解分量时段通过独立PYPOWER静态潮流比较，392个不适用；这是计算交叉验证，不是现场验证。
+- 默认暴雨最小失供策略首次全供电0小时，持续恢复完成13小时；不能把首次供电当完全恢复。
 - 武汉高温中一般物理和MRV通过但CareTask失败，因此BLOCKED。
 
 ## 三分钟演示路径
@@ -48,7 +50,7 @@
 
 ## 素材位置
 
-- 六张PNG与来源索引：`artifacts/competition2026/figures/`。
-- 桌面/手机截图：`artifacts/competition2026/validation/`。
+- 六张PNG与来源索引：`artifacts/competition2026_audit_20260907/figures/`。
+- 桌面/手机截图：`artifacts/submission_audit_20260907/browser/`。
 - 所有数字来源：`docs/competition2026_experiments.md`。
 - 不要继续使用旧视频脚本中的36/36合格和旧均值；本页数字为本轮复算结果。

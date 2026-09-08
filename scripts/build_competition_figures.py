@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT=Path(__file__).resolve().parents[1]
-ART=ROOT/'artifacts/competition2026'
+ART=ROOT/'artifacts/competition2026_audit_20260907'
+PUBLIC=ROOT/'artifacts/public_replay_audit_20260907'
 OUT=ART/'figures'
 OUT.mkdir(parents=True,exist_ok=True)
 plt.rcParams['font.sans-serif']=['Microsoft YaHei','SimHei','DejaVu Sans']
@@ -24,7 +25,7 @@ def save(fig,name,sources):
 # Strategy results for synthetic base cases
 frames=[]
 for label,slug in [('暴雨','flood'),('台风','typhoon'),('高温','heat')]:
-    path=ART/'baseline'/slug/'strategy_comparison.csv'
+    path=ART/'baseline_current'/slug/'strategy_comparison.csv'
     frame=pd.read_csv(path);frame['场景']=label;frames.append(frame)
 data=pd.concat(frames)
 fig,axes=plt.subplots(1,2,figsize=(12,4.5))
@@ -32,7 +33,7 @@ for strategy,group in data.groupby('strategy'):
     axes[0].bar([f'{x}\n{strategy[:2]}' for x in group['场景']],group.eens_kwh,label=strategy)
     axes[1].bar([f'{x}\n{strategy[:2]}' for x in group['场景']],group.total_carbon_kg,label=strategy)
 axes[0].set_ylabel('EENS / kWh');axes[1].set_ylabel('运行清单 / kgCO2');axes[0].set_title('服务损失');axes[1].set_title('碳清单（服务不等价时不可直接比较减排）')
-axes[1].legend(fontsize=8);save(fig,'01_strategy_comparison.png',[ART/'baseline'/x/'strategy_comparison.csv' for x in ('flood','typhoon','heat')])
+axes[1].legend(fontsize=8);save(fig,'01_strategy_comparison.png',[ART/'baseline_current'/x/'strategy_comparison.csv' for x in ('flood','typhoon','heat')])
 
 # paired evidence
 path=ART/'batch36/experiment_runs.csv';batch=pd.read_csv(path)
@@ -60,7 +61,7 @@ for path in sorted(sources):
 axes[0].set_ylabel('温度 °C');axes[1].set_ylabel('降水 mm');axes[2].set_ylabel('风速 m/s');axes[2].set_xlabel('当地小时');axes[0].legend(ncol=3,fontsize=8);axes[0].set_title('三个历史天气窗口（ERA5再分析）');save(fig,'05_public_weather.png',sorted(sources))
 
 # public outcome gate
-path=ART/'public_replay/summary.csv';frame=pd.read_csv(path);fig,ax=plt.subplots(figsize=(10,4.5));frame['label']=frame['case']+'\n'+frame['strategy'].str[:2];colors=frame['care_pass'].map({True:'#16836b',False:'#c94d4d'});ax.bar(frame.label,frame.eens_kwh,color=colors);ax.set_ylabel('EENS / kWh');ax.set_title('公开天气驱动回放：红色为生命线任务阻断');ax.tick_params(axis='x',labelrotation=25);save(fig,'06_public_replay_gates.png',[path])
+path=PUBLIC/'summary.csv';frame=pd.read_csv(path);fig,ax=plt.subplots(figsize=(10,4.5));frame['label']=frame['case']+'\n'+frame['strategy'].str[:2];colors=frame['care_pass'].map({True:'#16836b',False:'#c94d4d'});ax.bar(frame.label,frame.eens_kwh,color=colors);ax.set_ylabel('EENS / kWh');ax.set_title('公开天气驱动回放：红色为生命线任务阻断');ax.tick_params(axis='x',labelrotation=25);save(fig,'06_public_replay_gates.png',[path])
 
 pd.DataFrame(index).to_csv(OUT/'figure_source_index.csv',index=False,encoding='utf-8-sig')
 print(pd.DataFrame(index)[['figure','sources']].to_string(index=False))

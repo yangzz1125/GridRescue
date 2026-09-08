@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "hourly_rows": 65,
+  "episode_count": 4,
+  "status_counts": {
+    "BLOCKED": 60,
+    "DEGRADED": 5
+  },
+  "evidence_boundary": "GFM and black-start capability are inferred from modelled diesel/BESS capacity; fuel endurance and field commissioning evidence are not available."
+}

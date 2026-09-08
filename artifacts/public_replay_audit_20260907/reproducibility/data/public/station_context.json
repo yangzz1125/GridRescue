@@ -1,0 +1,17 @@
+{
+  "id": "noaa-tianhe-2022",
+  "path": "raw/noaa_tianhe_2022.csv",
+  "url": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/2022/57494099999.csv",
+  "sha256": "9a456fdf452f33b206192aae31d335d38250ec0cf4a09d008cd23bb19a3942c2",
+  "source_type": "station_daily_summary",
+  "station": "57494099999",
+  "name": "TIANHE, CH",
+  "latitude": 30.783758,
+  "longitude": 114.2081,
+  "date": "2022-08-15",
+  "temperature_mean_c": 33.72222222222222,
+  "temperature_samples": 24,
+  "temperature_max_c": 38.5,
+  "temperature_min_c": 28.61111111111111,
+  "meaning": "NOAA GSOD daily summary from station observations; UTC daily window differs from local ERA5 day, no direct bias/accuracy claim; no station precipitation inserted into hourly model"
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "viewport": "desktop",
+    "width": 1440,
+    "network_points": 33,
+    "overflow": false,
+    "node_label_overlaps": [],
+    "risk_strategy_clipped": false,
+    "facility_icons": 7,
+    "node_click_details": true,
+    "number_toggle": true,
+    "expanded_view": true
+  },
+  {
+    "all_tabs_navigable": true,
+    "hour_slider_updates": true
+  },
+  {
+    "viewport": "desktop",
+    "preset": "NO_GFM反例 · BLOCKED",
+    "qualification": "BLOCKED"
+  },
+  {
+    "viewport": "desktop",
+    "preset": "受控预算候选 · CLAIM GATED",
+    "qualification": "CLAIM GATED"
+  },
+  {
+    "viewport": "desktop",
+    "preset": "主推荐 · PASS",
+    "qualification": "PASS"
+  },
+  {
+    "viewport": "tablet",
+    "width": 1024,
+    "network_points": 33,
+    "overflow": false,
+    "node_label_overlaps": [],
+    "risk_strategy_clipped": false,
+    "facility_icons": 7,
+    "node_click_details": true,
+    "number_toggle": true,
+    "expanded_view": true
+  },
+  {
+    "viewport": "tablet",
+    "preset": "NO_GFM反例 · BLOCKED",
+    "qualification": "BLOCKED"
+  },
+  {
+    "viewport": "tablet",
+    "preset": "受控预算候选 · CLAIM GATED",
+    "qualification": "CLAIM GATED"
+  },
+  {
+    "viewport": "tablet",
+    "preset": "主推荐 · PASS",
+    "qualification": "PASS"
+  },
+  {
+    "viewport": "mobile",
+    "width": 390,
+    "network_points": 33,
+    "overflow": false,
+    "node_label_overlaps": [],
+    "risk_strategy_clipped": false,
+    "facility_icons": 7,
+    "node_click_details": true,
+    "number_toggle": true,
+    "expanded_view": true
+  },
+  {
+    "viewport": "mobile",
+    "preset": "NO_GFM反例 · BLOCKED",
+    "qualification": "BLOCKED"
+  },
+  {
+    "viewport": "mobile",
+    "preset": "受控预算候选 · CLAIM GATED",
+    "qualification": "CLAIM GATED"
+  },
+  {
+    "viewport": "mobile",
+    "preset": "主推荐 · PASS",
+    "qualification": "PASS"
+  },
+  {
+    "viewport": "mobile_narrow",
+    "width": 320,
+    "network_points": 33,
+    "overflow": false,
+    "node_label_overlaps": [],
+    "risk_strategy_clipped": false,
+    "facility_icons": 7,
+    "node_click_details": true,
+    "number_toggle": true,
+    "expanded_view": true
+  },
+  {
+    "viewport": "mobile_narrow",
+    "preset": "NO_GFM反例 · BLOCKED",
+    "qualification": "BLOCKED"
+  },
+  {
+    "viewport": "mobile_narrow",
+    "preset": "受控预算候选 · CLAIM GATED",
+    "qualification": "CLAIM GATED"
+  },
+  {
+    "viewport": "mobile_narrow",
+    "preset": "主推荐 · PASS",
+    "qualification": "PASS"
+  }
+]

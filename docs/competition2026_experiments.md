@@ -2,7 +2,7 @@
 
 ## 摘要
 
-本轮在不覆盖V08历史证据的前提下，重新执行三组确定性基准、36个合成压力场景、三灾种严格服务合同扫描、合同消融和三组公开天气驱动回放。新证据位于`artifacts/competition2026/`。
+本轮在不覆盖V08历史证据的前提下，重新执行三组确定性基准、36个合成压力场景、三灾种严格服务合同扫描、合同消融和三组公开天气驱动回放。新证据位于`artifacts/competition2026_audit_20260907/`，公开天气结果位于`artifacts/public_replay_audit_20260907/`。本轮求解源码基线为`60a65bf`，清单同时记录源码/输入SHA、依赖版本和阶段状态；旧`competition2026/`仅为历史对照。
 
 GridRescue的判断顺序是Care生命线合同、Physics物理可行性、MRV清单证据。任何一门失败都阻断推荐；求解成功、MRV复核成功不单独等于方案可推荐。
 
@@ -38,7 +38,7 @@ GridRescue的判断顺序是Care生命线合同、Physics物理可行性、MRV�
 
 每个灾种扫描0%、4%、5%、6%普通服务预算。暴雨和高温各4点通过；台风4点全部在普通服务锚点阶段失败。失败点保留，不进入前沿。
 
-去除CareTask约束的后验评分显示，暴雨和高温各4个候选仍完成原4项任务；台风仍在普通锚点失败。本次消融没有证明CareTask提升任务成功率。它仅证明当前暴雨/高温资源配置下任务约束非绑定；不能为创新效果虚构正增益。
+去除CareTask约束的后验评分显示，暴雨和高温各4个候选仍完成原4项任务；台风仍在普通锚点失败。本次消融没有证明CareTask提升任务成功率；去约束后仍满足任务也不足以证明各合同在所有优化阶段都非绑定，不能据此虚构正增益。
 
 ## 公开数据回放
 
@@ -52,16 +52,23 @@ GridRescue的判断顺序是Care生命线合同、Physics物理可行性、MRV�
 
 武汉高温结果说明一般关键负荷恢复率100%不等于具体生命线任务合格，任务电压或连续性要求仍可阻断方案。
 
+## 审计修复与独立检查
+
+- 功率平衡同时检查多购电和少购电，逐分量电源不可行性必须传递到逐小时物理资格。±1000 kW购电偏差及容量超限均有回归测试。
+- 恢复时间改为“从该小时起到窗口结束持续全供电”。默认暴雨最小失供策略首次全供电是0小时，持续恢复完成是13小时；候选碳韧策略在24小时内未完成。窗口长度作为未完成哨兵，不当作完成时刻。
+- PYPOWER 5.1.19的Newton-Raphson AC潮流独立复算三个合成基准和三个公开天气案例的三策略、全部24小时。942个分量时段中550个有支路且可求解，全部通过误差阈值；392个停电或单节点分量不适用，未计为通过。
+- 最大电压差`5.00122e-7 pu`、线损差`5.22953e-6 kW`、支路发送端视在功率差`5.44532e-6 kVA`。证据：`artifacts/independent_powerflow_20260907/verification.json`及逐分量表。
+- 独立检查使用同一建模节点注入，不检查从原始工单到注入的真实性、不重做调度优化，也不是保护/动态安全分析或现场试验。
+
 ## 复现
 
 ```powershell
 $env:PYTHONPATH="$PWD\src"
 python -m pytest -q
-python scripts\run_competition_validation.py
-python scripts\fetch_public_data.py
-python scripts\fetch_station_context.py
-python scripts\run_public_replay.py
-python scripts\build_competition_figures.py
+python scripts\run_competition_validation.py --output artifacts/new_synthetic_run
+python scripts\run_public_replay.py --output artifacts/new_public_run
+python -m pip install -r requirements-validation.txt
+python scripts\check_independent_powerflow.py --inputs artifacts/new_synthetic_run/baseline_current artifacts/new_public_run --output artifacts/new_independent_check
 ```
 
 ## 限制

@@ -1,0 +1,26 @@
+{
+  "schema_version": "gridrescue-release-check-attestation-1.0",
+  "evidence_origin": "Recorded parent tool execution results, not additional solver evidence",
+  "archive": "release/GridRescue_Competition2026_Audit_Submission.zip",
+  "sha256": "e8dd9ea3bd23fb5d28748785f854be460242b852272f0c51f85c4af404c970b7",
+  "bytes": 11432677,
+  "files": 1141,
+  "archive_checks": {
+    "command": "python scripts/check_submission_ready.py --run-extracted-smoke",
+    "exit_code": 0,
+    "zip_integrity": true,
+    "safe_paths": true,
+    "manifest_complete": true,
+    "manifest_hashes": true,
+    "required_files": true,
+    "recorded_verification": true,
+    "extracted_smoke": true
+  },
+  "extracted_tests": {
+    "procedure": "Extract ZIP to a new TemporaryDirectory, remove inherited PYTHONPATH, run pytest from extracted root, then remove temporary directory",
+    "command": "python -m pytest -q -p no:cacheprovider",
+    "exit_code": 0,
+    "result": "85 passed in 179.47s"
+  },
+  "boundary": "Uses the existing installed Python environment on the same Windows machine; not a fresh dependency installation or a second-machine acceptance. Not institutional eligibility, anonymity or submission approval."
+}

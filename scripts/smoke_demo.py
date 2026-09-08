@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import socket
 import subprocess
 import sys
 import time
@@ -11,9 +12,12 @@ from pathlib import Path
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Start GridRescue Streamlit and verify its health endpoint")
-    parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--timeout", type=float, default=30.0)
     args = parser.parse_args()
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1', args.port))
+        args.port = probe.getsockname()[1]
     root = Path(__file__).resolve().parents[1]
     command = [
         sys.executable,

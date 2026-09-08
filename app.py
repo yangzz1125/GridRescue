@@ -36,6 +36,8 @@ from ui_network import render_network  # noqa: E402
 
 PUBLIC_CASES = {"武汉高温 · 2022-08-15": "wuhan_heat", "武汉降雨 · 2020-07-06": "wuhan_rain", "厦门大风 · 2016-09-15": "xiamen_wind"}
 CODE_FINGERPRINT = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((ROOT / "src").rglob("*.py")))).hexdigest()
+EXPERIMENT_ROOT = ROOT / "artifacts/competition2026_audit_20260907"
+PUBLIC_REPLAY_ROOT = ROOT / "artifacts/public_replay_audit_20260907"
 
 setup_ui()
 
@@ -61,7 +63,7 @@ with st.sidebar:
 def cached_pipeline(name: str, code_fingerprint: str):
     public_key = PUBLIC_CASES.get(name)
     slug = public_key or {"暴雨内涝": "flood", "台风": "typhoon", "极端高温": "heat"}[name]
-    directory = ROOT / "artifacts/competition2026" / ("public_replay" if public_key else "baseline_current") / slug
+    directory = (PUBLIC_REPLAY_ROOT if public_key else EXPERIMENT_ROOT / "baseline_current") / slug
     cache, metadata = directory / "pipeline.pkl", directory / "cache_manifest.json"
     if os.getenv("GRIDRESCUE_FORCE_LIVE", "0") != "1" and cache.exists() and metadata.exists():
         info = json.loads(metadata.read_text(encoding="utf-8"))
@@ -92,7 +94,7 @@ def _load_json_object(path: Path) -> dict[str, Any]:
 
 def load_wave11_risk_report() -> dict[str, Any] | None:
     """Load the deterministic CVaR report without making the live demo wait."""
-    path = Path(os.getenv("GRIDRESCUE_RISK_REPORT", str(ROOT / "artifacts" / "competition2026" / "risk_report.json")))
+    path = Path(os.getenv("GRIDRESCUE_RISK_REPORT", str(EXPERIMENT_ROOT / "risk_report.json")))
     try:
         report = _load_json_object(path)
         if not isinstance(report.get("summaries"), list) or "chosen_strategy" not in report:
@@ -105,7 +107,7 @@ def load_wave11_risk_report() -> dict[str, Any] | None:
 def load_wave11_mrv_sensitivity() -> dict[str, Any] | None:
     key = PUBLIC_CASES.get(scenario_name)
     slug = key or {"暴雨内涝": "flood", "台风": "typhoon", "极端高温": "heat"}[scenario_name]
-    path = ROOT / "artifacts/competition2026" / ("public_replay" if key else "baseline") / slug / "sensitivity_report.json"
+    path = (PUBLIC_REPLAY_ROOT if key else EXPERIMENT_ROOT / "baseline_current") / slug / "sensitivity_report.json"
     if not path.exists():
         return None
     try:
@@ -306,7 +308,7 @@ if public_input is not None and result.scenario != public_input:
 selected = result.strategies[strategy]
 metrics = selected.metrics
 mrv_bundle_dir = resolve_mrv_bundle(
-    ROOT / "artifacts" / "competition2026",
+    PUBLIC_REPLAY_ROOT if public_input is not None else EXPERIMENT_ROOT / "baseline_current",
     result.scenario.name,
     result.model.source_sha256,
     override=os.getenv("GRIDRESCUE_MRV_BUNDLE"),

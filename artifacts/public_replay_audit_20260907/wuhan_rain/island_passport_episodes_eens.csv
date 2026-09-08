@@ -1,0 +1,1 @@
+scenario,strategy,island_episode_id,start_hour,end_hour,duration_h,component_keys,worst_status,minimum_margin_pct,minimum_voltage_pu,maximum_loading_pct,blocked_reason_codes
